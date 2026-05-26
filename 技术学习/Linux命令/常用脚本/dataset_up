@@ -1,0 +1,102 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# 错误处理函数
+handle_error() {
+    local line_number=$1
+    local command=$2
+    echo "Error on line $line_number: Command '$command' failed with exit status $?"
+    exit 1
+}
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
+
+error_exit() {
+    log "ERROR: $1"
+    exit 1
+}
+
+# 捕获错误
+trap 'handle_error $LINENO "$BASH_COMMAND"' ERR
+
+excdir=$(realpath "$(dirname "${0##*/}")")
+echo "Current directory: ${excdir}"
+cd "${excdir}" || exit
+
+contains_ip() {
+    local str="$1"
+    if echo "$str" | grep -E -q "\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b"; then
+        return 0  # 包含IP
+    else
+        return 1  # 不包含IP
+    fi
+}
+
+contains_ip_bash() {
+    local str="$1"
+    local ip_regex="\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b"
+    
+    if [[ $str =~ $ip_regex ]]; then
+        echo "包含IP地址: ${BASH_REMATCH[0]}"
+        return 0
+    else
+        return 1
+    fi
+}
+
+help() {
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo "  -h, --help      Show this help message and exit"
+    echo "  -H, --host      Setup host"
+    echo "  -s, --server    Setup server"
+}
+
+DATASET_PATH="/home/yaojusheng/CodeSpace/go/vitai-dataset-server"
+
+case "$1" in
+    -h|--help)
+        help
+        exit 0
+        ;;
+    -H|--host)
+        log "Host setup selected."
+        # 在此处添加主机设置逻辑
+​        /bin/ssh "$1"
+​        ;;
+​    -s|--server)
+​        log "Server setup selected."
+        # 在此处添加服务器设置逻辑
+​        shift
+​        cd $DATASET_PATH || error_exit "Failed to change directory to $DATASET_PATH"
+​        case "$1" in
+​            api|gateway)
+​                log "Server type $1 start running."
+​                cd api || error_exit "Failed to change directory to api"
+​                go run gateway.go -f etc/gateway.yaml
+​                ;;
+​            dataset|file|storage|task|notify|clean)
+​                log "Dataset server start running."
+​                cd "rpc/$1" || error_exit "Failed to change directory to $1"
+​                go run "$1".go -f etc/"$1".yaml
+​                ;;
+​            ws)
+​                log "Websocket server start running."
+​                cd ws || error_exit "Failed to change directory to ws"
+​                go run ws.go -f etc/ws.yaml
+​                ;;
+​            *)
+​                log "Connecting to server at $1"
+​                /bin/ssh "$1"
+​                ;;
+​        esac
+​        ;;
+​    *)
+​        log "No valid option provided. Showing help."
+​        help
+​        exit 1
+​        ;;
+esac

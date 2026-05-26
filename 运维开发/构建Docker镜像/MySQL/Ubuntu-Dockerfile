@@ -1,0 +1,93 @@
+############################################################
+# Dockerfile to build MySQL container images
+# Based on Ubuntu
+# Build: docker build -f Ubuntu-Dockerfile -t ubuntu-mysql:5.7 .
+# Run:   docker run -itd --name ubuntu-mysql5.7 -v localpath:containerpath -p 3307:3306 \
+#                       -e MYSQL_ROOT_PASSWORD="123456" \
+#                       -e MYSQL_REPLICATION_USER="root"  \
+#                       -e MYSQL_REPLICATION_PASSWORD="123456"  \
+#                       --restart always --privileged=true ubuntu-mysql:5.7
+# Enter: docker exec -it ubuntu-mysql5.7 /bin/bash
+############################################################
+FROM ubuntu:20.04
+LABEL maintainer="alfred"
+ARG MYSQL_VERSION=5.7
+ENV DEBIAN_FRONTEND noninteractive
+
+ENV TIME_ZONE=Asia/Shanghai \
+    WORKHOME=/home
+
+WORKDIR ${WORKHOME}
+ARG user=alfred
+ARG pwd=123456
+
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
+
+RUN apt-get update && apt-get install passwd sudo -y
+
+# add user/pwd
+RUN useradd --create-home --no-log-init --shell /bin/bash ${user} \
+  && adduser ${user} sudo \
+  && echo "${user}:${pwd}" | chpasswd
+# RUN usermod -aG wheel ${user}
+
+# modify UID/GID
+# RUN usermod -u 1000 ${user} && usermod -G 1000 ${user}
+
+RUN apt-get install -y apt-utils tzdata \
+    && ln -fs /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
+    && echo ${TIME_ZONE} > /etc/timezone
+
+RUN apt-get install openssh-client openssh-server -y
+RUN mkdir -p /var/run/sshd && mkdir -p /root/.ssh
+# generate rsa
+#RUN ssh-keygen -q -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key -N ""
+#RUN ssh-keygen -q -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -N ""
+#RUN ssh-keygen -q -t dsa -f /etc/ssh/ssh_host_dsa_key -N ""
+#RUN ssh-keygen -q -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
+COPY genssh.sh .
+RUN chmod +x genssh.sh && bash genssh.sh
+
+# modify ssh configuration
+RUN sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config \
+  && sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config \
+  && sed -i 's/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g' /etc/ssh/sshd_config
+RUN echo "RSAAuthentication yes" >> /etc/ssh/sshd_config \
+  && echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config \
+  && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+
+
+# 创建MySQL用户组和用户
+RUN groupadd -r mysql && useradd -r -g mysql mysql
+#RUN groupadd -r mysql && useradd -r -g root root
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    mysql-server \
+    openssl \
+    && apt autoremove -y \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /var/lib/mysql /var/run/mysqld \
+    && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
+    && chown -R root:root /var/lib/mysql /var/run/mysqld \
+    # Ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
+    && chmod 777 /var/run/mysqld
+
+ADD my.cnf /etc/my.cnf
+
+# VOLUME /var/lib/mysql
+RUN apt-get clean && apt-get autoclean
+RUN echo -e "#!/bin/sh \n service mysql start" > ${WORKHOME}/run.sh
+
+RUN mkdir -p /usr/local/mysql/data
+RUN mysqld \
+  --initialize-insecure \
+  --user=mysql \
+  --basedir=/usr/local/mysql \
+  --datadir=/usr/local/mysql/data
+
+# USER ${user}
+
+CMD ["bash", "run.sh"]
+
+EXPOSE 3306  22

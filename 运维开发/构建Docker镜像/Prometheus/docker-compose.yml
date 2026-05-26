@@ -1,0 +1,277 @@
+version: '3'
+
+# see more: https://docs.docker.com/compose/
+networks:
+  prom-monitor-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
+
+#volumes:   # reference: https://blog.51cto.com/u_15060531/4537121 ｜ https://docs.docker.com/compose/compose-file/compose-file-v3/#volume-configuration-reference
+#    prom_data:
+#      driver: local
+#      driver_opts:
+#        type: 'none'
+#        o: 'bind'
+#        device: './data/prom_data'
+#    grafana_data:
+#      driver: local
+#      driver_opts:
+#        type: 'none'
+#        o: 'bind'
+#        device: './data/grafana_data'
+#    alertmanager_data:
+#      driver: local
+#      driver_opts:
+#        type: 'none'
+#        o: 'bind'
+#        device: './data/alert_data'
+
+services:
+  #----------------------- prometheus -----------------------#
+  prometheus:
+    image: 'centos/prometheus:${PROM}'
+    container_name: prometheus
+    working_dir: /home/example
+    build:
+      context: .
+      dockerfile: build/Dockerfile-Prometheus
+      args:
+        user: ${CURRENT_USER}
+        pwd: ${CURRENT_PWD}
+    environment:
+      TIME_ZONE: ${TIME_ZONE}
+    volumes:
+      - ./conf/prometheus.yml:/usr/local/prometheus/prometheus.yml
+      - ./conf/jobs:/usr/local/prometheus/jobs
+      - ./conf/rules:/usr/local/prometheus/rules
+      - ./data/prom_data:/usr/local/prometheus/data
+      - ./logs/prom:/usr/local/prometheus/logs
+      # - ./conf/supervisord.conf:/etc/supervisord.conf
+      # - ./conf/supervisord.d:/etc/supervisord.d
+      - ./bin/prometheus-start.sh:/home/example/prometheus-start.sh
+    #    command:  # if not use custom script to start, please uncomment following.
+    #      - '--config.file=/usr/local/prometheus/prometheus.yml'
+    #      - '--storage.tsdb.path=/usr/local/prometheus/data'
+    #      - '--web.console.libraries=/usr/local/prometheus/console_libraries'
+    #      - '--web.console.templates=/usr/local/prometheus/consoles'
+    #      - '--storage.tsdb.retention.time=14d'
+    #      - '--web.enable-lifecycle'
+    expose:
+      - 80
+      - 443
+      - 9090
+      - 22
+    ports:
+      - '9091:9090'
+    depends_on:
+      #      - node_exporter
+      - alertmanager
+    hostname: ${PROM_HOST}
+    #    external_links:   # used in version 2, like docker run ... --link ...
+    #      - alertmanager
+    #    network_mode: bridge  # host | bridge ...
+    networks:
+      prom-monitor-net:
+        ipv4_address: 172.18.0.2
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 114.114.114.114
+      - 10.24.11.11
+      - 10.24.11.12
+      - 223.6.6.6
+      - 172.18.0.1
+    labels:
+      org.label-schema.group: 'monitoring'
+    extra_hosts:
+      - ${PROM_HOST}:172.18.0.2
+    restart: always
+
+  #----------------------- grafana -----------------------#
+  grafana:
+    image: 'ubuntu/grafana:${GRAFANA}'
+    container_name: grafana
+    working_dir: /home/example
+    build:
+      context: .
+      dockerfile: build/Dockerfile-Grafana
+      args:
+        user: ${CURRENT_USER}
+        pwd: ${CURRENT_PWD}
+    volumes:
+      - ./conf/dashboards:/etc/grafana/dashboards
+      - ./conf/grafana.ini:/etc/grafana/grafana.ini
+      - ./bin/grafana_start.sh:/home/example/grafana_start.sh
+      - ./logs/grafana:/var/log/grafana
+      - ./data/grafana_data:/var/lib/grafana
+    environment:
+      - TIME_ZONE=${TIME_ZONE}
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-${CURRENT_USER}}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-${CURRENT_PWD}}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_PATHS_HOME=/usr/share/grafana
+      - GF_PATHS_LOGS=/var/log/grafana
+      - GF_PATHS_DATA=/var/lib/grafana
+      - GF_PATHS_PLUGINS=/var/lib/grafana/plugins
+    #    command:  # if not use custom script to start, please uncomment following.
+    #      - '--config /etc/grafana/grafana.ini'
+    #      - '--homepath /usr/share/grafana'
+    #      - '--pidfile=/var/run/grafana/grafana-server.pid'
+    expose:
+      - 443
+      - 80
+      - 3000
+      - 22
+    ports:
+      - '3001:3000'
+    depends_on:
+      - prometheus
+    networks:
+      prom-monitor-net:
+        ipv4_address: 172.18.0.3
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 114.114.114.114
+      - 10.24.11.11
+      - 10.24.11.12
+      - 223.6.6.6
+      - 172.18.0.1
+    labels:
+      org.label-schema.group: 'monitoring'
+    extra_hosts:
+      - ${GRAFANA_HOST}:172.18.0.3
+    restart: always
+
+  #----------------------- cadvisor -----------------------#
+  cadvisor: # visualisation tools used for container # see more: https://www.prometheus.wang/exporter/use-prometheus-monitor-container.html
+    #    image: google/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    restart: always
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - '8080:8080'
+    extra_hosts:
+      - ${CADVISOR_HOST}:172.18.0.4
+    networks:
+      prom-monitor-net:
+        ipv4_address: 172.18.0.4
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 114.114.114.114
+      - 10.24.11.11
+      - 10.24.11.12
+      - 223.6.6.6
+      - 172.18.0.1
+
+  #----------------------- alertManager -----------------------#
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    volumes:
+      - ./conf/altermanager.yml:/etc/alertmanager/altermanager.yml
+      - ./conf/alert/email.tmpl:/etc/alertmanager/tmpl/email.tmpl
+      - ./data/alert_data:/etc/alertmanager/data
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/etc/alertmanager/data'
+    expose:
+      - 9093
+      - 22
+    ports:
+      - '9093:9093'
+    #    depends_on:
+    #      - dingtalk
+    networks:
+      prom-monitor-net:
+        ipv4_address: 172.18.0.5
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 114.114.114.114
+      - 10.24.11.11
+      - 10.24.11.12
+      - 223.6.6.6
+      - 172.18.0.1
+    labels:
+      org.label-schema.group: 'monitoring'
+    extra_hosts:
+      - ${ALTER_HOST}:172.18.0.5
+    restart: always
+#  #----------------------- dingtalk -----------------------#
+#  dingtalk:
+#    image: timonwong/prometheus-webhook-dingtalk:latest
+#    container_name: dingtalk
+#    volumes:
+#      - type: bind
+#        source: ./conf/ding_config.yml
+#        target: /etc/prometheus-webhook-dingtalk/config.yml
+##        read_only: true
+#    ports:
+#      - "8060:8060"
+#    restart: always
+#    command:
+#      - '--ding.profile=webhook1=https://oapi.dingtalk.com/robot/send?access_token={token}'
+#    extra_hosts:
+#      - ${DING_HOST}:172.18.0.6
+#    networks:
+#      prom-monitor-net:
+#        ipv4_address: 172.18.0.6
+
+#  #----------------------- node_exporter -----------------------#
+#  node_exporter:  # used for server. # see more: https://github.com/prometheus/node_exporter
+#    image: prom/node-exporter:latest
+#    container_name: node_exporter
+#    ports:
+#      - "9100:9100"
+#    volumes:
+#      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+#      - /proc:/host/proc:ro
+#      - /sys:/host/sys:ro
+#      - /:/rootfs:ro
+#      - /etc/hostname:/etc/hostname:ro
+#    command:
+#      - '--path.procfs=/host/proc'
+#      - '--path.sysfs=/host/sys'
+#      - '--path.rootfs=/rootfs'
+#    network_mode: bridge
+#    restart: always
+#    extra_hosts:
+#      - ${NODE_HOST}:172.18.0.7
+#    networks:
+#      prom-monitor-net:
+#        ipv4_address: 172.18.0.7
+
+#  #----------------------- caddy -----------------------#
+#  caddy:  # used for API gateway # see more: https://caddy2.dengxiaolong.com/
+#    image: caddy:2.3.0
+#    container_name: caddy
+#    volumes:
+#      - ./data/caddy:/etc/caddy
+#    ports:
+#      - "30000:3000"
+#      # - "9090:9090"
+#      # - "9093:9093"
+#      # - "9091:9091"
+#    environment:
+#      - ADMIN_USER=${ADMIN_USER:-admin}
+#      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-example123}
+##      - ADMIN_PASSWORD_HASH=${ADMIN_PASSWORD_HASH:-your_password_hash}
+#    extra_hosts:
+#      - ${CADDY_HOST}:172.18.0.8
+#    labels:
+#      org.label-schema.group: "monitoring"
+#    restart: always
+#    networks:
+#      prom-monitor-net:
+#        ipv4_address: 172.18.0.8

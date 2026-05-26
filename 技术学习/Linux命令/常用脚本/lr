@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# /*
+# Author: Jusheng Yao
+# Desc: Query & replace local files.
+# */
+
+function replaceGitConfUri() {
+    # 指定目录和要替换的文件名和字符串
+    read s r <<< "$1 $2"
+    directory=".git"
+    filename="config"
+    search_string="${s:-"bitbucket.org\/Team"}"
+    replace_string="${r:-"git.demo.cn\/gitlab"}"
+
+    # 使用 find 命令查找特定文件名的文件，并使用 sed 命令进行替换
+    find "$directory" -type f -name "$filename" -exec sed -i "s/$search_string/$replace_string/g" {} +
+}
+
+function replaceFileStringWithChecking() {
+    read p q r <<< "$1 $2 $3"
+    # 1.定义要修改的文件的相对路径和文件名
+    file_path="${p:-"Common/logging_helper.py"}"
+
+    # 2.定义 查询/替换 字符串
+    query_string="${q:-"self.inputs.email.endswith"}"
+    spaces=$(yes " " | head -n 12 | tr -d '\n')
+    new_string="${r:-"${spaces}if not self.inputs.email:"}"
+
+    # 3.定义包含所有目录的数组
+    directories=(
+        "v2.10"
+        "v2.11"
+        "v2.11.1.9"
+        "v3.0.0.3"
+        "v3.0.1.2"
+        "v3.1.0.3"
+        "v3.2.0.0"
+        "v3.3.0"
+    )
+
+    flag=0
+
+    # 4.遍历每个目录
+    for dir in "${directories[@]}"; do
+        repo="$dir/example_ai"
+        file="$repo/$file_path"
+        # 5.检查文件是否存在
+        if [ -f "$file" ]; then
+            case "$1" in
+              roll)
+                cd "${repo}" && git restore $file_path || continue
+                cd - > /dev/null  || continue
+                ;;
+              mod)
+                # 6.修改文件的内容并替换
+                # M1: 指定固定行
+                # sed -n "${lineno}p" "$file" | grep -q "${query_string}" && sed -i "${lineno}s/.*/${new_string}/;$((lineno+1)),$((lineno+2))d" "$file"
+                # M2: 动态查询所在行
+                lineno=$(grep -n "${query_string}" "$file" | cut -d: -f1)
+                if [ -n "${lineno}" ] && [ "${lineno}" -gt 0 ]; then
+                    sed -i "${lineno}s/.*/${new_string}/;$((lineno+1)),$((lineno+2))d" "$file"
+                    echo "File '$file', line ${lineno} modified."
+                else
+                    echo "File '$file', passed."
+                fi
+                ;;
+              *)
+                flag=1
+                printf "\rTo be further developed and improved."
+                ;;
+            esac
+        else
+            echo "File $file not found."
+        fi
+    done
+
+    [ "$flag" -gt 0 ] && echo ""
+}
+
+
+# /* Main Entity */
+opt=$1
+shift
+args=("$@")
+
+case "$opt" in
+    git)
+      replaceGitConfUri "${args[*]}"
+      ;;
+    file)
+      replaceFileStringWithChecking "${args[*]}"
+      ;;
+    *)
+      echo "Only support `git` and `file` options."
+      ;;
+esac

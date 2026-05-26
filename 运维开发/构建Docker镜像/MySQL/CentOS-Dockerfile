@@ -1,0 +1,74 @@
+############################################################
+# Dockerfile to build MySQL container images
+# Based on CentOS
+# Build: docker build -f CentOS-Dockerfile -t centos-mysql:5.7 .
+# Run:   docker run -itd --name centos-mysql5.7 -v localpath:containerpath -p 3307:3306 \
+#                       -e MYSQL_ROOT_PASSWORD="123456" \
+#                       -e MYSQL_REPLICATION_USER="root"  \
+#                       -e MYSQL_REPLICATION_PASSWORD="123456"  \
+#                       --restart always --privileged=true centos-mysql:5.7
+# Enter: docker exec -it centos-mysql5.7 /bin/bash
+############################################################
+FROM centos:7
+
+RUN yum -y install \
+  ncurses \
+  ncurses-devel \
+  bison \
+  cmake \
+  make \
+  gcc \
+  gcc-c++
+
+RUN useradd -s /sbin/nologin mysql
+ADD mysql-boost-5.7.20.tar.gz /usr/local/src
+
+WORKDIR /usr/local/src/mysql-5.7.20/
+RUN cmake \
+  -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+  -DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock \
+  -DSYSCONFDIR=/etc \
+  -DSYSTEMD_PID_DIR=/usr/local/mysql \
+  -DDEFAULT_CHARSET=utf8  \
+  -DDEFAULT_COLLATION=utf8_general_ci \
+  -DWITH_INNOBASE_STORAGE_ENGINE=1 \
+  -DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+  -DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
+  -DWITH_PERFSCHEMA_STORAGE_ENGINE=1 \
+  -DMYSQL_DATADIR=/usr/local/mysql/data \
+  -DWITH_BOOST=boost \
+  -DWITH_SYSTEMD=1 && make -j4 && make install
+
+RUN chown -R mysql:mysql /usr/local/mysql/
+RUN rm -rf /etc/my.cnf
+
+ADD my.cnf /etc
+RUN chown mysql:mysql /etc/my.cnf
+
+ENV PATH=/usr/local/mysql/bin/:/usr/local/mysql/lib:$PATH
+
+WORKDIR /usr/local/mysql/
+
+RUN /usr/local/mysql/bin/mysqld \
+  --initialize-insecure \
+  --user=mysql \
+  --basedir=/usr/local/mysql \
+  --datadir=/usr/local/mysql/data
+
+RUN cp /usr/local/mysql/usr/lib/systemd/system/mysqld.service /usr/lib/systemd/system/
+
+RUN yum clean all -y
+
+EXPOSE 3306
+
+RUN echo -e "#!/bin/sh \nsystemctl enable mysqld" > /run.sh
+RUN chmod 755 /run.sh
+RUN sh /run.sh
+
+# CMD ["init"]
+CMD ["/usr/sbin/init"]
+
+# 构建镜像
+# docker build --no-cache -t mysql:centos .
+# 构建容器
+# docker run -d --name=mysql-server -P --privileged msyql:centos

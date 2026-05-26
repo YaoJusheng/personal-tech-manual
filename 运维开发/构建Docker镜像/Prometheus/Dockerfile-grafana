@@ -1,0 +1,105 @@
+################################################################################################################
+# Desc:    grafana base on ubuntu
+# Author:  Jusheng Yao
+# Usage:
+#   Build:   docker build -f Dockerfile-Grafana -t ubuntu/grafana:v1 .
+#   Run:     docker run -itd --name grafana --restart always --privileged=true -p 3001:3000 \
+#                       -v <localpath>:<containerpath> ubuntu/grafana:v1 /usr/sbin/init
+#   Enter:   docker exec -it grafana /bin/bash
+################################################################################################################
+FROM yaojusheng/ubuntu:20.04
+#FROM grafana/grafana:latest
+
+LABEL maintainer="jusheng_yao@outlook.com"
+
+ENV TIME_ZONE=Asia/Shanghai \
+    WORKHOME=/home
+
+ARG user
+ARG pwd
+
+WORKDIR ${WORKHOME}
+
+#RUN chmod +w /etc/resolv.conf
+#RUN echo "nameserver 8.8.8.8\n nameserver 8.8.4.4" >> /etc/resolv.conf
+RUN apt-get update && apt-get install passwd sudo -y
+
+# add user/pwd
+RUN useradd --create-home --no-log-init --shell /bin/bash ${user} \
+  && adduser ${user} sudo \
+  && echo "${user}:${pwd}" | chpasswd
+# RUN usermod -aG wheel ${user}
+
+# modify UID/GID
+# RUN usermod -u 1000 ${user} && usermod -G 1000 ${user}
+
+RUN apt-get install -y apt-utils tzdata \
+    && ln -fs /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
+    && echo ${TIME_ZONE} > /etc/timezone
+
+RUN apt-get install openssh-client openssh-server -y
+RUN mkdir -p /var/run/sshd && mkdir -p /root/.ssh
+# generate rsa
+#RUN ssh-keygen -q -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key -N ""
+#RUN ssh-keygen -q -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -N ""
+#RUN ssh-keygen -q -t dsa -f /etc/ssh/ssh_host_dsa_key -N ""
+#RUN ssh-keygen -q -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
+COPY ../bin/genssh.sh .
+RUN chmod +x genssh.sh && bash genssh.sh
+
+# modify ssh configuration
+RUN sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config \
+  && sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config \
+  && sed -i 's/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g' /etc/ssh/sshd_config
+RUN echo "RSAAuthentication yes" >> /etc/ssh/sshd_config \
+  && echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config \
+  && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+
+RUN apt-get install -y libfontconfig1
+#RUN wget https://dl.grafana.com/oss/release/grafana_7.1.5_amd64.deb
+COPY ../src/grafana_7.1.5_amd64.deb .
+RUN dpkg -i grafana_7.1.5_amd64.deb
+
+ADD ../conf/grafana.ini  /etc/grafana/grafana.ini
+#ADD ../conf/dashboards /etc/grfana/dashboards
+ADD build.sh ${WORKHOME}/grafana_start.sh
+#RUN echo "#!/bin/bash \n service grafana-server start \n service grafana-server status" >> ${WORKHOME}/grafana_start.sh
+RUN chmod +x ${WORKHOME}/grafana_start.sh
+
+#RUN grafana-cli plugins install sbueringer-consul-datasource
+# 时钟图
+RUN grafana-cli plugins install grafana-clock-panel
+# 饼图
+RUN grafana-cli plugins install grafana-piechart-panel
+# 气泡图
+#RUN grafana-cli plugins install digrich-bubblechart-panel
+# 世界地图
+RUN grafana-cli plugins install raintank-worldping-app
+# json数据
+RUN grafana-cli plugins install grafana-simple-json-datasource
+# zabbix报警
+#RUN grafana-cli plugins install alexanderzobnin-zabbix-app
+# k8s监控应用
+#RUN grafana-cli plugins install grafana-kubernetes-app
+# WindRoseby 极坐标图
+RUN grafana-cli plugins install fatcloud-windrose-panel
+# 雷达图
+RUN grafana-cli plugins install snuids-radar-panel
+# 世界地图热力图
+RUN grafana-cli plugins install ovh-warp10-datasource
+# 选点监控
+RUN grafana-cli plugins install natel-usgs-datasource
+# es数据监控
+RUN grafana-cli plugins install stagemonitor-elasticsearch-app
+# Plotly直接坐标系散点图
+RUN grafana-cli plugins install natel-plotly-panel
+# 组织结构图
+#RUN grafana-cli plugins install digiapulssi-organisations-panel
+# ajax请求更新数据
+RUN grafana-cli plugins install ryantxu-ajax-panel
+
+CMD ["bash", "grafana_start.sh"]
+# specify login user
+USER root
+
+EXPOSE 22 80 443 3000

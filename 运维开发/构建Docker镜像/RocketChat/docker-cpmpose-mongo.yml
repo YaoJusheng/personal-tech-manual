@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - /usr/local/var/db/mongodb:/usr/local/db/mongodb
+      - /usr/local/var/log/mongodb:/var/log/mongodb
+      - '/etc/localtime:/etc/localtime'
+    ports:
+      - 27018:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+# 在docker-compose-mongo.yml目录下执行
+# docker-compose -f docker-compose-mongodb.yml up -d

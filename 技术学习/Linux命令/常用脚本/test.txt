@@ -1,0 +1,15 @@
+# compose file test
+
+example:
+  container_name: example
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      UID: ${UID:-1000}
+      DGID: ${DGID:-999}
+  ports:
+    - 6201:6201
+    - 6006:6006
+    - 6100:6100
+  # Better comment this 2 lines for local debug

@@ -1,0 +1,48 @@
+################################################################################################################
+# Desc:    mysql:5.7
+# Author:  Jusheng Yao
+# Usage:
+#   Build:   docker build --no-cache -f Dockerfile-57 -t ai-cloud-mysql:5.7 .
+#   Run:     docker run -itd --name ai-cloud-mysql -v localpath:containerpath -p 3307:3306 \
+#                       -e MYSQL_ROOT_PASSWORD="123456" \
+#                       -e MYSQL_REPLICATION_USER="root"  \
+#                       -e MYSQL_REPLICATION_PASSWORD="123456"  \
+#                       --restart always --privileged=true ai-cloud-mysql:5.7
+#   Enter:   docker exec -it ai-cloud-mysql /bin/bash
+################################################################################################################
+FROM mysql:5.7
+
+LABEL maintainer="jusheng_yao@outlook.com"
+
+ARG MYSQL_VERSION=5.7
+
+ENV TIME_ZONE=Asia/Shanghai \
+    LANG=C.UTF-8 \
+    WORKHOME=/home/example \
+    MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+WORKDIR ${WORKHOME}
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+#RUN rm -rf /etc/my.cnf
+#ADD conf/my.cnf /etc/my.cnf
+RUN mkdir -p /usr/local/mysql/data && chmod 777 /usr/local/mysql/data
+RUN usermod -d /var/lib/mysql/ mysql
+RUN ln -s -f /var/lib/mysql/mysql.sock /tmp/mysql.sock
+RUN chown -R mysql:mysql /var/lib/mysql && chmod 777 /var/lib/mysql
+#RUN mysqld \
+#  --initialize-insecure \
+#  --user=mysql \
+#  --basedir=/usr/local/mysql \
+#  --datadir=/usr/local/mysql/data
+
+COPY ./bin/setup.sh ${WORKHOME}/mysql_exec/setup.sh
+COPY ./schemas/ai_cloud_schema.sql ${WORKHOME}/mysql_exec/ai_cloud_schema.sql
+COPY privileges.sql ${WORKHOME}/mysql_exec/privileges.sql
+
+CMD ["sh", "mysql_exec/setup.sh"]
+
+ENV MYSQL_ALLOW_EMPTY_PASSWORD no
+
+EXPOSE 3306

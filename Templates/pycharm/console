@@ -1,0 +1,6 @@
+ctx = app.test_request_context()
+ctx.push()
+# locals().update(ScriptInfo(app_import_path='app').load_app().make_shell_context())
+locals().update(ScriptInfo(create_app=Creator.create_app).load_app().make_shell_context())
+
+print("Python %s on %s\nApp: %s [%s]\nInstance: %s" % (sys.version, sys.platform, app.import_name, os.getenv("FLASK_ENV"), app.instance_path))

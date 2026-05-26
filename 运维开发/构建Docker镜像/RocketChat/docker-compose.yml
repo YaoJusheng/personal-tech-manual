@@ -1,0 +1,15 @@
+services:
+  mongodb:
+    build:
+      context: .
+      dockerfile: mongo-Dockerfile
+    restart: always
+    ports:
+      - '27018:27017'
+    volumes:
+      - /usr/local/var/db/mongodb:/usr/local/db/mongodb
+      - /usr/local/var/log/mongodb:/var/log/mongodb
+      - '/etc/localtime:/etc/localtime'
+  redis:
+    image: 'redis:alpine'
+    container_name: redis

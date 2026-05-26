@@ -1,0 +1,61 @@
+version: '3.8'
+services:
+  python3:
+    image: 'python:3.8'
+    container_name: python3.8-scripts-Demo
+    working_dir: /opt
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '/Users/yaojusheng/Code_Space/python/python_all_scripts:/opt/project/python_all_scripts'
+    ports:
+      - '5000:5000'
+    depends_on:
+      - redis
+      - mongo
+      - mysql
+  redis:
+    image: 'redis:alpine'
+    container_name: redis
+    ports:
+      - '6380:6379'
+  mongo:
+    image: 'mongo:4.2'
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    volumes:
+      - '/usr/local/var/db/mongodb:/usr/local/db/mongodb'
+      - '/usr/local/var/log/mongodb:/var/log/mongodb'
+      - '/etc/localtime:/etc/localtime'
+    ports:
+      - '27018:27017'
+    command: mongod
+  mysql:
+    image: 'mysql:8.0.18'
+    container_name: mysql8.0
+    restart: always
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      # root 密码
+      MYSQL_ROOT_PASSWORD: 123456
+      # 初始化数据库(后续的初始化sql会在这个库执行)
+      MYSQL_DATABASE: nacos_config
+      # 初始化用户(不能是root 会报错, 后续需要给新用户赋予权限)
+      MYSQL_USER: alfred
+      # 用户密码
+      MYSQL_PASSWORD: 123456
+    ports:
+      - '3307:3306'
+    #    volumes:
+    #      - "/usr/local/mysql/etc/my.cnf:/usr/local/mysql/etc/my.cnf"
+    command:
+      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1

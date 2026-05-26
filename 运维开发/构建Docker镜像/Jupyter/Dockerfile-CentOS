@@ -1,0 +1,90 @@
+################################################################################################################
+# Desc:    jupyter base on centos
+# Author:  Jusheng Yao
+# Usage:
+#   Build:   docker build -f Dockerfile-jupyter -t centos/jupyter:1.0 .
+#   Run:     docker run -itd --name jupyter --restart always --privileged=true -p 8001:8888 \
+#                   -v <localpath>:<containerpath> centos/jupyter:1.0 /usr/sbin/init
+#   Enter:   docker exec -it jupyter /bin/bash
+################################################################################################################
+FROM centos:7.6.1810
+
+LABEL maintainer="jusheng_yao@outlook.com"
+
+ENV TIME_ZONE=Asia/Shanghai \
+    WORKHOME=/usr/local
+
+ARG user=alfred
+ARG pwd=123456
+
+WORKDIR ${WORKHOME}
+
+# support chinese
+RUN yum install kde-l10n-Chinese -y
+RUN localedef -c -f UTF-8 -i zh_CN zh_CN.utf8
+ENV LC_ALL zh_CN.UTF-8
+# base env configuration
+RUN set -ex \
+  && rm -rf /etc/localtime \
+  && ln -s /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
+  && yum -y install cronie
+
+# install sshd ...
+# RUN yum install passwd Setting up Install Process Setting up repositories -y
+RUN yum install -q -y openssh openssh-askpass openssh-server openssh-clients net-tools vim ntpdate less wget logrotate crontabs git  \
+  && yum install -y passwd sudo \
+  && yum clean all
+
+# install supervisor, default supervisor depend on python2.7
+# RUN wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz
+RUN wget https://mirrors.huaweicloud.com/python/2.7.15/Python-2.7.15.tgz
+RUN tar -zxvf Python-2.7.15.tgz -C /usr/local  && mv /usr/local/Python-2.7.15 /usr/local/python
+RUN cd /usr/local/python && ./configure --enable-optimizations && make altinstall
+#RUN curl "https://bootstrap.pypa.io/get-pip.py" -o get-pip.py
+COPY ../src/get-pip.py .
+RUN ln -s -f /usr/bin/python2.7 /usr/bin/python2
+RUN ln -s -f /usr/bin/python2.7 /usr/bin/python
+RUN python get-pip.py
+RUN yum install -y supervisor
+
+RUN set -ex \
+  # Preinstall required components
+  && yum install -y wget tar libffi-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make initscripts \
+  && wget https://repo.huaweicloud.com/python/3.8.10/Python-3.8.10.tgz \
+  && tar -zxvf Python-3.8.10.tgz \
+  && cd Python-3.8.10 \
+  && ./configure prefix=/usr/local/python3 \
+  && make \
+  && make install \
+  && make clean \
+  && rm -rf /Python-3.8.10* \
+  && yum install -y epel-release \
+  && yum install -y python3-pip
+# set default python3 and backing up old python versions
+RUN set -ex \
+  && ln -s -f /usr/local/python3/bin/python3.8 /usr/bin/python3 \
+  && ln -s -f /usr/local/python3/bin/pip3 /usr/bin/pip3
+RUN set -ex \
+  && sed -i "s#/usr/bin/python#/usr/bin/python2.7#" /usr/bin/yum \
+  && sed -i "s#/usr/bin/python#/usr/bin/python2.7#" /usr/libexec/urlgrabber-ext-down \
+  && yum install -y deltarpm
+
+# upgrade
+RUN python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel --index-url https://mirrors.aliyun.com/pypi/simple/
+RUN pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple \
+    && pip3 config set install.trusted-host mirrors.aliyun.com
+
+# install jupyter
+RUN pip3 install ipykernel jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator
+RUN echo "export PATH=/usr/local/python3/bin:$PATH" >> ~/.bashrc && source ~/.bashrc
+RUN jupyter contrib nbextension install --user && jupyter nbextensions_configurator enable --user
+
+# install go && kernel
+RUN wget https://dl.google.com/go/go1.17.5.linux-amd64.tar.gz && tar -C /usr/local -zxvf  go1.17.5.linux-amd64.tar.gz
+# RUN export GOROOT=/usr/local/go && export PATH=$PATH:$GOROOT/bin
+RUN echo "export GOROOT=/usr/local/go" >> ~/.bashrc && echo "export PATH=$PATH:$GOROOT/bin" >> ~/.bashrc && source ~/.bashrc
+RUN go get -u github.com/gopherdata/gophernotes
+
+EXPOSE 8888 80
+
+CMD ["jupyter", "notebook", "--allow-root"]

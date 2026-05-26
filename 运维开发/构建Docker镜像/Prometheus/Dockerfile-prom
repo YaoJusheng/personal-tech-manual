@@ -1,0 +1,107 @@
+################################################################################################################
+# Desc:    Prometheus base on centos
+# Author:  Jusheng Yao
+# Usage:
+#   Build:   docker build -f Dockerfile-Prometheus -t centos/prometheus:v1 .
+#   Run:     docker run -itd --name prometheus --restart always --privileged=true -p 9091:9090 \
+#                   -v <localpath>:<containerpath> centos/prometheus:v1 /usr/sbin/init
+#   Enter:   docker exec -it prometheus /bin/bash
+################################################################################################################
+FROM yaojusheng/centos:7.6
+#FROM prom/prometheus:latest
+
+LABEL maintainer="jusheng_yao@outlook.com"
+
+ENV TIME_ZONE=Asia/Shanghai \
+    WORKHOME=/home
+
+ARG user
+ARG pwd
+
+WORKDIR ${WORKHOME}
+
+# support chinese
+RUN yum install kde-l10n-Chinese -y
+RUN localedef -c -f UTF-8 -i zh_CN zh_CN.utf8
+ENV LC_ALL zh_CN.UTF-8
+# base env configuration
+RUN set -ex \
+  && rm -rf /etc/localtime \
+  && ln -s /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
+  && yum -y install cronie
+
+# install sshd ...
+# RUN yum install passwd Setting up Install Process Setting up repositories -y
+RUN yum install -q -y openssh openssh-askpass openssh-server openssh-clients net-tools vim ntpdate  \
+  && yum install -y passwd sudo \
+  && yum clean all
+
+# install supervisor, default supervisor depend on python2.7
+# RUN wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz
+# RUN wget https://mirrors.huaweicloud.com/python/2.7.15/Python-2.7.15.tgz
+COPY ../src/Python-2.7.15.tgz .
+RUN tar -zxvf Python-2.7.15.tgz -C /usr/local  && mv /usr/local/Python-2.7.15 /usr/local/python
+RUN cd /usr/local/python && ./configure --enable-optimizations && make altinstall
+#RUN curl "https://bootstrap.pypa.io/get-pip.py" -o get-pip.py
+COPY ../src/get-pip.py .
+RUN ln -s -f /usr/bin/python2.7 /usr/bin/python2
+RUN ln -s -f /usr/bin/python2.7 /usr/bin/python
+RUN python get-pip.py
+RUN yum install -y supervisor
+
+#  use python3
+#RUN pip3 install supervisor
+##RUN PATH="/usr/local/python3/bin:$PATH" && export PATH
+#RUN for FILE in /usr/local/python3/bin/*;do ln -s -f $FILE  /usr/local/bin/`basename $FILE`;done
+#RUN mkdir -p /etc/supervisord.d /var/log/supervisor
+
+# generate rsa
+#RUN ssh-keygen -q -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key -N ""
+#RUN ssh-keygen -q -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -N ""
+#RUN ssh-keygen -q -t dsa -f /etc/ssh/ssh_host_dsa_key -N ""
+#RUN ssh-keygen -q -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
+COPY ../bin/genssh.sh .
+RUN chmod +x genssh.sh && bash genssh.sh
+
+# modify ssh configuration
+RUN sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config \
+  && sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config \
+  && sed -i 's/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g' /etc/ssh/sshd_config
+RUN echo "RSAAuthentication yes" >> /etc/ssh/sshd_config \
+  && echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config \
+  && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+
+RUN adduser ${user} && /bin/echo "${user}:${pwd}" | chpasswd
+RUN echo "$user ALL=(ALL:ALL) ALL" >> /etc/sudoers
+RUN ntpdate cn.ntp.org.cn
+RUN chkconfig sshd on
+
+#RUN chmod +w /etc/resolv.conf
+#RUN echo "nameserver 8.8.8.8\n nameserver 8.8.4.4" >> /etc/resolv.conf
+
+# install prometheus
+#RUN wget https://github.com/prometheus/prometheus/releases/download/v2.34.0/prometheus-2.34.0.linux-amd64.tar.gz
+COPY ../src/prometheus-2.34.0.linux-amd64.tar.gz .
+RUN tar -zxvf prometheus-2.34.0.linux-amd64.tar.gz -C /usr/local/
+RUN mv /usr/local/prometheus-2.34.0.linux-amd64  /usr/local/prometheus
+RUN ln -s -f /usr/local/prometheus/prometheus /usr/bin/prometheus
+
+# prometheus configuration
+ADD ../conf/prometheus.yml    /usr/local/prometheus/prometheus.yml
+ADD ../conf/jobs    /usr/local/prometheus/jobs
+ADD ../conf/rules   /usr/local/prometheus/rules
+
+# RUN nohup prometheus --config.file=/usr/local/prometheus/prometheus.yml &
+
+ADD build.sh          ${WORKHOME}/prometheus-start.sh
+RUN chmod +x ${WORKHOME}/prometheus-start.sh
+RUN chmod 777 /usr/local/prometheus/prometheus.yml
+RUN mkdir -p /usr/local/prometheus/logs
+
+#RUN hostnamectl set-hostname prometheus.test.example.cn
+# cmd
+CMD  ["bash", "prometheus-start.sh", "prom"]
+
+USER root
+
+EXPOSE 22 80 443 9090

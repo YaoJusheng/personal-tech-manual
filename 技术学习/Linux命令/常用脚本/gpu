@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Author: Jusheng Yao
+
+
+# get gpus
+nvidia-smi --query-gpu=index,uuid,gpu_name --format=csv
+
+# get running processes
+nvidia-smi --query-compute-apps=pid,process_name,gpu_name,gpu_uuid,used_memory --format=csv
+
+# for each process, using -o lstart, -o etimes or -o cmd to get other details.
+ps -fwwp #{pid} -o user -h

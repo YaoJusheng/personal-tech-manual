@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Author: Jusheng Yao
+
+
+find . -depth -type f -mtime +7 -delete;
+
+find . -depth -type d -empty -exec rm -rf {} \;

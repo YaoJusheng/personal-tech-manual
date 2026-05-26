@@ -1,0 +1,32 @@
+{
+  "name": "tech-docs",
+  "version": "1.0.0",
+  "description": "项目开发与配置以及一些技术基础学习相关的文档整理。",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev .",
+    "docs:build": "vitepress build .",
+    "docs:preview": "vitepress preview .",
+    "pages:publish": "bash scripts/publish-pages.sh"
+  },
+  "keywords": [],
+  "author": "YaoJusheng",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "markdown-it-table-of-contents": "^1.2.0",
+    "vitepress": "^1.6.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YaoJusheng/Tech-learning-doc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YaoJusheng/Tech-learning-doc/issues"
+  },
+  "homepage": "https://github.com/YaoJusheng/Tech-learning-doc#readme",
+  "dependencies": {
+    "markdown-it-footnote": "^4.0.0"
+  }
+}
