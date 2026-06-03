@@ -10893,7 +10893,7 @@
 <li>示例中的镜像、插件、凭据 ID、仓库地址请按实际环境替换。</li>
 </ul>
 <h3 id="06">0.6 企业级最小架构（建议）<a class="headerlink" href="#06" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     DEV[开发者提交代码] --&gt; SCM[GitHub/GitLab/Bitbucket]
     SCM --&gt; MBP[Multibranch Pipeline]
     MBP --&gt; AGENT[构建 Agent
@@ -10905,8 +10905,7 @@
     Nexus/Harbor]
     REPO --&gt; DEPLOY[部署系统
     Helm/Argo CD]
-    DEPLOY --&gt; OBS[监控与告警]
-</code></pre></div>
+    DEPLOY --&gt; OBS[监控与告警]</code></pre>
 <h3 id="07">0.7 流水线分层思路<a class="headerlink" href="#07" title="Permanent link">&para;</a></h3>
 <ul>
 <li>触发层：Webhook、定时、手工触发，统一进入 Jenkinsfile。</li>

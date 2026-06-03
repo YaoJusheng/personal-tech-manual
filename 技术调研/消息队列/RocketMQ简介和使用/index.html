@@ -11597,7 +11597,7 @@
 <li><strong>消息消费</strong>：Consumer通过长连接从Broker拉取消息。RocketMQ支持<strong>集群消费</strong>（一条消息被同一消费组内一个消费者消费）和<strong>广播消费</strong>（同一消费组所有消费者都收到）两种模式。</li>
 </ol>
 <h3 id="2">2. 核心工作流程拆解<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     subgraph Producer Side
         P[生产者]
         NS_P[NameServer&lt;br&gt;路由注册中心]
@@ -11627,19 +11627,17 @@
     C -- [6. 向Master拉取消息] --&gt; B_M
     C -- [7. 从Slave读取（主繁忙或故障时）] --&gt; B_S
 
-    B_M -- 主从同步（HA） --&gt; B_S
-</code></pre></div>
+    B_M -- 主从同步（HA） --&gt; B_S</code></pre>
 <h4 id="21-nameserver-broker">2.1 路由注册与发现（NameServer + Broker 核心交互）<a class="headerlink" href="#21-nameserver-broker" title="Permanent link">&para;</a></h4>
 <p>这是所有流程的基础，保证 Producer/Consumer 能找到消息存储的 Broker 节点：</p>
-<div class="highlight"><pre><span></span><code>graph LR
+<pre class="mermaid"><code>graph LR
     A[Broker 启动] --&gt; B[向所有 NameServer 注册自身信息（集群、Topic、端口）]
     B --&gt; C[Broker 每 30s 向 NameServer 发送心跳（节点状态、Topic 配置）]
     C --&gt; D[NameServer 维护路由表（Broker 列表 + Topic → Queue 映射）]
     E[Producer/Consumer 启动] --&gt; F[向任意 NameServer 请求路由信息]
     F --&gt; G[NameServer 返回最新路由表]
     G --&gt; H[Producer/Consumer 本地缓存路由，每 30s 主动更新]
-    I[NameServer 检测 Broker 心跳超时（120s）] --&gt; J[剔除失效 Broker，更新路由表]
-</code></pre></div>
+    I[NameServer 检测 Broker 心跳超时（120s）] --&gt; J[剔除失效 Broker，更新路由表]</code></pre>
 <p><strong>关键特性</strong>：</p>
 <ul>
 <li>NameServer 无状态，节点间不通信，Producer/Consumer 可随机连接任意节点获取路由；</li>
@@ -11648,15 +11646,14 @@
 </ul>
 <h4 id="22">2.2 消息生产流程<a class="headerlink" href="#22" title="Permanent link">&para;</a></h4>
 <p>Producer 发送消息的核心是「路由寻址 → 队列选择 → 消息发送 → 存储确认」：</p>
-<div class="highlight"><pre><span></span><code>graph LR
+<pre class="mermaid"><code>graph LR
     A[Producer 初始化] --&gt; B[连接任意 NameServer，获取 Topic 路由（Broker 列表 + MessageQueue）]
     B --&gt; C[选择 MessageQueue（轮询/哈希/自定义策略）]
     C --&gt; D[向目标 Broker 发送消息（同步/异步/单向）]
     D --&gt; E[Broker 接收消息，写入 CommitLog（全局顺序写）]
     E --&gt; F[异步构建 ConsumeQueue（Topic+Queue 索引）]
     F --&gt; G[Broker 返回发送结果（SEND_OK/FLUSH_DISK_TIMEOUT 等）]
-    G --&gt; H[Producer 失败重试（切换 Queue/Broker）]
-</code></pre></div>
+    G --&gt; H[Producer 失败重试（切换 Queue/Broker）]</code></pre>
 <p><strong>关键细节</strong>：</p>
 <ul>
 <li>MessageQueue 是 Topic 的分片（一个 Topic 对应多个 Queue），Producer 轮询选择 Queue 实现负载均衡；</li>
@@ -11680,14 +11677,13 @@
 </ol>
 <h4 id="23-broker">2.3 消息存储流程（Broker 核心）<a class="headerlink" href="#23-broker" title="Permanent link">&para;</a></h4>
 <p>RocketMQ 高性能的核心是「顺序写磁盘 + 内存索引」，存储层分为三层结构：</p>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[Producer 消息] --&gt; B[CommitLog（全局顺序写，1GB/文件）]
     B --&gt; C[异步刷盘（ASYNC_FLUSH）/同步刷盘（SYNC_FLUSH）]
     B --&gt; D[构建 ConsumeQueue（Topic+Queue 索引，存储 CommitLog 偏移量）]
     B --&gt; E[构建 IndexFile（按 MessageKey/时间索引，快速查询）]
     F[Consumer] --&gt; G[读取 ConsumeQueue 获取偏移量]
-    G --&gt; H[从 CommitLog 读取原始消息]
-</code></pre></div>
+    G --&gt; H[从 CommitLog 读取原始消息]</code></pre>
 <p><strong>关键特性</strong>：</p>
 <ul>
 <li>CommitLog：所有 Topic 的消息混合存储，顺序写性能接近内存（避免随机 IO）；</li>
@@ -11719,7 +11715,7 @@
 </ol>
 <h4 id="24">2.4 消息消费流程<a class="headerlink" href="#24" title="Permanent link">&para;</a></h4>
 <p>Consumer 消费消息的核心是「路由寻址 → 队列分配 → 消息拉取 → 进度提交」：</p>
-<div class="highlight"><pre><span></span><code>graph LR
+<pre class="mermaid"><code>graph LR
     A[Consumer 初始化] --&gt; B[连接 NameServer，获取 Topic 路由]
     B --&gt; C[消费组负载均衡（分配 MessageQueue，一个 Queue 仅被一个 Consumer 消费）]
     C --&gt; D[拉模式（默认）：主动向 Broker 拉取消息 / 推模式：Broker 主动推送]
@@ -11728,8 +11724,7 @@
     F --&gt; G{消费成功？}
     G --&gt;|是| H[提交 Offset（本地文件/Broker/DLedger）]
     G --&gt;|否| I[重试消费（最多 16 次，指数退避）]
-    I --&gt; J[重试失败 → 死信队列（%DLQ%+消费组名）]
-</code></pre></div>
+    I --&gt; J[重试失败 → 死信队列（%DLQ%+消费组名）]</code></pre>
 <p><strong>关键细节</strong>：</p>
 <ul>
 <li>负载均衡策略：平均分配、一致性哈希等，保证消费组内 Consumer 负载均匀；</li>
@@ -11814,7 +11809,7 @@ jps<span class="w">  </span><span class="c1"># 应看到NamesrvStartup和BrokerS
 <li>网络互通：通过 Headless Service 实现 Pod 间域名解析，保证主从通信。</li>
 </ul>
 <h5 id="12_1">1.2 架构图<a class="headerlink" href="#12_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[K8s Cluster] --&gt; B[Namespace: rocketmq]
     B --&gt; C[ConfigMap: rocketmq-config（broker.conf/namesrv.conf）]
     B --&gt; D[StatefulSet: nameserver（3 节点）]
@@ -11826,8 +11821,7 @@ jps<span class="w">  </span><span class="c1"># 应看到NamesrvStartup和BrokerS
     B --&gt; J[Service: dashboard-service（NodePort）]
     D --&gt; K[PV/PVC: nameserver-logs（日志持久化）]
     F &amp; G --&gt; L[PV/PVC: broker-data（数据持久化）]
-    F &amp; G --&gt; M[PV/PVC: broker-logs（日志持久化）]
-</code></pre></div>
+    F &amp; G --&gt; M[PV/PVC: broker-logs（日志持久化）]</code></pre>
 <h5 id="13_1">1.3 核心组件规划<a class="headerlink" href="#13_1" title="Permanent link">&para;</a></h5>
 <table>
 <thead>

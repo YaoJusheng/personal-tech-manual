@@ -11051,7 +11051,7 @@
 <li>安全基线：最小权限、密钥不落盘</li>
 </ol>
 <h3 id="04">0.4 分层部署思路<a class="headerlink" href="#04" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     Code[代码仓库] --&gt; CI[CI 构建]
     CI --&gt; Artifact[制品或镜像仓库]
     Artifact --&gt; Deploy[部署层
@@ -11059,8 +11059,7 @@
     Deploy --&gt; Gateway[流量入口
     nginx/traefik]
     Gateway --&gt; App[应用服务]
-    App --&gt; Obs[监控告警与日志]
-</code></pre></div>
+    App --&gt; Obs[监控告警与日志]</code></pre>
 <h3 id="05">0.5 环境分级建议<a class="headerlink" href="#05" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

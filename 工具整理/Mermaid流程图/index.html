@@ -10869,8 +10869,7 @@ Mermaid 通过允许用户创建便于修改的图表来解决这一难题，它
 5.<a href="https://snowdreams1006.github.io/write/mermaid-flow-chart.html">快速上手Mermaid流程图</a></p>
 </blockquote>
 <p>查看版本:</p>
-<div class="highlight"><pre><span></span><code>info
-</code></pre></div>
+<pre class="mermaid"><code>info</code></pre>
 <h2 id="2">2.语法<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <h3 id="21">2.1.布局方向<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
 <p>关键词:</p>
@@ -10972,12 +10971,11 @@ Mermaid 通过允许用户创建便于修改的图表来解决这一难题，它
     B--&gt;D;
     C--&gt;D;
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>graph TD;
+<pre class="mermaid"><code>graph TD;
     A--&gt;B;
     A--&gt;C;
     B--&gt;D;
-    C--&gt;D;
-</code></pre></div>
+    C--&gt;D;</code></pre>
 <h3 id="32-sequence-diagram">3.2.序列图/时序图 (Sequence diagram)<a class="headerlink" href="#32-sequence-diagram" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>sequenceDiagram
@@ -10992,7 +10990,7 @@ Mermaid 通过允许用户创建便于修改的图表来解决这一难题，它
     John-&gt;&gt;Bob: How about you?
     Bob--&gt;&gt;John: Jolly good!
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>%%{init: {&#39;theme&#39;:&#39;forest&#39;, &#39;showSequenceNumbers&#39;: true}}%%
+<pre class="mermaid"><code>%%{init: {'theme':'forest', 'showSequenceNumbers': true}}%%
 sequenceDiagram
     participant Alice
     participant Bob
@@ -11003,8 +11001,7 @@ sequenceDiagram
     Note right of John: Rational thoughts &lt;br/&gt;prevail!
     John--&gt;&gt;Alice: Great!
     John-&gt;&gt;Bob: How about you?
-    Bob--&gt;&gt;John: Jolly good!
-</code></pre></div>
+    Bob--&gt;&gt;John: Jolly good!</code></pre>
 <h3 id="33-gantt-diagram">3.3.甘特图 (Gantt diagram)<a class="headerlink" href="#33-gantt-diagram" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>gantt
@@ -11018,7 +11015,7 @@ Active task               :active,  des2, 2014-01-09, 3d
 Future task               :         des3, after des2, 5d
 Future task2               :         des4, after des3, 5d
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>gantt
+<pre class="mermaid"><code>gantt
 dateFormat  YYYY-MM-DD
 title Adding GANTT diagram to mermaid
 excludes weekdays 2014-01-10
@@ -11027,8 +11024,7 @@ section A section
 Completed task            :done,    des1, 2014-01-06,2014-01-08
 Active task               :active,  des2, 2014-01-09, 3d
 Future task               :         des3, after des2, 5d
-Future task2               :         des4, after des3, 5d
-</code></pre></div>
+Future task2               :         des4, after des3, 5d</code></pre>
 <h3 id="34-class-diagram">3.4.类图 (Class diagram)<a class="headerlink" href="#34-class-diagram" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>classDiagram
@@ -11046,7 +11042,7 @@ Class01 : int chimp
 Class01 : int gorilla
 Class08 &lt;--&gt; C2: Cool label
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>classDiagram
+<pre class="mermaid"><code>classDiagram
 Class01 &lt;|-- AveryLongClass : Cool
 Class03 *-- Class04
 Class05 o-- Class06
@@ -11059,8 +11055,7 @@ Class07 : Object[] elementData
 Class01 : size()
 Class01 : int chimp
 Class01 : int gorilla
-Class08 &lt;--&gt; C2: Cool label
-</code></pre></div>
+Class08 &lt;--&gt; C2: Cool label</code></pre>
 <h3 id="35git-git-graph">3.5.Git图 (Git graph)<a class="headerlink" href="#35git-git-graph" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>gitGraph
@@ -11074,7 +11069,7 @@ Class08 &lt;--&gt; C2: Cool label
     commit
     commit
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>gitGraph
+<pre class="mermaid"><code>gitGraph
     commit
     commit
     branch develop
@@ -11083,8 +11078,7 @@ Class08 &lt;--&gt; C2: Cool label
     commit
     checkout main
     commit
-    commit
-</code></pre></div>
+    commit</code></pre>
 <h3 id="36-entity-relationship-diagram">3.6.实体关系图 (Entity Relationship Diagram) ❗ 实验性<a class="headerlink" href="#36-entity-relationship-diagram" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>erDiagram
@@ -11092,11 +11086,10 @@ Class08 &lt;--&gt; C2: Cool label
     ORDER ||--|{ LINE-ITEM : contains
     CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>erDiagram
+<pre class="mermaid"><code>erDiagram
     CUSTOMER ||--o{ ORDER : places
     ORDER ||--|{ LINE-ITEM : contains
-    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
-</code></pre></div>
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses</code></pre>
 <h3 id="37-user-journey-diagram">3.7.用户旅程图 (User Journey Diagram)<a class="headerlink" href="#37-user-journey-diagram" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>journey
@@ -11109,7 +11102,7 @@ Class08 &lt;--&gt; C2: Cool label
       Go downstairs: 5: Me
       Sit down: 5: Me
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>journey
+<pre class="mermaid"><code>journey
     title My working day
     section Go to work
       Make tea: 5: Me
@@ -11117,8 +11110,7 @@ Class08 &lt;--&gt; C2: Cool label
       Do work: 1: Me, Cat
     section Go home
       Go downstairs: 5: Me
-      Sit down: 5: Me
-</code></pre></div>
+      Sit down: 5: Me</code></pre>
 <h3 id="38-requirement-diagram">3.8.需求图 (Requirement Diagram)<a class="headerlink" href="#38-requirement-diagram" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>requirementDiagram
@@ -11136,7 +11128,7 @@ type: simulation
 
 test_entity - satisfies -&gt; test_req
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>requirementDiagram
+<pre class="mermaid"><code>requirementDiagram
 
 requirement test_req {
 id: 1
@@ -11149,8 +11141,7 @@ element test_entity {
 type: simulation
 }
 
-test_entity - satisfies -&gt; test_req
-</code></pre></div>
+test_entity - satisfies -&gt; test_req</code></pre>
 <h3 id="39-quadrant-chart">3.9.象限图 (Quadrant Chart)<a class="headerlink" href="#39-quadrant-chart" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>quadrantChart
@@ -11168,7 +11159,7 @@ test_entity - satisfies -&gt; test_req
     Campaign E: [0.40, 0.34]
     Campaign F: [0.35, 0.78]
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>quadrantChart
+<pre class="mermaid"><code>quadrantChart
     title Reach and engagement of campaigns
     x-axis Low Reach --&gt; High Reach
     y-axis Low Engagement --&gt; High Engagement
@@ -11181,8 +11172,7 @@ test_entity - satisfies -&gt; test_req
     Campaign C: [0.57, 0.69]
     Campaign D: [0.78, 0.34]
     Campaign E: [0.40, 0.34]
-    Campaign F: [0.35, 0.78]
-</code></pre></div>
+    Campaign F: [0.35, 0.78]</code></pre>
 <h3 id="310xy-xy-chart">3.10.XY 图表 (XY Chart)<a class="headerlink" href="#310xy-xy-chart" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>xychart-beta
@@ -11192,13 +11182,12 @@ test_entity - satisfies -&gt; test_req
     bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
     line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>xychart-beta
-    title &quot;Sales Revenue&quot;
+<pre class="mermaid"><code>xychart-beta
+    title "Sales Revenue"
     x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
-    y-axis &quot;Revenue (in $)&quot; 4000 --&gt; 11000
+    y-axis "Revenue (in $)" 4000 --&gt; 11000
     bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
-    line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
-</code></pre></div>
+    line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]</code></pre>
 <h3 id="311-pie-chart-diagrams">3.11.饼形图 (Pie chart diagrams)<a class="headerlink" href="#311-pie-chart-diagrams" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>pie title Pets adopted by volunteers
@@ -11206,11 +11195,10 @@ test_entity - satisfies -&gt; test_req
     &quot;Cats&quot; : 85
     &quot;Rats&quot; : 15
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>pie title Pets adopted by volunteers
-    &quot;Dogs&quot; : 386
-    &quot;Cats&quot; : 85
-    &quot;Rats&quot; : 15
-</code></pre></div>
+<pre class="mermaid"><code>pie title Pets adopted by volunteers
+    "Dogs" : 386
+    "Cats" : 85
+    "Rats" : 15</code></pre>
 <h3 id="312-timeline-diagram">3.12.时间轴图 (Timeline Diagram)<a class="headerlink" href="#312-timeline-diagram" title="Permanent link">&para;</a></h3>
 <p>示例:</p>
 <div class="highlight"><pre><span></span><code>timeline
@@ -11221,14 +11209,13 @@ test_entity - satisfies -&gt; test_req
     2005 : Youtube
     2006 : Twitter
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>timeline
+<pre class="mermaid"><code>timeline
     title History of Social Media Platform
     2002 : LinkedIn
     2004 : Facebook
          : Google
     2005 : Youtube
-    2006 : Twitter
-</code></pre></div>
+    2006 : Twitter</code></pre>
 <h3 id="313-mindmap">3.13.思维导图 (Mindmap)<a class="headerlink" href="#313-mindmap" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>参考: <a href="https://mermaid.js.org/syntax/mindmap.html">思维导图 - 句法</a></p>
@@ -11252,7 +11239,7 @@ test_entity - satisfies -&gt; test_req
       Pen and paper
       Mermaid
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>mindmap
+<pre class="mermaid"><code>mindmap
   root((mindmap))
     Origins
       Long history
@@ -11268,8 +11255,7 @@ test_entity - satisfies -&gt; test_req
             Argument mapping
     Tools
       Pen and paper
-      Mermaid
-</code></pre></div>
+      Mermaid</code></pre>
 <h2 id="4">4.其他<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <ul>
 <li>设置标题、初始化的方式:</li>

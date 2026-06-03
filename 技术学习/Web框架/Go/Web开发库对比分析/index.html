@@ -21281,14 +21281,13 @@ go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span
 </code></pre></div>
 <h6 id="zig">🛠 <strong>Zig</strong> 的统一方案<a class="headerlink" href="#zig" title="Permanent link">&para;</a></h6>
 <p><strong>zig的优势：</strong></p>
-<div class="highlight"><pre><span></span><code>graph LR
+<pre class="mermaid"><code>graph LR
 A[Go程序] --&gt; B[CGO依赖]
 B --&gt; C[传统交叉编译]
 C --&gt; D[复杂工具链配置]
 B --&gt; E[Zig工具链]
 E --&gt; F[自动处理依赖]
-F --&gt; G[无缝交叉编译]
-</code></pre></div>
+F --&gt; G[无缝交叉编译]</code></pre>
 <p><strong>安装<code>zig</code>：</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 安装 Zig</span>
 curl<span class="w"> </span>-L<span class="w"> </span>https://ziglang.org/builds/zig-linux-x86_64-0.11.0.tar.xz<span class="w"> </span><span class="p">|</span><span class="w"> </span>tar<span class="w"> </span>xJ

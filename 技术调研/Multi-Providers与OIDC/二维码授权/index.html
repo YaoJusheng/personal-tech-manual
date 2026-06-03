@@ -11166,7 +11166,7 @@
 +--------+                      +------------------+          +--------+
 </code></pre></div>
 <h4 id="mermaid">Mermaid 流程图<a class="headerlink" href="#mermaid" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant DeviceA as 设备A&lt;br/&gt;(桌面/TV/IoT)
     participant Auth as 授权服务器
     participant DeviceB as 设备B&lt;br/&gt;(手机/电脑)
@@ -11188,8 +11188,7 @@
     end
 
     Auth-&gt;&gt;DeviceA: 6. 授权完成，返回 Token
-    DeviceA-&gt;&gt;DeviceA: 7. 完成登录
-</code></pre></div>
+    DeviceA-&gt;&gt;DeviceA: 7. 完成登录</code></pre>
 <h2 id="_6">实现方案<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <h3 id="device-authorization-grant">方案一：Device Authorization Grant + 二维码<a class="headerlink" href="#device-authorization-grant" title="Permanent link">&para;</a></h3>
 <p>这是最标准的方案，RFC 8628 明确支持二维码展示 <code>verification_uri_complete</code>。</p>
@@ -11225,7 +11224,7 @@
 <li>桌面应用通过数据通道（如 WebSocket、Server-Sent Events）获取回调</li>
 </ol>
 <p><strong>Mermaid 流程图：</strong></p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Desktop as 桌面应用
     participant Phone as 手机浏览器
     participant Auth as 授权服务器
@@ -11246,8 +11245,7 @@
 
     Phone-&gt;&gt;Desktop: 8. 唤起桌面应用回调
     Desktop-&gt;&gt;Auth: 9. Token 请求&lt;br/&gt;(code + code_verifier)
-    Auth-&gt;&gt;Desktop: 10. 返回 Token
-</code></pre></div>
+    Auth-&gt;&gt;Desktop: 10. 返回 Token</code></pre>
 <p><strong>授权 URL 示例：</strong></p>
 <div class="highlight"><pre><span></span><code>https://auth.example.com/authorize?
     response_type=code
@@ -11283,7 +11281,7 @@
 <li>设备 A 获取认证结果</li>
 </ol>
 <p><strong>Mermaid 流程图：</strong></p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant DeviceA as 设备A&lt;br/&gt;(登录设备)
     participant Auth as 授权服务器
     participant DeviceB as 设备B&lt;br/&gt;(安全密钥/手机)
@@ -11305,8 +11303,7 @@
     end
 
     DeviceA-&gt;&gt;Auth: 10. 获取最终 Token
-    Auth-&gt;&gt;DeviceA: 11. 返回 Token
-</code></pre></div>
+    Auth-&gt;&gt;DeviceA: 11. 返回 Token</code></pre>
 <h2 id="_7">二维码生成与解析<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <h3 id="_8">二维码规范要求<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <ul>

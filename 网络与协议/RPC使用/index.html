@@ -12539,7 +12539,7 @@ $<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span
 <li>客户端接收结果：</li>
 <li>客户端接收到结果，完成调用。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Client
     participant gRPC_ClientStub
     participant gRPC_ServerStub
@@ -12550,8 +12550,7 @@ $<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span
     gRPC_ServerStub-&gt;&gt;Server: 执行服务逻辑 (e.g., SayHello)
     Server-&gt;&gt;gRPC_ServerStub: 返回结果
     gRPC_ServerStub-&gt;&gt;gRPC_ClientStub: 返回响应
-    gRPC_ClientStub-&gt;&gt;Client: 返回结果给客户端
-</code></pre></div>
+    gRPC_ClientStub-&gt;&gt;Client: 返回结果给客户端</code></pre>
 <p><strong>客户端调用服务</strong>：客户端通过 <code>gRPC_ClientStub</code> 调用 <code>SayHello</code> 方法。</p>
 <p><strong>请求发送到服务端</strong>：<code>gRPC_ClientStub</code> 将请求通过 HTTP/2 发送到服务端。</p>
 <p><strong>服务端处理请求</strong>：服务端处理请求，执行业务逻辑。</p>
@@ -13065,14 +13064,13 @@ protoc<span class="w"> </span>--python_betterproto_out<span class="o">=</span>.<
 <li>客户端解析响应，获取结果。</li>
 </ol>
 <p><strong>交互流程图</strong>:</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Client
     participant Server
 
     Client-&gt;&gt;Server: JSON-RPC 请求 (method, params, id)
     Server-&gt;&gt;Server: 解析请求并执行方法
-    Server-&gt;&gt;Client: JSON-RPC 响应 (result 或 error, id)
-</code></pre></div>
+    Server-&gt;&gt;Client: JSON-RPC 响应 (result 或 error, id)</code></pre>
 <h3 id="33_1">3.3.使用<a class="headerlink" href="#33_1" title="Permanent link">&para;</a></h3>
 <h4 id="331">3.3.1.基本使用步骤<a class="headerlink" href="#331" title="Permanent link">&para;</a></h4>
 <h5 id="1step-1">1.<strong>Step 1: 实现服务端</strong><a class="headerlink" href="#1step-1" title="Permanent link">&para;</a></h5>

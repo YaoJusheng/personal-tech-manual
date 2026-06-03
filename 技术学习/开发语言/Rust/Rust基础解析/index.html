@@ -23298,7 +23298,7 @@
 </code></pre></div>
 <h4 id="313">3.1.3.导入导出语句<a class="headerlink" href="#313" title="Permanent link">&para;</a></h4>
 <p>Rust 通过 <code>mod</code>、<code>use</code>、<code>pub</code> 等关键字管理代码的模块化、可见性和路径。其核心逻辑可以用下图概括：</p>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A[Crate（项目包）] --&gt; B[根模块 lib.rs/main.rs]
     B --&gt; C[使用 mod 声明子模块]
     C --&gt; D{模块定义方式}
@@ -23309,8 +23309,7 @@
     G --&gt; H[pub:公开&lt;br/&gt;pub crate:包内可见&lt;br/&gt;pub super: 父模块可见]
 
     B --&gt; I[使用 use 引入路径&lt;br&gt;（对内导入）]
-    I --&gt; J[缩短调用路径&lt;br&gt;选择性引入&lt;br&gt;as 起别名]
-</code></pre></div>
+    I --&gt; J[缩短调用路径&lt;br&gt;选择性引入&lt;br&gt;as 起别名]</code></pre>
 <h5 id="1_21">1.导出语句<a class="headerlink" href="#1_21" title="Permanent link">&para;</a></h5>
 <p><code>mod</code> 即是用作声明模块。</p>
 <p><code>pub</code> 是 <strong>public</strong> 的缩写，是 Rust 中<strong>唯一的导出关键字</strong>，语法上是「<strong>可见性修饰符</strong>」，可以修饰<strong>所有代码项</strong>（模块、函数、结构体、枚举、常量、字段、枚举变体等）。</p>

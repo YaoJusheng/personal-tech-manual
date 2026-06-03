@@ -11501,7 +11501,7 @@
         +----------------+                               |
 </code></pre></div>
 <h3 id="mermaid">Mermaid 流程图<a class="headerlink" href="#mermaid" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Client as 客户端
     participant User as 用户
     participant Auth as 授权服务器
@@ -11514,8 +11514,7 @@
     Client-&gt;&gt;Auth: (D) 请求 Token (含授权码)
     Auth-&gt;&gt;Client: (E) 返回 Access Token &amp; ID Token
     Client-&gt;&gt;Resource: (F) 请求用户信息
-    Resource-&gt;&gt;Client: (G) 返回用户信息
-</code></pre></div>
+    Resource-&gt;&gt;Client: (G) 返回用户信息</code></pre>
 <h2 id="pkce">PKCE 认证流程详解<a class="headerlink" href="#pkce" title="Permanent link">&para;</a></h2>
 <h3 id="pkce_1">标准授权码流程 + PKCE<a class="headerlink" href="#pkce_1" title="Permanent link">&para;</a></h3>
 <h4 id="ascii_1">ASCII 流程图<a class="headerlink" href="#ascii_1" title="Permanent link">&para;</a></h4>
@@ -11555,7 +11554,7 @@
         +----------------+                       +------------------+
 </code></pre></div>
 <h4 id="mermaid_1">Mermaid 流程图<a class="headerlink" href="#mermaid_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Client as 客户端
     participant User as 用户
     participant Auth as 授权服务器
@@ -11571,8 +11570,7 @@
     Auth-&gt;&gt;Client: 返回 Authorization Code
     Client-&gt;&gt;Auth: (E) Token 请求&lt;br/&gt;(code + code_verifier)
     Auth-&gt;&gt;Auth: 验证 code_challenge = SHA256(code_verifier)
-    Auth-&gt;&gt;Client: (F) 返回 Access Token &amp; ID Token
-</code></pre></div>
+    Auth-&gt;&gt;Client: (F) 返回 Access Token &amp; ID Token</code></pre>
 <p><strong>说明：</strong></p>
 <ul>
 <li><strong><code>code_verifier</code></strong>

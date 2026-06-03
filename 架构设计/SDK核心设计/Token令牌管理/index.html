@@ -10961,30 +10961,30 @@
 └───────────────────┘
 </code></pre></div>
 <h4 id="mermaid">Mermaid 架构图<a class="headerlink" href="#mermaid" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart TB
-    subgraph OP[&quot;授权服务器 (Authorization Server)&quot;]
-        AuthEndpoint[&quot;授权端点&lt;br/&gt;/authorize&quot;]
-        TokenEndpoint[&quot;令牌端点&lt;br/&gt;/token&quot;]
-        IntrospectionEndpoint[&quot;内省端点&lt;br/&gt;/introspect&quot;]
-        RevocationEndpoint[&quot;撤销端点&lt;br/&gt;/revoke&quot;]
-        TokenStore[&quot;令牌存储&lt;br/&gt;DB / Redis&quot;]
+<pre class="mermaid"><code>flowchart TB
+    subgraph OP["授权服务器 (Authorization Server)"]
+        AuthEndpoint["授权端点&lt;br/&gt;/authorize"]
+        TokenEndpoint["令牌端点&lt;br/&gt;/token"]
+        IntrospectionEndpoint["内省端点&lt;br/&gt;/introspect"]
+        RevocationEndpoint["撤销端点&lt;br/&gt;/revoke"]
+        TokenStore["令牌存储&lt;br/&gt;DB / Redis"]
     end
 
-    subgraph BFF[&quot;BFF (Web前端场景)&quot;]
-        BFFService[&quot;BFF 服务&quot;]
-        Cookie[&quot;HttpOnly Cookie&lt;br/&gt;refresh_token&quot;]
+    subgraph BFF["BFF (Web前端场景)"]
+        BFFService["BFF 服务"]
+        Cookie["HttpOnly Cookie&lt;br/&gt;refresh_token"]
     end
 
-    subgraph Device[&quot;设备端 (IoT场景)&quot;]
-        DeviceApp[&quot;设备应用&quot;]
-        LocalStorage[&quot;本地加密存储&lt;br/&gt;access_token&lt;br/&gt;refresh_token&quot;]
+    subgraph Device["设备端 (IoT场景)"]
+        DeviceApp["设备应用"]
+        LocalStorage["本地加密存储&lt;br/&gt;access_token&lt;br/&gt;refresh_token"]
     end
 
-    subgraph Resource[&quot;资源服务器&quot;]
-        API[&quot;API 服务&quot;]
+    subgraph Resource["资源服务器"]
+        API["API 服务"]
     end
 
-    Browser[(&quot;浏览器/SPA&quot;)] --&gt;|OIDC PKCE| BFFService
+    Browser[("浏览器/SPA")] --&gt;|OIDC PKCE| BFFService
     BFFService --&gt;|管理refresh_token| TokenEndpoint
     BFFService --&gt;|HttpOnly Cookie| Cookie
     Cookie --&gt;|读取| BFFService
@@ -11000,8 +11000,7 @@
 
     RevocationEndpoint --&gt;|撤销token| TokenStore
     Browser --&gt;|登出| BFFService
-    DeviceApp --&gt;|远程撤销| RevocationEndpoint
-</code></pre></div>
+    DeviceApp --&gt;|远程撤销| RevocationEndpoint</code></pre>
 <h4 id="311oidc-pkce-token-bffbackend-for-frontend">3.1.1.<code>OIDC PKCE</code> 场景：刷新 token 应放在 <strong>后端 BFF（Backend For Frontend）</strong><a class="headerlink" href="#311oidc-pkce-token-bffbackend-for-frontend" title="Permanent link">&para;</a></h4>
 <h5 id="_2">为什么不能放在前端？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
 <ul>
@@ -11242,7 +11241,7 @@
 </tbody>
 </table>
 <h4 id="mermaid_1">重试策略（Mermaid 流程图）<a class="headerlink" href="#mermaid_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A[发起 API 请求] --&gt; B{响应状态}
     B --&gt;|2xx| C[成功，返回数据]
     B --&gt;|401| D{检查 error/error_description}
@@ -11262,10 +11261,9 @@
     E --&gt;|是| M[等待后重试&lt;br/&gt;指数退避]
     E --&gt;|否| N[终止，返回错误]
 
-    M --&gt; A
-</code></pre></div>
+    M --&gt; A</code></pre>
 <h4 id="mermaid_2">设备端重试逻辑（Mermaid 流程图）<a class="headerlink" href="#mermaid_2" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Device as 设备应用
     participant BFF as BFF/授权服务器
     participant Auth as 授权服务器
@@ -11287,8 +11285,7 @@
     else 网络错误
         Device-&gt;&gt;Device: 指数退避等待
         Device-&gt;&gt;Device: 重试刷新请求
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="46">4.6 监控与审计<a class="headerlink" href="#46" title="Permanent link">&para;</a></h3>
 <h4 id="_9">令牌生命周期事件日志<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>

@@ -11302,7 +11302,7 @@
 </li>
 </ol>
 <h3 id="2">2.流程设计<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     title 基于 JWT 的 SSO 单点登录流程
     participant 用户
     participant SSO 服务
@@ -11319,7 +11319,7 @@
     子系统 B -&gt;&gt; SSO 服务: 8. 验证 JWT Token (可选)
     SSO 服务 --&gt;&gt; 子系统 B: 9. 验证通过 (如果验证)
     子系统 B --&gt;&gt; 用户: 10. 返回资源
-</code></pre></div>
+</code></pre>
 <h4 id="1jwt"><strong>1.JWT 内容设计</strong><a class="headerlink" href="#1jwt" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Header：</li>
@@ -11403,7 +11403,7 @@
 <li>前端监听用户的登录状态（如轮询、长连接），当发现 Token 已失效时，自动重定向到登录页。</li>
 </ol>
 <h4 id="4"><strong>4.优化时序图</strong><a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     title 优化的 JWT SSO 登录流程
     participant 用户
     participant SSO 服务
@@ -11417,8 +11417,8 @@
     子系统 A --&gt;&gt; 用户: 6. 返回资源
     用户 -&gt;&gt; SSO 服务: 7. Access Token 即将过期，使用 Refresh Token 请求新 Token
     SSO 服务 --&gt;&gt; 用户: 8. 返回新 Access Token 和 Refresh Token
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+</code></pre>
+<pre class="mermaid"><code>sequenceDiagram
     title 优化的 JWT SSO 注销流程
     participant 用户
     participant SSO 服务
@@ -11433,7 +11433,7 @@
     子系统 A --&gt;&gt; SSO 服务: 6. 确认会话已清理
     子系统 B --&gt;&gt; SSO 服务: 7. 确认会话已清理
     SSO 服务 --&gt;&gt; 用户: 8. 返回注销完成
-</code></pre></div>
+</code></pre>
 <h4 id="5_1">5.<strong>最佳实践</strong><a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h4>
 <p><strong>1. Access Token 与 Refresh Token 双 Token</strong>:</p>
 <ul>
@@ -12747,7 +12747,7 @@ openssl<span class="w"> </span>ecparam<span class="w"> </span>-name<span class="
 <h4 id="33">3.3.微服务场景<a class="headerlink" href="#33" title="Permanent link">&para;</a></h4>
 <p>在<strong>微服务、分布式API和单点登录（SSO）</strong>场景下，<strong>ECDSA算法不仅完全适用，而且通常是比RSA（RS256）更优的选择</strong>。而关于公钥：<strong>前端只需要传入Token，绝对不应该也不需要传入或处理公钥</strong>。公钥仅由后端服务持有和使用。</p>
 <p>为了让这个流程一目了然，下图清晰地展示了Token签发与验证过程中公钥与私钥的角色和流向：</p>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A[认证服务器&lt;br&gt;Auth Server] --&gt;|1. 使用私钥签名| B[JWT Token]
     B --&gt;|2. 携带Token| C[前端应用&lt;br&gt;Frontend]
     C --&gt;|3. 传输Token（不含公钥）| D[资源服务器&lt;br&gt;Resource Server]
@@ -12763,8 +12763,7 @@ openssl<span class="w"> </span>ecparam<span class="w"> </span>-name<span class="
     D --&gt;|4. 使用公钥验证签名| B
     D --&gt;|5. 解码并验证声明| H{Token有效？}
     H --&gt;|是| I[授予访问权限]
-    H --&gt;|否| J[返回401错误]
-</code></pre></div>
+    H --&gt;|否| J[返回401错误]</code></pre>
 <h5 id="ecdsa">🔐 为什么ECDSA非常适合这些场景？<a class="headerlink" href="#ecdsa" title="Permanent link">&para;</a></h5>
 <p>相对于RSA，ECDSA有以下优势，非常适合分布式架构：</p>
 <ul>
@@ -12846,7 +12845,7 @@ openssl<span class="w"> </span>ecparam<span class="w"> </span>-name<span class="
 <h4 id="34">3.4.分层架构<a class="headerlink" href="#34" title="Permanent link">&para;</a></h4>
 <p>分层令牌架构（ES256签Refresh Token + HS256签Access Token）<strong>如何在享受HS256极致性能的同时，解决它在分布式环境中的核心痛点——密钥的安全同步与一致性问题？</strong></p>
 <p>这是一个<strong>架构决策问题</strong>。下图清晰地展示了两种主流的解决路径及其决策点：</p>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A[场景: 微服务需验证HS256 Token] --&gt; B{能否构建安全的&lt;br&gt;密钥分发机制？}
 
     B --&gt;|能，追求极致性能| C[路径一: 坚持HS256&lt;br&gt;构建密钥分发中心]
@@ -12859,8 +12858,7 @@ openssl<span class="w"> </span>ecparam<span class="w"> </span>-name<span class="
     D --&gt; D1[优点: 天然规避分发问题&lt;br&gt;公钥可公开，部署简单]
     D --&gt; D2[代价: 验证性能约为HS256的1/10]
 
-    C4 &amp; D --&gt; E[验证成功， 服务继续]
-</code></pre></div>
+    C4 &amp; D --&gt; E[验证成功， 服务继续]</code></pre>
 <h5 id="hs256">🔧 路径一：坚持HS256，构建密钥分发机制<a class="headerlink" href="#hs256" title="Permanent link">&para;</a></h5>
 <p>如果您选择坚持HS256以获得极致性能，必须建立一个中心化且安全的密钥分发系统。以下是几种常见的实施方案：</p>
 <table>
@@ -12958,7 +12956,7 @@ openssl<span class="w"> </span>ecparam<span class="w"> </span>-name<span class="
 <p>为了构建安全、合规且高可用的<strong>密钥管理服务</strong>（KMS），需围绕<strong>密钥全生命周期</strong>搭建技术架构，并结合行业标准与业务场景实现精细化管控。</p>
 <p>密钥管理的安全基石是<strong>硬件级隔离</strong>与<strong>软件级管控</strong>的结合，推荐采用 “根密钥 - <strong>HSM 托管</strong> + 业务密钥 - <strong>KMS 调度</strong>” 的分层架构.</p>
 <p>最佳方案遵循 <strong>“分层防御、最小权限、密钥与数据分离”</strong> 原则。下图展示了一个典型的企业级KMS分层架构：</p>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     subgraph A[硬件安全层 HSM]
         A1[根密钥 Root Key] --&gt; A2[密钥加密密钥 KEK]
     end
@@ -12977,8 +12975,7 @@ openssl<span class="w"> </span>ecparam<span class="w"> </span>-name<span class="
 
     B1 -.-&gt;|存储| D[(加密的DEK存储)]
 
-    D --&gt;|密文| B2
-</code></pre></div>
+    D --&gt;|密文| B2</code></pre>
 <h3 id="_15">🏗️ 分层架构与核心组件<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <h4 id="1_2"><strong>1. 硬件安全层（信任根）</strong><a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h4>
 <ul>

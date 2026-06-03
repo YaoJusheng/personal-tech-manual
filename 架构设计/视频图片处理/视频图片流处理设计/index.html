@@ -11318,7 +11318,7 @@
 <li>分布式处理：Celery + Redis/RabbitMQ</li>
 </ul>
 <h3 id="15">1.5.架构设计模式<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[客户端] --&gt;|RTSP/WebSocket| B(接入层)
     B --&gt; C{负载均衡}
     C --&gt; D[处理节点1]
@@ -11328,8 +11328,7 @@
     F --&gt; G[(Redis流数据缓存)]
     G --&gt; H[对象存储/MinIO]
     H --&gt; I[AI推理服务]
-    I --&gt; J[监控系统]
-</code></pre></div>
+    I --&gt; J[监控系统]</code></pre>
 <h2 id="_3">二、实现方案与示例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <h3 id="21http-chunked-encoding">2.1.<strong>HTTP Chunked Encoding</strong><a class="headerlink" href="#21http-chunked-encoding" title="Permanent link">&para;</a></h3>
 <h4 id="1flask-opencv">1.Flask + OpenCV<a class="headerlink" href="#1flask-opencv" title="Permanent link">&para;</a></h4>
@@ -11667,7 +11666,7 @@
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Client
     participant FastAPI/Flask
     participant aiortc
@@ -11676,8 +11675,7 @@
     Client-&gt;&gt;FastAPI/Flask: 1. WebSocket连接
     FastAPI/Flask-&gt;&gt;Client: 2. 交换SDP信令
     aiortc-&gt;&gt;MediaServer: 3. 建立媒体通道
-    MediaServer-&gt;&gt;Client: 4. 传输视频流
-</code></pre></div>
+    MediaServer-&gt;&gt;Client: 4. 传输视频流</code></pre>
 <h5 id="1flask-webrtc">1.Flask + WebRTC 实现方案<a class="headerlink" href="#1flask-webrtc" title="Permanent link">&para;</a></h5>
 <h6 id="11_1">1.1.设计细节<a class="headerlink" href="#11_1" title="Permanent link">&para;</a></h6>
 <ol>
@@ -12198,27 +12196,25 @@
 <ul>
 <li>单进程方案</li>
 </ul>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[前端] --&gt;|WebRTC| B[视频流传输]
     A --&gt;|WebSocket| C[控制信令]
     B --&gt; D[环形帧缓存]
     C --&gt; E[帧索引管理]
     D --&gt; F[异步持久化]
     E --&gt; D
-    F --&gt; G[文件存储]
-</code></pre></div>
+    F --&gt; G[文件存储]</code></pre>
 <ul>
 <li>多进程方案</li>
 </ul>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[前端] --&gt;|WebRTC| B[实时视频流]
     A --&gt;|WebSocket| C[控制信令]
     B --&gt; D[智能帧缓存]
     C --&gt; D
     D --&gt;|零拷贝| E[共享内存池]
     E --&gt; F[多进程同步]
-    F --&gt;|原子操作| D
-</code></pre></div>
+    F --&gt;|原子操作| D</code></pre>
 <h4 id="2_5">2.缓存实现<a class="headerlink" href="#2_5" title="Permanent link">&para;</a></h4>
 <h5 id="21_1">2.1.环形帧缓存+二分查找<a class="headerlink" href="#21_1" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
@@ -12546,12 +12542,11 @@
 <p><strong>零拷贝传输优化</strong>：</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     客户端-&gt;&gt;服务端: 请求帧(index)
     服务端-&gt;&gt;客户端: 返回shm_name+元数据
     客户端-&gt;&gt;共享内存: 直接读取数据
-    共享内存--&gt;&gt;客户端: 返回帧数据
-</code></pre></div>
+    共享内存--&gt;&gt;客户端: 返回帧数据</code></pre>
 <ol>
 <li>
 <p><strong>数据一致性保障</strong>：</p>

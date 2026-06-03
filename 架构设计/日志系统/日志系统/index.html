@@ -11977,13 +11977,12 @@
 <p>总体而言，ELK Stack 和 Graylog 在日志管理和分析领域都有着强大的功能。选择其中一个可能取决于你的特定需求、团队的技术偏好以及对特定功能的偏好。 ELK Stack 的插件生态系统和 Beats 生态系统提供了更多的可扩展性，而 Graylog 的用户界面和企业支持使其在易用性和企业级支持方面更具优势。</p>
 <h3 id="24">2.4.链路追踪<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
 <h4 id="241">2.4.1.普通函数追踪<a class="headerlink" href="#241" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>erDiagram
-    Trace ||--o{ Sys : &quot;开启追踪&quot;
-    Trace ||--o{ TraceFunc : &quot;定义追踪函数&quot;
-    TraceFunc ||--o{ Sys : &quot;将追踪函数绑定到sys.settrace()&quot;
-    Sys ||--o{ Code : &quot;执行需要追踪的代码&quot;
-    Trace ||--o{ Sys : &quot;关闭追踪&quot;
-</code></pre></div>
+<pre class="mermaid"><code>erDiagram
+    Trace ||--o{ Sys : "开启追踪"
+    Trace ||--o{ TraceFunc : "定义追踪函数"
+    TraceFunc ||--o{ Sys : "将追踪函数绑定到sys.settrace()"
+    Sys ||--o{ Code : "执行需要追踪的代码"
+    Trace ||--o{ Sys : "关闭追踪"</code></pre>
 <h4 id="242">2.4.2.单体服务链路追踪<a class="headerlink" href="#242" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">uvicorn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
@@ -12152,8 +12151,8 @@
 <ul>
 <li>架构图</li>
 </ul>
-<div class="highlight"><pre><span></span><code>graph TD
-    subgraph &quot;用户&quot;
+<pre class="mermaid"><code>graph TD
+    subgraph "用户"
         User[用户请求]
     end
 
@@ -12162,19 +12161,18 @@
     Gateway --&gt; App2[应用服务2]
     App1 --&gt; App2[gRPC请求]
 
-    subgraph &quot;链路追踪和日志系统&quot;
+    subgraph "链路追踪和日志系统"
         Gateway --&gt; Tracer[Jaeger]
         App1 --&gt; Tracer
         App2 --&gt; Tracer
         Gateway --&gt; Logger[Graylog/ELK]
         App1 --&gt; Logger
         App2 --&gt; Logger
-    end
-</code></pre></div>
+    end</code></pre>
 <ul>
 <li>时序图</li>
 </ul>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant API_Gateway
     participant App1
@@ -12194,8 +12192,7 @@
 
     API_Gateway-&gt;&gt;ELK: 推送日志 (包含Trace ID)
     App1-&gt;&gt;ELK: 推送日志 (包含Trace ID)
-    App2-&gt;&gt;ELK: 推送日志 (包含Trace ID)
-</code></pre></div>
+    App2-&gt;&gt;ELK: 推送日志 (包含Trace ID)</code></pre>
 <p><strong>安装依赖</strong>:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>opentelemetry-api<span class="w"> </span>opentelemetry-sdk<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>opentelemetry-exporter-jaeger<span class="w"> </span><span class="se">\</span>

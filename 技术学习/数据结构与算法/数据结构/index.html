@@ -11203,7 +11203,7 @@
 <p>队头（Front）：允许删除的一端，又称队首。
 队尾（Rear）：允许插入的一端。
 空队列：不包含任何元素的空表。</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     subgraph 普通队列 FIFO
         front((Front)) --- n1[data] --- n2[data] --- n3[data] --- rear((Rear))
     end
@@ -11213,30 +11213,27 @@
         E1[enqueue x: 在队尾追加 x] --&gt; E2[rear 向右移动]
         E2 --&gt; D1[dequeue: 从队头删除并返回]
         D1 --&gt; D2[front 向右移动]
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="12">1.2.优先队列<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
 <p>优先队列：普通的队列具有先进先出的特性，元素追加在队尾，如果删除的话，从队头删除。而在优先队列中，队列中的数据被赋予了优先级。当访问元素时，优先级最高的会先被删除。所以说优先队列是最高级数据先出。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 基于堆的优先队列
         direction TB
         Max[最大堆] --&gt; Top[取堆顶 = 最高优先级]
         Ins[插入 key, priority] --&gt; SiftUp[上浮维持堆序]
         Del[删除堆顶] --&gt; SwapDel[与末尾交换并删除] --&gt; SiftDown[下沉维持堆序]
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="13deque">1.3.双端队列(Deque)<a class="headerlink" href="#13deque" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     left((队头)) --- n1[data] --- n2[data] --- n3[data] --- right((队尾))
     subgraph 操作
         direction TB
         L[push_front] --&gt; R[push_back] --&gt; PL[pop_front] --&gt; PR[pop_back]
-    end
-</code></pre></div>
+    end</code></pre>
 <p>单调队列可用于滑动窗口最值。</p>
 <h2 id="2stack">2.栈(Stack)<a class="headerlink" href="#2stack" title="Permanent link">&para;</a></h2>
 <p>只允许在一端进行插入或删除的线性表。首先栈是一种线性表，但限定这种线性表只能在某一端进行插入和删除操作。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 栈结构
         direction TB
         top((Top))
@@ -11254,8 +11251,7 @@
         A3 --&gt; A4[Top 下移至下一个元素]
     end
 
-    classDef emp fill:#f6f6f6,stroke:#333,stroke-width:1px
-</code></pre></div>
+    classDef emp fill:#f6f6f6,stroke:#333,stroke-width:1px</code></pre>
 <p>栈顶（Top）：线性表允许进行插入删除的那一端。
 栈底（Bottom）：固定的，不允许进行插入和删除的另一端。
 空栈：不含任何元素的空表。
@@ -11263,7 +11259,7 @@
 <h2 id="3linkedlist">3.链表(LinkedList)<a class="headerlink" href="#3linkedlist" title="Permanent link">&para;</a></h2>
 <h3 id="31">3.1.单向链表<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
 <p><code>单链表</code>是一种最基础的链表结构，它由一个个链表节点构成，每个链表的节点分为两个部分<code>data</code>和<code>link</code>。其中<code>data</code>保存着用户数据，而<code>link</code>保存这一个指针，用来指向该链表中的下一个节点。</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     head((Head)) --&gt; n1[data·next] --&gt; n2[data·next] --&gt; n3[data·next] --&gt; null((NULL))
 
     subgraph 单链表操作
@@ -11271,8 +11267,7 @@
         insH[头插: new.next = head; head = new] --&gt; delH[头删: head = head.next]
         delH --&gt; tailIns[尾插: tail.next = new; tail = new]
         tailIns --&gt; find[查找: 从 head 顺序遍历 next]
-    end
-</code></pre></div>
+    end</code></pre>
 <p>链表的插入操作可以分为三种情况：<code>从头部插入</code>，<code>从尾部插入</code>，<code>从中间插入</code>。</p>
 <p><code>单链表</code>插入操作的时间复杂度是与插入位置有关：</p>
 <ol>
@@ -11284,7 +11279,7 @@
 链表的查询操作普遍情况是比较耗时的，他的时间复杂度是一般是O(N)级别的，N代表链表的长度。最好的情况下就是找链表的头结点和尾结点，那么这种只需要一次查找就可以，时间复杂度是O(1)级别的。</p>
 <h3 id="32">3.2.双向链表<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
 <p>双向链表中每个节点不仅有数据、有指向下一个节点的指针，还维护了一个指向前一个节点的指针，这样就可以很方便的访问一个节点的前驱节点和后继节点。</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     null1((NULL)) &lt;-- prev --&gt; d1[prev·data·next] &lt;-- prev --&gt; d2[prev·data·next] &lt;-- prev --&gt; d3[prev·data·next] &lt;-- prev --&gt; null2((NULL))
     null1 --&gt; d1 --&gt; d2 --&gt; d3 --&gt; null2
 
@@ -11292,11 +11287,10 @@
         direction TB
         insMid[中间插入: new.prev = p; new.next = p.next; p.next.prev = new; p.next = new]
         delMid[中间删除: p.prev.next = p.next; p.next.prev = p.prev]
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="33">3.3.循环链表<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
 <p>除了双向链表，还有一种循环链表，他的尾结点不是指向NULL，而是一个指向头结点的指针，将整个链表形成一个环，他为我们解决通过链表中任何一个节点都可以找到链表中其他的任一节点这样一个问题。图中画了一个单向循环链表，那么还有双向循环链表。</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     h((Head)) --&gt; c1[data·next] --&gt; c2[data·next] --&gt; c3[data·next] --&gt; h
 
     subgraph 双向循环链表
@@ -11311,8 +11305,7 @@
         d2 --&gt; d3
         d3 --&gt; H
         classDef link stroke:#999;
-    end
-</code></pre></div>
+    end</code></pre>
 <h2 id="4skiplist">4.跳跃表(SkipList)<a class="headerlink" href="#4skiplist" title="Permanent link">&para;</a></h2>
 <p>前面我们提到的链表每一个节点都有一个指针，指向下一个节点，那么如果我们将他改一改，首先给他<strong>排个序</strong>，在给每相邻两个节点在加一个<strong>指针</strong>，让他指向<strong>下下一个节点</strong>，这样新添加的指针就又形成了一个新的链表，而这个新的链表上的节点只有<strong>原来的一半</strong>，那么当我们执行查询操作的时候就可以首先在这个新的链表上进行查找，如果没查到在返回原来的链表上查找。所遍历的节点数量也响应的少了。</p>
 <p>当链表足够长的时候，这种方式能让我们少走很多弯路，极大的提高了查找效率。</p>
@@ -11323,7 +11316,7 @@
 <li>随机选择一个层数</li>
 <li>修改前后指针</li>
 </ol>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph Level 3
         L3a((−∞)) --- L3b([10]) --- L3c([20]) --- L3d([40]) --- L3e((+∞))
     end
@@ -11348,14 +11341,13 @@
         S2 --&gt; S3[Step3: 下到最底层, 从 20 → 25]
         S3 --&gt; S4[Step4: 随机高度=2, 在 L1 和 L2 插入 22]
         S4 --&gt; S5[Step5: 更新相邻指针]
-    end
-</code></pre></div>
+    end</code></pre>
 <h2 id="5tree">5.树结构(Tree)<a class="headerlink" href="#5tree" title="Permanent link">&para;</a></h2>
 <p>树的概念来自我们生活中常见的树，生活中的树有根，所以数据结构中的树有根节点，生活中的树会从根上长出来很多枝杈，枝杈上长满了叶子或继续长枝杈，我们数据结构中的树也是一样，他也会从根节点长出很多枝杈，我们把他抽象出来，如果一个树上每个节点都只有两个枝杈，那就叫二叉树，如果有多个枝杈，那就叫多叉树。</p>
 <h3 id="51">5.1.二叉树<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
 <p>二叉树是树论中最简单的一种数据结构，一颗二叉树可以什么都没有，甚至可以没有根节点，这叫空二叉树，也可以只有一个根节点，像下图的第一种情况，也可以从根节点只长出一个左孩子节点，当然也可以从根节点只长出一个右孩子节点，那完整的是既有左孩子节点，也有右孩子节点，例如下图前四种情况，就对应刚才说的二叉树的几种基本节点。</p>
 <p>二叉树还有两种特殊的结构，一种叫做满二叉树，一种叫做完全二叉树，什么叫满二叉树呢，就是说这棵树的每一个节点（除去最底层的叶子节点）都有两个孩子节点，这种就叫做满二叉树，那完全二叉树又是怎么回事呢，他是满二叉树没有放满的情况下，从右向左失去了一部分节点的情况。</p>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[1] --&gt; B[2]
     A --&gt; C[3]
     B --&gt; D[4]
@@ -11363,10 +11355,9 @@
     C --&gt; F[6]
     C --&gt; G[7]
     D --&gt; H[8]
-    D --&gt; I[9]
-</code></pre></div>
+    D --&gt; I[9]</code></pre>
 <p><strong>遍历过程：</strong></p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 二叉树
         A[1]
         B[2]
@@ -11391,11 +11382,10 @@
 
     subgraph 后序遍历
         O1[左子树完成: 4,5] --&gt; O2[访问: 2] --&gt; O3[左子树完成: 6,7] --&gt; O4[访问: 3] --&gt; O5[访问: 1]
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="52">5.2.二叉搜索树<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
 <p>上面说的都是二叉树的概念，他显然是不满足我们说的能通过二分搜索来实现提高查询效率的，因此需要把他在做一点小的改变，那就是每次插入一个新的节点，都把他和根节点比较，如果小于根节点，就把他插入到根节点的左边，如果大于根节点就把他插入到根节点的右边，维护一个这样的特性。那么就构成了下面这样一颗特殊的二叉树：</p>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[8] --&gt; B[3]
     A --&gt; C[10]
     B --&gt; D[1]
@@ -11403,12 +11393,11 @@
     C --&gt; F[9]
     C --&gt; G[14]
     E --&gt; H[4]
-    E --&gt; I[7]
-</code></pre></div>
+    E --&gt; I[7]</code></pre>
 <h3 id="53avl">5.3.AVL树（平衡二叉树）<a class="headerlink" href="#53avl" title="Permanent link">&para;</a></h3>
 <p>通过上面的讨论我们知道二叉搜索树的查询时间复杂度是O(logN)，但是这是理想情况，他有一种极端情况，假设我们按照1、2、3、4、5这样的顺序来构建一颗二叉搜索树，那么第一次插入1，第二次插入2，发现比1大，于是插入到1的右边，接着插入3发现大于2，于是插入到2的右边，到最后就形成了下面这样的结果，这个时候，我们预想的二叉搜索树又退化成了链表这种结构，时间复杂度又变成了O(N)。那么我们接下来就需要想办法避免上述情况，让他在插入的时候尽量达到一个平衡的状态。</p>
 <p>AVL树本质上还是一颗二叉搜索树，但是他多了一个特性，那就是：左子树和右子树的高度差不能超过1，类似下图就是一颗AVL树。（AVL的名称由来：发明者G. M. Adelson-Velsky和E. M. Landis的名字缩写）。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     %% AVL 树平衡与旋转示意
     subgraph LL型[右旋]
         direction TB
@@ -11459,8 +11448,7 @@
         B6 --&gt; D6[20]
         B6 --&gt; H6[35]
         A6 --&gt; C6[70]
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="54">5.4.红黑树<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
 <p>特点：</p>
 <ol>
@@ -11472,7 +11460,7 @@
 </ol>
 <h4 id="5412-3">5.4.1.<code>2-3</code>树<a class="headerlink" href="#5412-3" title="Permanent link">&para;</a></h4>
 <p>要理解红黑树，那需要首先理解一种数据结构，2-3树。他是一种二叉树的扩展结构，二叉树一个节点只能放一个元素，但是2-3树一个节点可以放最多两个元素L（左）和R（右），并且两个元素可以有三个分支，L的左边可以挂载一颗树，这棵树上节点的数据都是小于L的，L和R中间还可以挂一颗树，这棵树上数据的值都是介于L和R之间的，R的右边可以挂一颗树，这棵树上节点的数据都是大于R的。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 节点结构
         N[[L·R]]
         N --&gt; Ls[＜ L]
@@ -11487,11 +11475,10 @@
         Split --&gt; Left[[5]]
         Split --&gt; Up[10]
         Split --&gt; Right[[12]]
-    end
-</code></pre></div>
+    end</code></pre>
 <h4 id="5422-3-4">5.4.2.<code>2-3-4</code>树<a class="headerlink" href="#5422-3-4" title="Permanent link">&para;</a></h4>
 <p>2-3-4树和2-3树是类似的，他的特性可以结合2-3树去理解.</p>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     %% 插入前：节点[8,10,11]（满节点）
     subgraph 插入前
         root[8, 10, 11] --&gt; left[5,7]
@@ -11510,11 +11497,10 @@
         right_child --&gt; right_13[13]
     end
 
-    分裂 --&gt; 分裂后
-</code></pre></div>
+    分裂 --&gt; 分裂后</code></pre>
 <h4 id="543">5.4.3.红黑树<a class="headerlink" href="#543" title="Permanent link">&para;</a></h4>
 <p>红黑树和2-3-4树是完全等价的，他就是通过2-3-4树演变过来的。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     %% 基本红黑树形态（示意）
     R1((10)) --&gt; R2((5))
     R1 --&gt; R3((15))
@@ -11530,8 +11516,7 @@
         direction TB
         S1[插入节点默认为红色] --&gt; S2[父为红且叔为红: 祖父下沉为红, 父叔变黑]
         S2 --&gt; S3[父为红叔为黑: 通过左/右旋 + 重新着色修复]
-    end
-</code></pre></div>
+    end</code></pre>
 <p><strong>红黑树的自平衡手段:</strong>
 红黑树平衡手段，相比来说没有AVL树那么复杂，据统计，每次插入一个新的节点到红黑树中，最多经过三次旋转就可以达到平衡。</p>
 <p><strong>红黑树的自平衡策略：</strong></p>
@@ -11541,7 +11526,7 @@
 <li>右旋转：红黑树的左旋发生在下面这种场景，首先需要左旋转来达到二叉搜索树的性质，在通过着色来满足特性4和特性5</li>
 </ul>
 <h4 id="_2">左旋转与右旋转<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     subgraph 左旋前
         A((X)) --&gt; B((Y))
         A --&gt; aL[Lx]
@@ -11568,13 +11553,12 @@
         D2 --&gt; C2((Y))
         C2 --&gt; dR2[Rx]
         C2 --&gt; cR2[Ry]
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="55trie">5.5.Trie树<a class="headerlink" href="#55trie" title="Permanent link">&para;</a></h3>
 <p><code>Trie树</code>，又叫<code>字典树</code>、<code>前缀树（Prefix Tree）</code>、<code>单词查找树</code> 或 <code>键树</code>，是一种多叉树结构。
 因为它的搜索快捷的特性被单词搜索系统使用，故又称单词查找树。
 它是一种树形结构的数据结构。之所以快速，是因为它用空间代替了速度。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     root((root))
     root --&gt; t[T]
     t --&gt; te[E]
@@ -11591,8 +11575,7 @@
     subgraph 操作
         direction TB
         I1[插入 word: 逐字符创建/复用节点, 最后标记终止] --&gt; Q1[查询 prefix: 沿路径匹配, 判断是否存在/是否为终止]
-    end
-</code></pre></div>
+    end</code></pre>
 <p><strong><code>Trie树</code>有三个基本性质</strong>：</p>
 <ul>
 <li>根节点不包含字符，除根节点外每一个节点都只包含一个字符</li>
@@ -11616,47 +11599,44 @@
 <li>缺点：空间消耗大。</li>
 </ul>
 <h3 id="56b-b">5.6.B-树与B+树<a class="headerlink" href="#56b-b" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph B-Tree[阶m示意]
-        Bn[&quot;K1&amp;#124;K2&amp;#124;K3&quot;]
+        Bn["K1&amp;#124;K2&amp;#124;K3"]
         Bn --&gt; Bc1[＜K1]
         Bn --&gt; Bc2[K1..K2]
         Bn --&gt; Bc3[K2..K3]
         Bn --&gt; Bc4[＞K3]
     end
     subgraph B+Tree
-        Bp[&quot;K1&amp;#124;K2&amp;#124;K3&quot;]
+        Bp["K1&amp;#124;K2&amp;#124;K3"]
         Bp --&gt; L1((叶:...))
         Bp --&gt; L2((叶:...))
         Bp --&gt; L3((叶:...))
         L1 --- L2 --- L3
-    end
-</code></pre></div>
+    end</code></pre>
 <p>特点：B+树所有关键字都在叶子层，叶子间链表便于范围查询；广泛用于数据库/文件系统索引。</p>
 <h3 id="57segment-tree">5.7.线段树(Segment Tree)<a class="headerlink" href="#57segment-tree" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart TB
-    Arr[&quot;数组区间 [1..8]&quot;]
-    N1[&quot;1..8&quot;] --&gt; N2[&quot;1..4&quot;]
-    N1 --&gt; N3[&quot;5..8&quot;]
-    N2 --&gt; N4[&quot;1..2&quot;]
-    N2 --&gt; N5[&quot;3..4&quot;]
-    N3 --&gt; N6[&quot;5..6&quot;]
-    N3 --&gt; N7[&quot;7..8&quot;]
+<pre class="mermaid"><code>flowchart TB
+    Arr["数组区间 [1..8]"]
+    N1["1..8"] --&gt; N2["1..4"]
+    N1 --&gt; N3["5..8"]
+    N2 --&gt; N4["1..2"]
+    N2 --&gt; N5["3..4"]
+    N3 --&gt; N6["5..6"]
+    N3 --&gt; N7["7..8"]
 
     subgraph 操作
         Q[区间查询: 递归分裂覆盖区间] --&gt; U[区间更新: 懒标记 Lazy Propagation]
-    end
-</code></pre></div>
+    end</code></pre>
 <h3 id="58fenwick-bit">5.8.树状数组(Fenwick / BIT)<a class="headerlink" href="#58fenwick-bit" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     i1[(1)] --lowbit--&gt; i2[(2)] --lowbit--&gt; i4[(4)] --lowbit--&gt; i8[(8)]
     subgraph 操作
         UP[单点更新: i+=lowbit i] --&gt; SUM[前缀和: i-=lowbit i]
-    end
-</code></pre></div>
+    end</code></pre>
 <h2 id="_3"><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <h2 id="6heap">6.堆(Heap)<a class="headerlink" href="#6heap" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[100] --&gt; B[90]
     A --&gt; C[80]
     B --&gt; D[85]
@@ -11664,11 +11644,10 @@
     C --&gt; F[60]
     C --&gt; G[50]
     D --&gt; H[40]
-    D --&gt; I[30]
-</code></pre></div>
+    D --&gt; I[30]</code></pre>
 <p>堆就是用数组实现的二叉树，所以它没有使用父指针或者子指针。堆根据“堆属性”来排序，“堆属性”决定了树中节点的位置。</p>
 <p>堆分为两种：最大堆和最小堆，两者的差别在于节点的排序方式。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 最大堆示意
         HA[100] --&gt; HB[90]
         HA --&gt; HC[80]
@@ -11692,8 +11671,7 @@
         S1[插入: 元素放在末尾] --&gt; S2[上浮: 与父比较并交换直至堆有序]
         S2 --&gt; S3[取顶: 交换堆顶与末尾, 删除末尾]
         S3 --&gt; S4[下沉: 自顶向下比较并交换]
-    end
-</code></pre></div>
+    end</code></pre>
 <p><strong><code>堆</code>有两个重要的性质</strong>：</p>
 <ol>
 <li>首先是一颗完全二叉树</li>
@@ -11716,7 +11694,7 @@
 </ul>
 <h2 id="7graph">7.图(Graph)<a class="headerlink" href="#7graph" title="Permanent link">&para;</a></h2>
 <p>图由顶点与边构成，可有向/无向、带权/无权。</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     A((A)) --5--&gt; B((B))
     A --1--&gt; C((C))
     B --2--&gt; D((D))
@@ -11731,12 +11709,11 @@
         BFS4 --&gt; BFS5[访问 D]
 
         DFS1[DFS: 访问 A] --&gt; DFS2[递归到 B] --&gt; DFS3[递归到 D] --&gt; DFS4[回溯] --&gt; DFS5[访问 C]
-    end
-</code></pre></div>
+    end</code></pre>
 <p>常见存储：邻接矩阵、邻接表。最短路：Dijkstra、Bellman-Ford；最小生成树：Prim/Kruskal。</p>
 <h2 id="8union-find-dsu">8.并查集(Union-Find / DSU)<a class="headerlink" href="#8union-find-dsu" title="Permanent link">&para;</a></h2>
 <p>维护若干不相交集合，支持合并与查询。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 初始集合
         1((1))
         2((2))
@@ -11746,11 +11723,10 @@
     end
     subgraph 合并过程
         U1[Union 1,2: 将 2 的根指向 1] --&gt; U2[Union 3,4] --&gt; U3[Find 4: 路径压缩 4→3→root]
-    end
-</code></pre></div>
+    end</code></pre>
 <p>按秩合并（rank/size）与路径压缩将近似摊还到 O(α(n))。</p>
 <h2 id="9hash-mapset">9.哈希表(Hash Map/Set)<a class="headerlink" href="#9hash-mapset" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 开放定址
         H0[[桶0]]
         H1[[桶1]]
@@ -11762,51 +11738,47 @@
     end
     subgraph 拉链法
         B0[[桶]] --&gt; l1[data] --&gt; l2[data] --&gt; l3[data]
-    end
-</code></pre></div>
+    end</code></pre>
 <p>装载因子、再哈希、冲突解决策略对性能影响显著。</p>
 <h2 id="10bloom-filter">10.布隆过滤器(Bloom Filter)<a class="headerlink" href="#10bloom-filter" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     BITS[[位数组 m 位]]
     H1[哈希函数 h1] --&gt; BITS
     H2[哈希函数 h2] --&gt; BITS
     Hk[哈希函数 hk] --&gt; BITS
     Q[查询: 检查所有位置是否为1] --&gt; 结论{可能存在?}
     结论 --是--&gt; FP[存在或假阳性]
-    结论 --否--&gt; NE[一定不存在]
-</code></pre></div>
+    结论 --否--&gt; NE[一定不存在]</code></pre>
 <p>特点：空间高效，存在假阳性，无删除（或用计数布隆）。</p>
 <h2 id="11_1">11.缓存<a class="headerlink" href="#11_1" title="Permanent link">&para;</a></h2>
 <h3 id="111lru-least-recently-used">11.1.LRU 缓存(Least Recently Used)<a class="headerlink" href="#111lru-least-recently-used" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     subgraph LRU[双向链表 + 哈希]
         H{Hash} --&gt; N1[Head] --- K1[k1:v1] --- K2[k2:v2] --- N2[Tail]
         op1[Get k: 移到头部] --&gt; op2[Put k,v: 插入或更新到头部]
         op2 --&gt; evict[超容量: 删除尾部节点并从哈希移除]
-    end
-</code></pre></div>
+    end</code></pre>
 <p>时间复杂度：O(1) Get/Put。</p>
 <h3 id="112lfu-least-frequently-used">11.2.LFU 缓存(Least Frequently Used)<a class="headerlink" href="#112lfu-least-frequently-used" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     subgraph 频次桶
-        F1[[freq=1]] --- N11[&quot;k3:v3&quot;] --- N12[&quot;k4:v4&quot;]
-        F2[[freq=2]] --- N21[&quot;k1:v1&quot;]
-        F3[[freq=3]] --- N31[&quot;k2:v2&quot;]
+        F1[[freq=1]] --- N11["k3:v3"] --- N12["k4:v4"]
+        F2[[freq=2]] --- N21["k1:v1"]
+        F3[[freq=3]] --- N31["k2:v2"]
     end
-    H{&quot;Hash(k-&gt;节点)&quot;} --&gt; N11
+    H{"Hash(k-&gt;节点)"} --&gt; N11
     H --&gt; N21
     H --&gt; N31
 
     subgraph 操作
-        G[&quot;Get k: 节点从 freq=f 提升到 f+1 桶头部&quot;] --&gt; P[&quot;Put k,v: 不存在则放入 freq=1 桶头&quot;]
-        P --&gt; Evict[&quot;淘汰: 当满时从最低频桶的尾部删除&quot;]
-    end
-</code></pre></div>
+        G["Get k: 节点从 freq=f 提升到 f+1 桶头部"] --&gt; P["Put k,v: 不存在则放入 freq=1 桶头"]
+        P --&gt; Evict["淘汰: 当满时从最低频桶的尾部删除"]
+    end</code></pre>
 <p>时间复杂度：O(1) Get/Put，典型实现为“哈希 + 频次双向链表 + 每桶双向链表”。</p>
 <h2 id="12suffix-arraytree">12.后缀数组/后缀树(Suffix Array/Tree)<a class="headerlink" href="#12suffix-arraytree" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>flowchart TB
-    subgraph 文本[&quot;S = banana$&quot;]
-        T[&quot;b a n a n a $&quot;]
+<pre class="mermaid"><code>flowchart TB
+    subgraph 文本["S = banana$"]
+        T["b a n a n a $"]
     end
 
     subgraph 后缀数组 SA 构建[示意]
@@ -11824,24 +11796,22 @@
         E1 --&gt; Leaf1((i=1))
         E1 --&gt; Leaf3((i=3))
         E2 --&gt; Leaf0((i=0))
-    end
-</code></pre></div>
+    end</code></pre>
 <p>应用：快速子串查询、重复检测、最长重复子串、DNA 序列分析等。</p>
 <h2 id="13rope">13.Rope 字符串(树形拼接字符串)<a class="headerlink" href="#13rope" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph Rope Tree
-        R((Root)) --&gt; L1[[&quot;Hello &quot;]]
+        R((Root)) --&gt; L1[["Hello "]]
         R --&gt; R1
-        R1 --&gt; L2[[&quot;World&quot;]]
-        R1 --&gt; L3[[&quot;! This is a rope.&quot;]]
+        R1 --&gt; L2[["World"]]
+        R1 --&gt; L3[["! This is a rope."]]
     end
 
     subgraph 操作
         direction TB
         C[Concat: 连接两个 Rope 作为左右子树] --&gt; S[Split: 根据位置切分, 旋转/重平衡]
         I[Insert/Delete: 在叶子上分裂或合并片段] --&gt; Rebal[必要时重平衡]
-    end
-</code></pre></div>
+    end</code></pre>
 <p>特点：适合大文本的插入/删除，避免整体拷贝；常用于编辑器内核。</p>
 
 

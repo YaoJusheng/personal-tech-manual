@@ -10846,7 +10846,7 @@
 </tbody>
 </table>
 <h5 id="3_1">3 决策树<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A[开始选型] --&gt; B{数据量规模?}
     B --&gt;|&lt;100万| C{并发读写强度?}
     B --&gt;|&gt;100万| D{主要瓶颈?}
@@ -10861,8 +10861,7 @@
     D --&gt;|内存敏感| J[FreeCache&lt;br/&gt;零GC开销]
 
     I --&gt;|是| K[BigCache&lt;br/&gt;字节数组优化]
-    I --&gt;|否| L[FreeCache&lt;br/&gt;环形缓冲区]
-</code></pre></div>
+    I --&gt;|否| L[FreeCache&lt;br/&gt;环形缓冲区]</code></pre>
 <p><strong>关键设计决策:</strong></p>
 <table>
 <thead>

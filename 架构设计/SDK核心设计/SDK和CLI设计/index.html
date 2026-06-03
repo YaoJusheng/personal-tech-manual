@@ -12824,7 +12824,7 @@
 <h3 id="1-layered-architecture">1 分层架构（Layered Architecture）<a class="headerlink" href="#1-layered-architecture" title="Permanent link">&para;</a></h3>
 <p>分层架构是最经典、应用最广泛的SDK设计模式。它将SDK划分为三个逻辑层次，层与层之间通过明确的接口通信。</p>
 <p><strong>架构图示：</strong></p>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     subgraph 表现层
         API1[业务API: user login]
         API2[业务API: payment create]
@@ -12845,8 +12845,7 @@
     API2 --&gt; Logic2
     Logic1 --&gt; HTTP
     Logic2 --&gt; WS
-    HTTP --&gt; Cache
-</code></pre></div>
+    HTTP --&gt; Cache</code></pre>
 <p><strong>适用场景</strong>：大多数业务型SDK，如云服务客户端、支付SDK、IM SDK</p>
 <p><strong>设计要点</strong>：</p>
 <ul>
@@ -12857,7 +12856,7 @@
 <h3 id="2-pluginmicrokernel-architecture">2 插件式/微核心架构（Plugin/Microkernel Architecture）<a class="headerlink" href="#2-pluginmicrokernel-architecture" title="Permanent link">&para;</a></h3>
 <p>核心只提供基础的插件管理和生命周期控制，所有扩展能力通过插件动态加载实现。</p>
 <p><strong>架构图示：</strong></p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     Core[微核心&lt;br/&gt;插件注册表+事件总线]
 
     subgraph 插件生态
@@ -12875,8 +12874,7 @@
     Core --&gt; P2
     Core --&gt; P3
     P1 &lt;--&gt; P2
-    P2 &lt;--&gt; P3
-</code></pre></div>
+    P2 &lt;--&gt; P3</code></pre>
 <p><strong>适用场景</strong>：工具型SDK、监控Agent、日志收集器、可扩展框架</p>
 <p><strong>典型案例</strong>：Harness的Go SDK支持in-memory、redis-consumer、localhost三种运行模式，通过不同的“同步器”插件实现</p>
 <h3 id="3-facade-pattern">3 外观模式（Facade Pattern）<a class="headerlink" href="#3-facade-pattern" title="Permanent link">&para;</a></h3>
@@ -12896,7 +12894,7 @@
 <h3 id="4-shared-core-architecture">4 共享核心架构（Shared Core Architecture）<a class="headerlink" href="#4-shared-core-architecture" title="Permanent link">&para;</a></h3>
 <p>使用一种系统级语言（如C/C++、Rust）实现核心逻辑，通过FFI为不同语言生成外观层SDK，实现“一次编写，多端运行”。</p>
 <p><strong>架构图示：</strong></p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     Core[Rust核心引擎&lt;br/&gt;状态机/评估逻辑/加密协议]
 
     subgraph 语言绑定层
@@ -12921,8 +12919,7 @@
     PyBind --&gt; PySDK
     GoBind --&gt; GoSDK
     NsBind --&gt; TsSDK
-    JavaBind --&gt; JavaSDK
-</code></pre></div>
+    JavaBind --&gt; JavaSDK</code></pre>
 <p><strong>典型案例</strong>：Temporal工作流引擎用Rust核心驱动多语言SDK；Statsig将5个服务端SDK合并为一个Rust核心，获得最高5倍性能提升</p>
 <p><strong>技术挑战</strong>：</p>
 <ul>
@@ -12932,7 +12929,7 @@
 </ul>
 <h2 id="_3">三、通用架构设计<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <h3 id="1_1">1. 整体架构图<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>graph TB
+<pre class="mermaid"><code>graph TB
     A[开发者层] --&gt; B[SDK核心层]
     B --&gt; C[适配层]
     C --&gt; D[服务端API层]
@@ -12951,8 +12948,7 @@
 
     D --&gt; D1[REST API]
     D --&gt; D2[gRPC]
-    D --&gt; D3[WebSocket]
-</code></pre></div>
+    D --&gt; D3[WebSocket]</code></pre>
 <h3 id="2_1">2. 核心模块职责<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -12998,7 +12994,7 @@
 </table>
 <h3 id="3_1">3 核心流程设计<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
 <h4 id="31-sdk">3.1 SDK 调用通用流程图<a class="headerlink" href="#31-sdk" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[初始化SDK] --&gt; B[配置参数校验]
     B --&gt;|校验失败| C[抛出配置异常]
     B --&gt;|校验成功| D[构造请求参数]
@@ -13011,8 +13007,7 @@
     G --&gt;|请求成功| J
     J --&gt; K[响应数据校验]
     K --&gt;|校验失败| L[抛出数据解析异常]
-    K --&gt;|校验成功| M[返回业务数据]
-</code></pre></div>
+    K --&gt;|校验成功| M[返回业务数据]</code></pre>
 <h4 id="32">3.2 关键流程说明<a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
 <ol>
 <li><strong>初始化流程</strong>：加载配置 → 初始化客户端 → 验证鉴权信息 → 建立连接池（可选）</li>
@@ -13020,7 +13015,7 @@
 <li><strong>重试流程</strong>：判断重试条件 → 计算退避时间 → 执行重试 → 重试次数控制</li>
 </ol>
 <h3 id="4_1">4.实现方案<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>mindmap
+<pre class="mermaid"><code>mindmap
   root((SDK 实现方案))
     SDK 初始化
       加载配置文件
@@ -13042,8 +13037,7 @@
       验证签名
     错误处理与日志
       捕获异常
-      记录日志
-</code></pre></div>
+      记录日志</code></pre>
 <h3 id="5">5.令牌全生命周期管理<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
 <h4 id="51">5.1 令牌类型与职责<a class="headerlink" href="#51" title="Permanent link">&para;</a></h4>
 <table>
@@ -13099,7 +13093,7 @@
 <h3 id="6">6. 多认证方式分析<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
 <h4 id="61-oidc-vs-pkce">6.1. <code>OIDC</code> vs <code>PKCE</code><a class="headerlink" href="#61-oidc-vs-pkce" title="Permanent link">&para;</a></h4>
 <h5 id="1oidc">1.<code>OIDC</code>流程<a class="headerlink" href="#1oidc" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户（浏览器）
     participant Client as 客户端后端（机密客户端）
     participant AuthServer as 授权服务器（OIDC Provider）
@@ -13112,10 +13106,9 @@
     User-&gt;&gt;Client: 6. 转发授权码
     Client-&gt;&gt;AuthServer: 7. 令牌交换请求&lt;br&gt;（code, client_id, client_secret, redirect_uri）
     AuthServer-&gt;&gt;Client: 8. 返回 access_token, id_token, refresh_token
-    Client-&gt;&gt;User: 9. 登录成功，访问资源
-</code></pre></div>
+    Client-&gt;&gt;User: 9. 登录成功，访问资源</code></pre>
 <h5 id="2pkce">2.<code>PKCE</code>流程<a class="headerlink" href="#2pkce" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户（浏览器）
     participant Client as 公共客户端（SPA/移动应用/CLI）
     participant AuthServer as 授权服务器（OIDC Provider）
@@ -13129,8 +13122,7 @@
     Client-&gt;&gt;AuthServer: 6. 令牌交换请求&lt;br&gt;（code, client_id, redirect_uri, code_verifier）&lt;br&gt;⚠️ 无 client_secret
     AuthServer-&gt;&gt;Client: 7. 验证 code_verifier 与 code_challenge 匹配
     AuthServer-&gt;&gt;Client: 8. 返回 access_token, id_token, refresh_token
-    Client-&gt;&gt;User: 9. 登录成功，访问资源
-</code></pre></div>
+    Client-&gt;&gt;User: 9. 登录成功，访问资源</code></pre>
 <h5 id="3_2">3.区别<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h5>
 <table>
 <thead>
@@ -13795,7 +13787,7 @@
 <hr />
 <h4 id="66">6.6. 认证选择<a class="headerlink" href="#66" title="Permanent link">&para;</a></h4>
 <h5 id="1_5">1.决策树<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     Start[开始选择认证方式] --&gt; Q1{认证主体是谁？}
 
     Q1 --&gt;|用户| UserFlow[面向用户的认证]
@@ -13817,9 +13809,8 @@
     Q4 --&gt;|是，第三方应用访问用户数据| Rec5[✅ 必须: OAuth 2.0 授权码模式]
     Q4 --&gt;|否，服务间内部调用| Q5{是否需要防篡改/防重放？}
 
-    Q5 --&gt;|是| Rec6[&quot;✅ 推荐: Access Key + Secret Key (HMAC签名)&quot;]
-    Q5 --&gt;|否，简单内部调用| Rec7[&quot;✅ 推荐: API Key (严格限制权限+HTTPS)&quot;]
-</code></pre></div>
+    Q5 --&gt;|是| Rec6["✅ 推荐: Access Key + Secret Key (HMAC签名)"]
+    Q5 --&gt;|否，简单内部调用| Rec7["✅ 推荐: API Key (严格限制权限+HTTPS)"]</code></pre>
 <h5 id="2_4">2.选择策略汇总表<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h5>
 <table>
 <thead>
@@ -14612,31 +14603,31 @@
 </ul>
 <h4 id="32_1">3.2.架构图<a class="headerlink" href="#32_1" title="Permanent link">&para;</a></h4>
 <p>向后兼容的 <code>PKCE</code> 扩展设计:</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
-    subgraph &quot;客户端类型&quot;
+<pre class="mermaid"><code>flowchart TB
+    subgraph "客户端类型"
         C1[已有 Web 服务&lt;br/&gt;confidential client&lt;br/&gt;client_secret + 后端]
         C2[新 CLI 工具&lt;br/&gt;public client&lt;br/&gt;无 secret]
         C3[新 移动App&lt;br/&gt;public client&lt;br/&gt;无 secret]
         C4[新 SPA&lt;br/&gt;public client&lt;br/&gt;无 secret]
     end
 
-    subgraph &quot;IAM 授权服务器&quot;
+    subgraph "IAM 授权服务器"
         A1[/authorize 端点&lt;br/&gt;增强版/]
         A2[/token 端点&lt;br/&gt;增强版/]
         A3[(客户端注册表&lt;br/&gt;新增 client_type 字段)]
         A4[(授权会话表&lt;br/&gt;新增 pkce 字段)]
     end
 
-    subgraph &quot;OIDC 核心&quot;
+    subgraph "OIDC 核心"
         O1[认证服务]
         O2[令牌颁发]
         O3[用户会话管理]
     end
 
-    C1 --&gt;|&quot;▸ /authorize&lt;br/&gt;无 code_challenge&quot;| A1
-    C2 --&gt;|&quot;▸ /authorize&lt;br/&gt;+ code_challenge=S256&lt;br/&gt;+ code_challenge&quot;| A1
-    C3 --&gt;|&quot;▸ /authorize&lt;br/&gt;+ PKCE 参数&quot;| A1
-    C4 --&gt;|&quot;▸ /authorize&lt;br/&gt;+ PKCE 参数&quot;| A1
+    C1 --&gt;|"▸ /authorize&lt;br/&gt;无 code_challenge"| A1
+    C2 --&gt;|"▸ /authorize&lt;br/&gt;+ code_challenge=S256&lt;br/&gt;+ code_challenge"| A1
+    C3 --&gt;|"▸ /authorize&lt;br/&gt;+ PKCE 参数"| A1
+    C4 --&gt;|"▸ /authorize&lt;br/&gt;+ PKCE 参数"| A1
 
     A1 --&gt; A3
     A1 --&gt; A4
@@ -14651,11 +14642,10 @@
     style C1 fill:#90EE90
     style C2 fill:#FFD700
     style C3 fill:#FFD700
-    style C4 fill:#FFD700
-</code></pre></div>
+    style C4 fill:#FFD700</code></pre>
 <h4 id="33">3.3.时序图<a class="headerlink" href="#33" title="Permanent link">&para;</a></h4>
 <h5 id="1-oidc-pkce">1.<strong>交互细节</strong> (标准 OIDC PKCE)<a class="headerlink" href="#1-oidc-pkce" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     actor User  # 终端用户
     participant SDK_CLI  # SDK/CLI 程序
     participant IAM  # OIDC 认证服务器（IAM）
@@ -14733,8 +14723,7 @@
     API_Server-&gt;&gt;IAM: 22. 校验 access_token 有效性
         Note right of API_Server: 可选：调用 IAM 的 /oidc/introspect 接口
     IAM--&gt;&gt;API_Server: 23. 返回 Token 校验结果（有效/无效/权限）
-    API_Server--&gt;&gt;SDK_CLI: 24. 返回业务接口响应
-</code></pre></div>
+    API_Server--&gt;&gt;SDK_CLI: 24. 返回业务接口响应</code></pre>
 <p><strong>关键补充说明（适配 SDK/CLI 特性）</strong>：</p>
 <ol>
 <li><strong>PKCE 必加</strong>：CLI/SDK 属于公网客户端（无 Client Secret），PKCE 是 OIDC 标准要求的安全机制，防止授权码被劫持；</li>
@@ -14748,7 +14737,7 @@
 <div class="highlight"><pre><span></span><code>CLI 生成 PKCE → 拉起授权页 → 用户登录授权 → 浏览器回调/手动复制 code → CLI 换 Token → 验证 id_token → 完成认证
 </code></pre></div>
 <h5 id="2_10">2.向后兼容的两种模式细节<a class="headerlink" href="#2_10" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     autonumber
     participant C1 as 已有Web客户端&lt;br/&gt;(Confidential)
     participant C2 as 新CLI客户端&lt;br/&gt;(Public + PKCE)
@@ -14803,8 +14792,7 @@
         TS-&gt;&gt;TS: 计算 SHA256(code_verifier)&lt;br/&gt;对比存储的 challenge
         TS-&gt;&gt;TS: 匹配？是 → 继续&lt;br/&gt;否 → 返回 invalid_grant
         TS--&gt;&gt;C2: 返回 tokens&lt;br/&gt;{access_token, id_token, refresh_token}
-    end
-</code></pre></div>
+    end</code></pre>
 <h4 id="34_1">3.4.接口设计<a class="headerlink" href="#34_1" title="Permanent link">&para;</a></h4>
 <p>不影响原有的OIDC 支持，兼容开发中遵循下列原则：</p>
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────────┐
@@ -14888,7 +14876,7 @@
 </ul>
 <p>因此，<strong>用户验证页面必须存在</strong>，但它是 <strong>IAM 系统的一部分</strong>，由 IAM 管理员部署和维护。CLI 作为客户端，只需要正确调用 IAM 的接口并指引用户去那个页面即可。</p>
 <h4 id="42">4.2.<strong>流程图</strong><a class="headerlink" href="#42" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant CLI as CLI/设备
     participant IAM as IAM授权服务器
     participant Browser as 用户浏览器
@@ -14898,7 +14886,7 @@
     IAM--&gt;&gt;CLI: 返回 device_code, user_code, verification_uri
 
     Note over CLI: 2. 显示给用户
-    CLI--&gt;&gt;Browser: 输出提示&lt;br/&gt;&quot;请访问 http://example.com/device&lt;br/&gt;输入码: ABCD-1234&quot;
+    CLI--&gt;&gt;Browser: 输出提示&lt;br/&gt;"请访问 http://example.com/device&lt;br/&gt;输入码: ABCD-1234"
 
     Note over Browser: 3. 用户授权
     Browser-&gt;&gt;IAM: 访问 verification_uri
@@ -14912,8 +14900,7 @@
         else 用户已授权
             IAM--&gt;&gt;CLI: 返回 access_token / refresh_token
         end
-    end
-</code></pre></div>
+    end</code></pre>
 <h4 id="43">4.3.接口设计<a class="headerlink" href="#43" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -15344,7 +15331,7 @@
 </ul>
 <h4 id="51_1">5.1. 核心流程（先明确整体逻辑）<a class="headerlink" href="#51_1" title="Permanent link">&para;</a></h4>
 <p>二维码登录的<strong>本质</strong>是 “设备码 + 轮询授权状态”，完整流程如下：</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     actor       User
     participant CLI
     participant IAM
@@ -15382,8 +15369,7 @@
     end
 
     %% 6. CLI 登录完成
-    CLI-&gt;&gt;User: 登录成功
-</code></pre></div>
+    CLI-&gt;&gt;User: 登录成功</code></pre>
 <h4 id="52-iam">5.2. IAM 侧设计与实现<a class="headerlink" href="#52-iam" title="Permanent link">&para;</a></h4>
 <h5 id="1_12">1. 核心前置配置<a class="headerlink" href="#1_12" title="Permanent link">&para;</a></h5>
 <p>IAM 需先完成基础配置，支撑设备码流程：</p>
@@ -16907,7 +16893,7 @@
 </tbody>
 </table>
 <h4 id="42_1">4.2 决策树<a class="headerlink" href="#42_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Start{核心需求} --&gt; MultiLang{是否需要支持&lt;br&gt;多种语言?}
 
     MultiLang --&gt;|是| Complex{核心逻辑是否&lt;br&gt;复杂且稳定?}
@@ -16924,8 +16910,7 @@
     Perf --&gt;|高| GoPath
 
     GoPath --&gt; WASM{需要浏览器运行?}
-    WASM --&gt;|是| GoWASM[利用Go的WASM编译能力]
-</code></pre></div>
+    WASM --&gt;|是| GoWASM[利用Go的WASM编译能力]</code></pre>
 <h2 id="sdk_4">七、多语言通用SDK<a class="headerlink" href="#sdk_4" title="Permanent link">&para;</a></h2>
 <p>为了兼顾性能（Rust 的内存安全 / 高性能）、多语言兼容（Go/Python 等）、开发效率并存，考虑将架构改为 <strong>Core-in-Rust 模式</strong>。</p>
 <p>核心逻辑是：</p>
@@ -16940,9 +16925,9 @@
 <li><strong>扩展统一</strong>：新增认证方式 / 业务服务仅需修改 Rust 核心，多语言层无需同步变更。</li>
 </ol>
 <h3 id="1_14">1.📦 架构核心<a class="headerlink" href="#1_14" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     subgraph Rust [Rust 核心层]
-        A[Core Crate&lt;br&gt;认证与业务逻辑] --&gt; B[&quot;FFI 胶水层&lt;br/&gt;#[repr(C)] / extern C&quot;]
+        A[Core Crate&lt;br&gt;认证与业务逻辑] --&gt; B["FFI 胶水层&lt;br/&gt;#[repr(C)] / extern C"]
     end
 
     subgraph Distribution [构建与分发]
@@ -16958,8 +16943,7 @@
 
     A --&gt; B --&gt; C &amp; D
     C --&gt; E &amp; F
-    D --&gt; G
-</code></pre></div>
+    D --&gt; G</code></pre>
 <ol>
 <li><strong>Rust 核心层</strong>：包含你提到的<strong>认证核心</strong>（OIDC、Token、AK/SK 的完整实现）和<strong>业务能力</strong>（服务 A/B/C 的客户端逻辑）。此层只关注功能，不关心如何被外部调用。</li>
 <li><strong>FFI 胶水层</strong>：用 Rust 编写，将核心功能包装成 C 语言兼容的接口（<code>extern "C"</code> 函数）。C 是编程界的“通用语言”，几乎所有语言都能直接调用 C 库。</li>

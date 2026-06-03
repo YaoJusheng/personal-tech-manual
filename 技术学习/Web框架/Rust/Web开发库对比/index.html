@@ -17337,7 +17337,7 @@ sea-orm-cli<span class="w"> </span>generate<span class="w"> </span>entity<span c
 </tbody>
 </table>
 <p>🚀 如何选择</p>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A[开始选择邮件库] --&gt; B{邮件的主要用途是？}
     B --&gt;|正式发送，如通知、验证码| C[选择 mail-send&lt;br&gt;或 lettre]
     B --&gt;|仅在自动化测试中使用| D[选择 mailslurp]
@@ -17345,8 +17345,7 @@ sea-orm-cli<span class="w"> </span>generate<span class="w"> </span>entity<span c
 
     C --&gt; F{对DKIM签名有要求？}
     F --&gt;|是| G[推荐mail-send]
-    F --&gt;|否| H[两者皆可，根据偏好选择]
-</code></pre></div>
+    F --&gt;|否| H[两者皆可，根据偏好选择]</code></pre>
 <h4 id="41-lettre">4.1.使用 <code>lettre</code> 发送邮件<a class="headerlink" href="#41-lettre" title="Permanent link">&para;</a></h4>
 <h5 id="1-lettre">📌 场景 1：基础使用 —— Lettre 发送「纯文本中文邮件」（无乱码，最常用）<a class="headerlink" href="#1-lettre" title="Permanent link">&para;</a></h5>
 <blockquote>
@@ -18629,15 +18628,14 @@ curl<span class="w"> </span>http://127.0.0.1:8080/redis/health
 </code></pre></div>
 <h4 id="_66">🔍 选择策略与集成建议<a class="headerlink" href="#_66" title="Permanent link">&para;</a></h4>
 <p>你可以参照以下流程图，根据你的核心需求选择最合适的库：</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     A[开始选择缓存] --&gt; B{需多服务共享?}
     B --&gt;|是| C[选用 redis-rs&lt;br&gt;分布式缓存]
     B --&gt;|否| D{主要缓存什么?}
     D --&gt;|简单函数结果| E[选用 cached&lt;br&gt;声明式缓存]
     D --&gt;|复杂数据结构| F[选用 DashMap&lt;br&gt;高并发共享Map]
     D --&gt;|高频键值对| G[选用 moka&lt;br&gt;高性能进程内缓存]
-    D --&gt;|需特殊淘汰算法| H[选用 caches&lt;br&gt;如ARC, 2Q算法]
-</code></pre></div>
+    D --&gt;|需特殊淘汰算法| H[选用 caches&lt;br&gt;如ARC, 2Q算法]</code></pre>
 <p>在Web项目中集成缓存，还需注意：</p>
 <ul>
 <li><strong>线程安全与共享</strong>：在Salvo的处理器(<code>Handler</code>)中使用缓存，通常需要将其包裹在<code>Arc</code>中，以便在多个线程间安全共享。</li>

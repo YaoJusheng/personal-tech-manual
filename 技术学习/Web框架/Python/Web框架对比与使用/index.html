@@ -13217,7 +13217,7 @@ gunicorn<span class="w"> </span>-w<span class="w"> </span><span class="m">4</spa
 <h2 id="_3">四、用户与权限管理设计<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <h3 id="1_4">1.用户管理设计<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h3>
 <h4 id="11">1.1.用户组织架构<a class="headerlink" href="#11" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>graph TB
+<pre class="mermaid"><code>graph TB
     Org[用户组织 Organization] --&gt; MA[主账号 Master Account]
     Org --&gt; SA[子账号 Sub Accounts]
 
@@ -13240,34 +13240,32 @@ gunicorn<span class="w"> </span>-w<span class="w"> </span><span class="m">4</spa
     style Org fill:#e1f5fe
     style MA fill:#bbdefb
     style Admin fill:#ffecb3
-    style NormalUser fill:#f5f5f5
-</code></pre></div>
+    style NormalUser fill:#f5f5f5</code></pre>
 <h4 id="12er">1.2.ER关系图<a class="headerlink" href="#12er" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>erDiagram
-    Organization ||--o{ User : &quot;contains&quot;
-    Organization ||--o{ Role : &quot;contains&quot;
-    Organization ||--o{ Secret : &quot;contains&quot;
-    Organization ||--o{ Resource : &quot;contains&quot;
-    Organization ||--o{ TeamGroup : &quot;contains&quot;
+<pre class="mermaid"><code>erDiagram
+    Organization ||--o{ User : "contains"
+    Organization ||--o{ Role : "contains"
+    Organization ||--o{ Secret : "contains"
+    Organization ||--o{ Resource : "contains"
+    Organization ||--o{ TeamGroup : "contains"
 
-    User ||--o{ UserRole : &quot;has&quot;
-    Role ||--o{ UserRole : &quot;has&quot;
+    User ||--o{ UserRole : "has"
+    Role ||--o{ UserRole : "has"
 
-    TeamGroup ||--o{ GroupMembers : &quot;includes&quot;
-    User ||--o{ GroupMembers : &quot;member&quot;
+    TeamGroup ||--o{ GroupMembers : "includes"
+    User ||--o{ GroupMembers : "member"
 
-    TeamGroup ||--o{ GroupRole : &quot;grants&quot;
-    Role ||--o{ GroupRole : &quot;granted_to&quot;
+    TeamGroup ||--o{ GroupRole : "grants"
+    Role ||--o{ GroupRole : "granted_to"
 
-    Role ||--o{ RolePermission : &quot;has&quot;
-    Permissions ||--o{ RolePermission : &quot;bound&quot;
+    Role ||--o{ RolePermission : "has"
+    Permissions ||--o{ RolePermission : "bound"
 
-    Resource ||--o{ Permissions : &quot;has&quot;
-    Resource ||--o{ Resource : &quot;parent&quot;
+    Resource ||--o{ Permissions : "has"
+    Resource ||--o{ Resource : "parent"
 
-    Secret ||--o{ SecretPermission : &quot;has&quot;
-    Permissions ||--o{ SecretPermission : &quot;bound&quot;
-</code></pre></div>
+    Secret ||--o{ SecretPermission : "has"
+    Permissions ||--o{ SecretPermission : "bound"</code></pre>
 <h3 id="2_3">2.权限管理设计<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>ACL</li>
@@ -13276,7 +13274,7 @@ gunicorn<span class="w"> </span>-w<span class="w"> </span><span class="m">4</spa
 <li>PBAC</li>
 </ul>
 <h4 id="21">2.1.简易的角色管理<a class="headerlink" href="#21" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     A[主账号 Master Account] --&gt;|创建/修改/删除| B[角色 Role]
     C[管理员 Admin] --&gt;|创建/修改/删除| B
 
@@ -13287,8 +13285,7 @@ gunicorn<span class="w"> </span>-w<span class="w"> </span><span class="m">4</spa
 
     style A fill:#bbdefb
     style C fill:#ffecb3
-    style B fill:#c8e6c9
-</code></pre></div>
+    style B fill:#c8e6c9</code></pre>
 
 
 

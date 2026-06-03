@@ -12514,7 +12514,7 @@ etcdctl<span class="w"> </span>--endpoints<span class="o">=</span>http://localho
 <p>Consul 采用<strong>服务端 / 客户端（Server/Client）</strong> 集群架构，结合 gossip 协议和 Raft 算法实现高可用与一致性，整体架构分为<strong>控制平面</strong>和<strong>数据平面</strong>两层。</p>
 <h6 id="1_5">1. 集群节点角色<a class="headerlink" href="#1_5" title="Permanent link">&para;</a></h6>
 <p>Consul 集群包含两种核心节点类型，以及可选的<strong>Sidecar 代理</strong>（服务网格场景）：</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 数据中心A
         S1[Server节点（Leader）]
         S2[Server节点（Follower）]
@@ -12553,8 +12553,7 @@ etcdctl<span class="w"> </span>--endpoints<span class="o">=</span>http://localho
     S1 &lt;--&gt;|WAN Gossip| S4
     S4 &lt;--&gt;|Raft协议| S5
     S4 &lt;--&gt;|LAN Gossip| C4
-    C4 &lt;--&gt;|LAN Gossip| C5
-</code></pre></div>
+    C4 &lt;--&gt;|LAN Gossip| C5</code></pre>
 <p>（1）Server 节点</p>
 <ul>
 <li><strong>核心作用</strong>：存储集群状态、实现分布式一致性（Raft）、处理查询请求、管理跨数据中心通信。</li>
@@ -12632,7 +12631,7 @@ etcdctl<span class="w"> </span>--endpoints<span class="o">=</span>http://localho
 <p>Nacos 采用<strong>服务端 / 客户端</strong>架构，服务端支持单机 / 集群部署，客户端提供多语言 SDK（Java/Go/Python 等），整体架构分为<strong>接入层、核心层、存储层</strong>三层，同时通过插件化设计支持扩展能力。</p>
 <h6 id="1_6">1. 集群架构<a class="headerlink" href="#1_6" title="Permanent link">&para;</a></h6>
 <p>Nacos 服务端集群包含<strong>核心节点</strong>（Nacos Server）和<strong>存储组件</strong>（嵌入式 Derby / 外置 MySQL），客户端通过 SDK/HTTP API 与服务端交互：</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 客户端层
         C1[Go-zero 微服务]
         C2[Java 微服务]
@@ -12657,8 +12656,7 @@ etcdctl<span class="w"> </span>--endpoints<span class="o">=</span>http://localho
     N1 &lt;--&gt;|Raft 协议| N3
     N1 &lt;--&gt;|数据持久化| DB1
     N2 &lt;--&gt;|数据同步| DB1
-    N3 &lt;--&gt;|数据同步| DB1
-</code></pre></div>
+    N3 &lt;--&gt;|数据同步| DB1</code></pre>
 <p>（1）Nacos Server 节点角色</p>
 <ul>
 <li><strong>Leader</strong>：通过 Raft 选举产生的主节点，负责处理写请求（如配置发布、服务注册），同步数据到 Follower 节点。</li>

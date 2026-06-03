@@ -12551,7 +12551,7 @@ Client
 <li><strong>加密响应</strong>结果： 请求完成后，将响应结果通过<code>对称加密</code>得到base64密文，并返回给客户端</li>
 </ul>
 <h4 id="42">4.2.流程图<a class="headerlink" href="#42" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Client
     participant Server
     Client-&gt;&gt;Server: 请求获取公钥
@@ -12567,7 +12567,7 @@ Client
     Server-&gt;&gt;Server: 解密数据
     Server-&gt;&gt;Server: 使用哈希(或客户端公钥)验证签名
     Server--&gt;&gt;Client: 返回处理结果(对称加密后的base64字符串)
-</code></pre></div>
+</code></pre>
 <h4 id="43">4.3.测试<a class="headerlink" href="#43" title="Permanent link">&para;</a></h4>
 <ul>
 <li>客户端</li>
@@ -12683,7 +12683,7 @@ Client
 <li><strong>错误处理与日志</strong>：在通信或处理数据过程中，对异常情况进行捕获，并记录日志。</li>
 <li><strong>返回处理</strong>：处理服务端返回的响应，进行数据解密、验签等操作。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>graph TD;
+<pre class="mermaid"><code>graph TD;
     A[SDK 初始化] --&gt; B[加载配置文件/密钥];
     B --&gt; C[用户认证];
     C --&gt; D{认证成功?};
@@ -12696,8 +12696,8 @@ Client
     I -- 失败 --&gt; K[错误处理];
     J --&gt; L[返回结果];
     K --&gt; L;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>mindmap
+</code></pre>
+<pre class="mermaid"><code>mindmap
   root((SDK 实现方案))
     SDK 初始化
       加载配置文件
@@ -12720,7 +12720,7 @@ Client
     错误处理与日志
       捕获异常
       记录日志
-</code></pre></div>
+</code></pre>
 <h3 id="2-sdk">2. SDK方案<a class="headerlink" href="#2-sdk" title="Permanent link">&para;</a></h3>
 <h4 id="21_1">2.1.实现方案<a class="headerlink" href="#21_1" title="Permanent link">&para;</a></h4>
 <ol>
@@ -12731,7 +12731,7 @@ Client
 <li><strong>结果反馈</strong>：返回验证结果，若无效则提示用户更新或重新获取 License。</li>
 </ol>
 <h4 id="22-sdk">2.2.离线验证 SDK 流程图<a class="headerlink" href="#22-sdk" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>graph TD;
+<pre class="mermaid"><code>graph TD;
     A[加载本地 License 文件] --&gt; B[解析 License 数据];
     B --&gt; C[验证数字签名];
     C --&gt; D{签名验证通过?};
@@ -12743,9 +12743,9 @@ Client
     I --&gt; J{权限有效?};
     J -- 否 --&gt; K[返回无效权限错误];
     J -- 是 --&gt; L[返回验证成功];
-</code></pre></div>
+</code></pre>
 <h4 id="23_1">2.3.思维导图<a class="headerlink" href="#23_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>mindmap
+<pre class="mermaid"><code>mindmap
   root((License Client 离线验证))
     加载 License
       读取文件
@@ -12764,7 +12764,7 @@ Client
       签名验证失败
       License 过期
       权限无效
-</code></pre></div>
+</code></pre>
 <h3 id="3_2">3. 实现<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>参考:</p>
@@ -12913,7 +12913,7 @@ twine<span class="w"> </span>upload<span class="w"> </span>--repository-url<span
 <ul>
 <li><strong>流程图:</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code>graph TD;
+<pre class="mermaid"><code>graph TD;
     A[加载 License 文件] --&gt; B[解析 License 数据];
     B --&gt; C[验证数字签名];
     C --&gt; D{签名验证成功?};
@@ -12925,11 +12925,11 @@ twine<span class="w"> </span>upload<span class="w"> </span>--repository-url<span
     I --&gt; J{权限有效?};
     J -- 否 --&gt; K[返回无效权限错误];
     J -- 是 --&gt; L[返回验证成功];
-</code></pre></div>
+</code></pre>
 <ul>
 <li>思维导图:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mindmap
+<pre class="mermaid"><code>mindmap
   root((License 离线校验库))
     License 加载
       读取本地文件
@@ -12946,7 +12946,7 @@ twine<span class="w"> </span>upload<span class="w"> </span>--repository-url<span
       签名验证失败
       License 过期
       无效权限
-</code></pre></div>
+</code></pre>
 <h4 id="34_1">3.4.示例分析<a class="headerlink" href="#34_1" title="Permanent link">&para;</a></h4>
 <p><strong>假设</strong> License 文件中包含以下内容：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>

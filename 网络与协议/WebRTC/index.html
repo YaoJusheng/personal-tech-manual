@@ -11955,7 +11955,7 @@
 <p>如果服务器响应正常，说明Coturn配置成功。</p>
 <h3 id="42fastapiwebsocketwebrtc">4.2.FastApi+WebSocket+WebRTC<a class="headerlink" href="#42fastapiwebsocketwebrtc" title="Permanent link">&para;</a></h3>
 <p>websocket设计</p>
-<div class="highlight"><pre><span></span><code>classDiagram
+<pre class="mermaid"><code>classDiagram
     class WebSocketManager {
         +Dict namespaces
         +connect()
@@ -11976,8 +11976,7 @@
     }
 
     WebSocketManager --&gt; ConnectionPool
-    WebSocketController --&gt; WebSocketManager
-</code></pre></div>
+    WebSocketController --&gt; WebSocketManager</code></pre>
 <h3 id="43flaskwebrtc">4.3.Flask+WebRTC<a class="headerlink" href="#43flaskwebrtc" title="Permanent link">&para;</a></h3>
 
 

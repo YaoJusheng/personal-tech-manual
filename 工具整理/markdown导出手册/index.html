@@ -11334,6 +11334,16 @@ pip<span class="w"> </span>install<span class="w"> </span>mkdocs<span class="w">
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
 </code></pre></div>
 <p>配置参考：<a href="https://docs.readthedocs.com/platform/stable/intro/mkdocs.html">MkDocs</a></p>
+<p>渲染 Mermaid 图表: </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 参考: https://squidfunk.github.io/mkdocs-material/reference/diagrams/?h=mermaid#customization-docsjavascriptsmermaidmjs</span>
+<span class="nt">markdown_extensions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pymdownx.superfences</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># make exceptions to highlighting of code:</span>
+<span class="w">      </span><span class="nt">custom_fences</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mermaid</span>
+<span class="w">          </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mermaid</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="kt">!!python/name:pymdownx.superfences.fence_code_format</span>
+</code></pre></div>
 <ol>
 <li>启动与构建</li>
 </ol>

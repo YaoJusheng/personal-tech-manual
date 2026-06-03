@@ -10579,7 +10579,7 @@
 <hr />
 <h2 id="4">4. 架构与时序<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <h3 id="41-s3-multipart-presign">4.1 前端直传（S3 Multipart Presign）架构<a class="headerlink" href="#41-s3-multipart-presign" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
   A[Browser/App] -- Init(fileName,size,sha256) --&gt; B[Backend API]
   B -- CreateMultipartUpload --&gt; S[(Object Storage\nS3/MinIO/OSS/COS)]
   S -- UploadId --&gt; B
@@ -10587,10 +10587,9 @@
   A -- PUT part_i (concurrent) --&gt; S
   A -- Complete(parts ETags) --&gt; B
   B -- CompleteMultipartUpload --&gt; S
-  S -- Final Object &amp; ETag --&gt; B --&gt; A
-</code></pre></div>
+  S -- Final Object &amp; ETag --&gt; B --&gt; A</code></pre>
 <p>时序（简化）：</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
   participant FE as Frontend
   participant BE as Backend
   participant S3 as Object Storage
@@ -10604,17 +10603,15 @@
   FE-&gt;&gt;BE: POST /uploads/complete {uploadId, parts:[{n,ETag}]}
   BE-&gt;&gt;S3: CompleteMultipartUpload
   S3--&gt;&gt;BE: 200 + ETag
-  BE--&gt;&gt;FE: 200 + objectETag
-</code></pre></div>
+  BE--&gt;&gt;FE: 200 + objectETag</code></pre>
 <h3 id="42">4.2 后端中转架构（流式分片并发上云）<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
   A[Browser/App] -- POST chunk_i --&gt; B[Backend\nIngress + App]
   B -- Upload Part (concurrent) --&gt; S[(Object Storage)]
   B -- Track Manifest/State --&gt; DB[(Metadata DB/Cache)]
-  A -- Complete --&gt; B -- CompleteMultipart --&gt; S
-</code></pre></div>
+  A -- Complete --&gt; B -- CompleteMultipart --&gt; S</code></pre>
 <p>时序（简化）：</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
   participant FE as Frontend
   participant BE as Backend
   participant DB as State Store
@@ -10631,8 +10628,7 @@
   FE-&gt;&gt;BE: POST /relay/complete
   BE-&gt;&gt;S3: CompleteMultipartUpload (parts from DB)
   S3--&gt;&gt;BE: 200
-  BE--&gt;&gt;FE: 200
-</code></pre></div>
+  BE--&gt;&gt;FE: 200</code></pre>
 <hr />
 <h2 id="5-python-go-rust">5. 实现细节（Python / Go / Rust）<a class="headerlink" href="#5-python-go-rust" title="Permanent link">&para;</a></h2>
 <p>说明：以下示例以 S3 兼容存储为主线（MinIO 本地可验证）。若使用 GCS/Azure，可按其原生 Resumable/Block 模式改造，理念一致。</p>

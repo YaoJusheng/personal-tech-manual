@@ -11763,7 +11763,7 @@
 </ul>
 <h4 id="13">1.3.登录/登出时序图<a class="headerlink" href="#13" title="Permanent link">&para;</a></h4>
 <h5 id="1">1.单点登录<a class="headerlink" href="#1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户（浏览器）
     participant RP as 客户端 (RP) &lt;br&gt;例如：https://rp.example.com
     participant OP as 授权服务器 (OP) &lt;br&gt;例如：https://op.example.com
@@ -11789,14 +11789,13 @@
     User-&gt;&gt;RP: GET /callback?code=AUTH_CODE&amp;state=abc123
     RP-&gt;&gt;RP: 验证state与会话中存储的值一致
     RP-&gt;&gt;OP: POST /token (后端请求)&lt;br&gt;Content-Type: application/x-www-form-urlencoded&lt;br&gt;grant_type=authorization_code&amp;code=AUTH_CODE&amp;&lt;br&gt;redirect_uri=https://rp.example.com/callback&amp;&lt;br&gt;client_id=rp-client&amp;client_secret=...
-    OP--&gt;&gt;RP: 200 OK (JSON)&lt;br&gt;{&lt;br&gt;  &quot;access_token&quot;: &quot;ACCESS_TOKEN&quot;,&lt;br&gt;  &quot;id_token&quot;: &quot;ID_TOKEN&quot;,&lt;br&gt;  &quot;token_type&quot;: &quot;Bearer&quot;,&lt;br&gt;  &quot;expires_in&quot;: 3600&lt;br&gt;}
+    OP--&gt;&gt;RP: 200 OK (JSON)&lt;br&gt;{&lt;br&gt;  "access_token": "ACCESS_TOKEN",&lt;br&gt;  "id_token": "ID_TOKEN",&lt;br&gt;  "token_type": "Bearer",&lt;br&gt;  "expires_in": 3600&lt;br&gt;}
     Note over RP: 验证ID Token签名和声明
 
     RP-&gt;&gt;OP: GET /userinfo (可选)&lt;br&gt;Authorization: Bearer ACCESS_TOKEN
-    OP--&gt;&gt;RP: 200 OK (JSON)&lt;br&gt;{ &quot;sub&quot;: &quot;user123&quot;, &quot;name&quot;: &quot;张三&quot;, &quot;email&quot;: &quot;...&quot; }
+    OP--&gt;&gt;RP: 200 OK (JSON)&lt;br&gt;{ "sub": "user123", "name": "张三", "email": "..." }
 
-    RP--&gt;&gt;User: 200 OK (返回登录成功页面)
-</code></pre></div>
+    RP--&gt;&gt;User: 200 OK (返回登录成功页面)</code></pre>
 <p><strong>流程说明</strong>：</p>
 <ul>
 <li>客户端（RP）在发起授权请求时生成并存储<code>state</code>，在回调中必须验证该值以防止CSRF。</li>
@@ -11804,7 +11803,7 @@
 <li><code>/userinfo</code>端点为可选，用于获取额外的用户信息。</li>
 </ul>
 <h5 id="2">2.单点登出<a class="headerlink" href="#2" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户（浏览器）
     participant RP as 客户端 (RP) &lt;br&gt;例如：https://rp.example.com
     participant OP as 授权服务器 (OP) &lt;br&gt;例如：https://op.example.com
@@ -11820,8 +11819,7 @@
 
     User-&gt;&gt;RP: GET /logout-callback?state=xyz789
     RP-&gt;&gt;RP: 验证state与会话中存储的值一致
-    RP--&gt;&gt;User: 200 OK (返回退出成功页面)
-</code></pre></div>
+    RP--&gt;&gt;User: 200 OK (返回退出成功页面)</code></pre>
 <p><strong>流程说明</strong>：</p>
 <ul>
 <li><code>id_token_hint</code>用于标识用户，OP根据它找到需要注销的会话。</li>

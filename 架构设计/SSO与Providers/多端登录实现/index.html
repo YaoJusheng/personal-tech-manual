@@ -11201,7 +11201,7 @@
 6) 前端内存持有 Access/Refresh，用于刷新；401/419 触发刷新一次，失败重登。
 7) 高敏操作可用 prompt=login 或 max_age 强制重新认证/MFA。</p>
 <h3 id="32-pkce">3.2 时序图 (PKCE)<a class="headerlink" href="#32-pkce" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant U as User
     participant B as Browser
     participant IdP as IdP
@@ -11217,8 +11217,7 @@
     IdP--&gt;&gt;App: ID/Access/Refresh Token
     App-&gt;&gt;App: Verify ID Token, set session cookie
     App--&gt;&gt;B: 302 to home
-    B-&gt;&gt;App: Requests with session cookie
-</code></pre></div>
+    B-&gt;&gt;App: Requests with session cookie</code></pre>
 <h3 id="33-go-gin-coreosoidc">3.3 Go 实现示例 (Gin + coreos/oidc)<a class="headerlink" href="#33-go-gin-coreosoidc" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// 登录回调: 用 code + verifier 换 token, 校验 ID Token, 写 HttpOnly 会话 Cookie</span>
 <span class="kd">func</span><span class="w"> </span><span class="nx">OIDCCallback</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">provider</span><span class="w"> </span><span class="o">*</span><span class="nx">oidc</span><span class="p">.</span><span class="nx">Provider</span><span class="p">,</span><span class="w"> </span><span class="nx">cfg</span><span class="w"> </span><span class="nx">OAuthCfg</span><span class="p">,</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="nx">SessionStore</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -11293,7 +11292,7 @@
 4) 用户浏览器完成授权后，轮询返回 Access/Refresh Token。
 5) 凭据安全落盘 (chmod 600) 或系统钥匙串；支持多 Profile；失败 3 次上限。</p>
 <h3 id="42">4.2 时序图<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant U as User
     participant CLI as CLI
     participant IdP as IdP
@@ -11310,8 +11309,7 @@
         U-&gt;&gt;IdP: Open URL, enter user_code
         IdP--&gt;&gt;U: Confirm
     end
-    CLI--&gt;&gt;U: Store tokens, login ok
-</code></pre></div>
+    CLI--&gt;&gt;U: Store tokens, login ok</code></pre>
 <h3 id="43-go">4.3 Go 轮询示例<a class="headerlink" href="#43-go" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">maxRetry</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">interval</span><span class="p">)</span>
@@ -11346,7 +11344,7 @@
 4) 校验 ID Token，Token 存 Keychain/Keystore/DPAPI，不落明文；内存持 Access，持久化 Refresh。
 5) 请求 API 时带 Bearer；过期先刷新，刷新失败再走登录。</p>
 <h3 id="52">5.2 时序图<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant U as User
     participant App as Client
     participant SB as System Browser
@@ -11361,8 +11359,7 @@
     App-&gt;&gt;IdP: /token (code, verifier)
     IdP--&gt;&gt;App: Tokens
     App-&gt;&gt;App: Verify ID Token, store securely
-    App--&gt;&gt;U: Logged in
-</code></pre></div>
+    App--&gt;&gt;U: Logged in</code></pre>
 <h2 id="6-aksk-hmac">6. AK/SK HMAC 签名方案<a class="headerlink" href="#6-aksk-hmac" title="Permanent link">&para;</a></h2>
 <h3 id="61">6.1 流程步骤<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
 <p>1) 客户端生成 timestamp、nonce，构造 Canonical Request（方法、URI、排序的 query、签名头、hashed body）。
@@ -11370,7 +11367,7 @@
 3) 组装 Authorization：<code>ALG Credential=AK, SignedHeaders=..., Signature=...</code>，附 x-date/x-nonce。
 4) 服务端查 AK 得 SK，校验时间窗口与 nonce 去重，重算签名比对；通过后映射为服务账号身份。</p>
 <h3 id="62">6.2 时序图<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant C as Client
     participant RS as Resource
     participant K as KeyStore
@@ -11381,8 +11378,7 @@
     RS-&gt;&gt;K: Get SK by AK (cacheable)
     RS-&gt;&gt;R: Nonce check/write
     RS-&gt;&gt;RS: Recompute signature, check timestamp window
-    RS--&gt;&gt;C: 200 OK or 401/403
-</code></pre></div>
+    RS--&gt;&gt;C: 200 OK or 401/403</code></pre>
 <h3 id="63-go">6.3 Go 校验片段<a class="headerlink" href="#63-go" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">Verify</span><span class="p">(</span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">lookup</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">ak</span><span class="p">,</span><span class="w"> </span><span class="nx">sig</span><span class="p">,</span><span class="w"> </span><span class="nx">signedHeaders</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">parseAuth</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Authorization&quot;</span><span class="p">))</span>

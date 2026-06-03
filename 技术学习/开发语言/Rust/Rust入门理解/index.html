@@ -15936,15 +15936,14 @@
 <li>优化器进行内联等优化</li>
 <li><strong>LLVM IR 生成</strong> → 机器码生成</li>
 </ol>
-<div class="highlight"><pre><span></span><code>graph LR
+<pre class="mermaid"><code>graph LR
 A[源代码] --&gt; B[解析器]
 B --&gt; C[HIR]
 C --&gt; D[类型检查]
 D --&gt; E[MIR]
 E --&gt; F[借用检查]
 F --&gt; G[LLVM IR]
-G --&gt; H[机器码]
-</code></pre></div>
+G --&gt; H[机器码]</code></pre>
 <h3 id="6">6.错误处理哲学<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
 <h4 id="61">6.1.分层错误处理：<a class="headerlink" href="#61" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">fs</span><span class="p">::</span><span class="n">File</span><span class="p">;</span>

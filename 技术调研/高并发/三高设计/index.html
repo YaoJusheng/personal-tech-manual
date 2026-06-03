@@ -10920,9 +10920,11 @@
 <h2 id="_2">一、高并发<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="11">1.1.简介<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
 <p>高并发（High Concurrency）指系统能够同时处理大量请求的能力，通常以 <strong>QPS</strong>（Queries Per Second，每秒查询率）、<strong>TPS</strong>（每秒事务数）、<strong>并发连接数</strong>、<strong>响应时间</strong> 等指标衡量系统承载能力。</p>
-<p>高并发的核心思路可归纳为两条主线：
-- <strong>垂直扩展（Scale Up）</strong>：提升单机能力——更好的硬件、更高效的代码、更优的算法与数据结构。
-- <strong>水平扩展（Scale Out）</strong>：通过集群分摊压力——负载均衡、无状态化、分库分表，是高并发的主流方向。</p>
+<p>高并发的核心思路可归纳为两条主线：</p>
+<ul>
+<li><strong>垂直扩展（Scale Up）</strong>：提升单机能力——更好的硬件、更高效的代码、更优的算法与数据结构。</li>
+<li><strong>水平扩展（Scale Out）</strong>：通过集群分摊压力——负载均衡、无状态化、分库分表，是高并发的主流方向。</li>
+</ul>
 <h3 id="12">1.2.核心手段<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -10980,7 +10982,7 @@
 </blockquote>
 <h3 id="14">1.4.架构设计示例：秒杀/抢购系统<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
 <p>秒杀是高并发的典型场景：瞬时洪峰、库存有限、超卖零容忍。核心思路是<strong>层层过滤流量 + 缓存预扣库存 + MQ 异步落库</strong>，让真正打到数据库的请求降到最低。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     U[海量用户] --&gt; CDN[CDN 静态资源/活动页]
     CDN --&gt; LB[负载均衡 Nginx/LVS]
     LB --&gt; GW[网关: 限流/黑名单/防刷]
@@ -10990,8 +10992,7 @@
     R --&gt;|预扣成功| MQ[消息队列 削峰]
     MQ --&gt; ORD[订单服务 匀速消费]
     ORD --&gt; DB[(MySQL 真实下单)]
-    ORD --&gt; R2[回补/对账]
-</code></pre></div>
+    ORD --&gt; R2[回补/对账]</code></pre>
 <p><strong>设计要点：</strong></p>
 <ul>
 <li><strong>流量层层漏斗</strong>：CDN 扛静态页 → 网关限流防刷（按 IP/用户/设备）→ 应用层校验，无效流量越往后越少。</li>
@@ -11067,7 +11068,7 @@
 </ul>
 <h3 id="24">2.4.架构设计示例：多级缓存读架构<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
 <p>读多写少的场景（商品详情、配置、热点内容）追求极致读性能，核心是<strong>多级缓存层层拦截 + 读写分离</strong>，并防住缓存三大风险。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     REQ[读请求] --&gt; L1[本地缓存 Caffeine 进程内]
     L1 --&gt;|命中| RESP[返回]
     L1 --&gt;|未命中| L2[分布式缓存 Redis 集群]
@@ -11078,8 +11079,7 @@
     RDB --&gt; FILL[回填 Redis + 本地缓存]
     FILL --&gt; RESP
     WDB[(MySQL 主库 写)] --&gt;|binlog 同步| RDB
-    WDB --&gt;|更新/删除缓存| L2
-</code></pre></div>
+    WDB --&gt;|更新/删除缓存| L2</code></pre>
 <p><strong>设计要点：</strong></p>
 <ul>
 <li><strong>多级缓存</strong>：本地缓存（纳秒级、扛热点、降 Redis 压力）→ Redis（毫秒级、容量大、跨实例共享）→ 数据库（兜底）。</li>
@@ -11164,7 +11164,7 @@
 </blockquote>
 <h3 id="34">3.4.架构设计示例：异地多活架构<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
 <p>为消除机房级单点、实现就近接入与容灾，大型系统采用<strong>单元化 + 异地多活</strong>：每个地域是一个可独立提供完整服务的"单元"，通过全局流量调度就近分发，单元间数据双向同步。</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     USER[全国用户] --&gt; GSLB[GSLB/GeoDNS 全局流量调度]
     GSLB --&gt;|华北用户就近| UA
     GSLB --&gt;|华南用户就近| UB
@@ -11177,8 +11177,7 @@
         BAPP --&gt; BC[(Redis B)]
     end
     ADB &lt;--&gt;|双向数据同步 DRC/binlog| BDB
-    GSLB -.-&gt;|某单元故障 流量切换| UB
-</code></pre></div>
+    GSLB -.-&gt;|某单元故障 流量切换| UB</code></pre>
 <p><strong>设计要点：</strong></p>
 <ul>
 <li><strong>单元化（Set 化）</strong>：按用户维度（如 user_id 取模）将流量路由到固定单元，单元内闭环完成请求，减少跨机房调用。</li>

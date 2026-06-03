@@ -15141,7 +15141,7 @@ gitlab-rails<span class="w"> </span>runner<span class="w"> </span><span class="s
 <li>Runner 执行<strong>流程图</strong></li>
 </ol>
 <p>该图显示了如何注册运行器以及如何请求和处理作业。它还显示了哪些操作使用<a href="https://docs.gitlab.com/ee/api/runners.html#registration-and-authentication-tokens">注册、身份验证</a>和<a href="https://docs.gitlab.com/ee/ci/jobs/ci_job_token.html">作业令牌</a>。</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant GitLab
     participant GitLabRunner
     participant Executor
@@ -15159,8 +15159,7 @@ gitlab-rails<span class="w"> </span>runner<span class="w"> </span><span class="s
         Executor --&gt;&gt; GitLab: download artifacts with job_token
         Executor --&gt;&gt; GitLabRunner: return job output and status
         GitLabRunner --&gt;&gt; GitLab: updating job output and status with job_token
-    end
-</code></pre></div>
+    end</code></pre>
 <h4 id="3_3">3.安装运行<a class="headerlink" href="#3_3" title="Permanent link">&para;</a></h4>
 <p><a href="https://docs.gitlab.com/runner/install/index.html">安装 GitLab Runner</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 本地卷</span>

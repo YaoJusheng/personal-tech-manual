@@ -10950,7 +10950,7 @@
      +-----------------------------------------&gt;&gt;+-------------------&gt; Resource
 </code></pre></div>
 <h3 id="mermaid">Mermaid 流程图<a class="headerlink" href="#mermaid" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Device as 设备客户端
     participant Auth as 授权服务器
     participant User as 用户(手机/电脑)
@@ -10970,8 +10970,7 @@
     end
 
     Auth-&gt;&gt;Device: 7. 返回 access_token, refresh_token
-    Device-&gt;&gt;Resource: 8. 使用 access_token 访问资源
-</code></pre></div>
+    Device-&gt;&gt;Resource: 8. 使用 access_token 访问资源</code></pre>
 <h2 id="_5">详细步骤说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="1">1. 设备请求授权<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <p>设备客户端向授权服务器的设备授权端点发送请求。</p>

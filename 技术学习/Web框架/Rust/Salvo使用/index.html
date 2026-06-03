@@ -11851,17 +11851,17 @@
 </ul>
 <h3 id="_5">流程图<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <h4 id="1handler">1.Handler 流程图<a class="headerlink" href="#1handler" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Client[客户端] --&gt;|请求| Request[HTTP请求]
     Request --&gt; M1
 
-    subgraph &quot;Handler 实现&quot;
+    subgraph "Handler 实现"
         M1[日志记录中间件] --&gt;|纵向处理| M2[鉴权中间件] --&gt;|纵向处理| M3[其他业务中间件]
         M3 --&gt; Router[路由匹配]
 
-        Router --&gt;|横向处理| E1[&quot;端点1&lt;br&gt;#[handler]&quot;]
-        Router --&gt;|横向处理| E2[&quot;端点2&lt;br&gt;#[endpoint]&quot;]
-        Router --&gt;|横向处理| E3[&quot;端点3&lt;br&gt;实现Handler特质&quot;]
+        Router --&gt;|横向处理| E1["端点1&lt;br&gt;#[handler]"]
+        Router --&gt;|横向处理| E2["端点2&lt;br&gt;#[endpoint]"]
+        Router --&gt;|横向处理| E3["端点3&lt;br&gt;实现Handler特质"]
     end
 
     E1 --&gt; Response[HTTP响应]
@@ -11873,8 +11873,7 @@
     classDef endpoint fill:#bbf,stroke:#55a,stroke-width:2px;
 
     class M1,M2,M3 middleware;
-    class E1,E2,E3 endpoint;
-</code></pre></div>
+    class E1,E2,E3 endpoint;</code></pre>
 <h4 id="2_2">2.中间件流程图<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">example_middleware</span><span class="p">(</span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"> </span><span class="n">depot</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Depot</span><span class="p">,</span><span class="n">resp</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Response</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">FlowCtrl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// 前处理（请求阶段）</span>
@@ -11887,26 +11886,26 @@
 <span class="w">    </span><span class="c1">// 在这里放置请求处理完成后需要执行的逻辑</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     Client[客户端] --&gt;|请求| Request[HTTP请求]
 
-    subgraph &quot;洋葱模型处理流程&quot;
+    subgraph "洋葱模型处理流程"
         direction TB
 
-        subgraph M1[&quot;中间件1&quot;]
-            M1A[&quot;前处理&lt;br&gt;日志记录: 请求开始&quot;] --&gt; M1B[&quot;后处理&lt;br&gt;日志记录: 请求结束&quot;]
+        subgraph M1["中间件1"]
+            M1A["前处理&lt;br&gt;日志记录: 请求开始"] --&gt; M1B["后处理&lt;br&gt;日志记录: 请求结束"]
         end
 
-        subgraph M2[&quot;中间件2&quot;]
-            M2A[&quot;前处理&lt;br&gt;记录请求开始时间&quot;] --&gt; M2B[&quot;后处理&lt;br&gt;计算处理耗时&quot;]
+        subgraph M2["中间件2"]
+            M2A["前处理&lt;br&gt;记录请求开始时间"] --&gt; M2B["后处理&lt;br&gt;计算处理耗时"]
         end
 
-        subgraph M3[&quot;中间件3&quot;]
-            M3A[&quot;前处理&lt;br&gt;验证用户权限&quot;] --&gt; M3B[&quot;后处理&lt;br&gt;&quot;]
+        subgraph M3["中间件3"]
+            M3A["前处理&lt;br&gt;验证用户权限"] --&gt; M3B["后处理&lt;br&gt;"]
         end
 
-        subgraph Core[&quot;核心处理逻辑&quot;]
-            Handler[&quot;端点处理器&lt;br&gt;#[handler]&quot;]
+        subgraph Core["核心处理逻辑"]
+            Handler["端点处理器&lt;br&gt;#[handler]"]
         end
 
         Request --&gt; M1A
@@ -11929,10 +11928,9 @@
     class M1A,M1B middleware1;
     class M2A,M2B middleware2;
     class M3A,M3B middleware3;
-    class Handler core;
-</code></pre></div>
+    class Handler core;</code></pre>
 <h4 id="3_2">3.生命周期<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     subgraph MainGraph[Salvo框架请求生命周期]
         Start[客户端请求] --&gt; Convert[Service将HTTP请求转换为salvo的Response]
 
@@ -11982,8 +11980,7 @@
     class RoutingPhase,HandlerPhase,CatcherPhase phase;
     class MainGraph mainGraph;
     classDef mainGraph fill:#f5f5f5,stroke:#333,stroke-width:1px;
-    classDef phase fill:#e6f3ff,stroke:#333,stroke-width:2px;
-</code></pre></div>
+    classDef phase fill:#e6f3ff,stroke:#333,stroke-width:2px;</code></pre>
 <h3 id="_6">示例<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <h4 id="1-hello-world">1.基础 Hello World<a class="headerlink" href="#1-hello-world" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">salvo</span><span class="p">::</span><span class="n">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>

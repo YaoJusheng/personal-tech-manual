@@ -11186,7 +11186,7 @@
 <li>重定向回应用 A，应用 A 后端向 CAS Server 验证 ST。</li>
 <li>验证通过，应用 A 创建自身 Session。</li>
 </ul>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户 (浏览器)
     participant App as 应用A (CAS Client)
     participant CAS as CAS Server
@@ -11202,8 +11202,7 @@
     App-&gt;&gt;CAS: 9. 后端携带ST和service，向CAS Server验证票据
     CAS-&gt;&gt;App: 10. 验证成功，返回用户信息 (XML格式)
     App-&gt;&gt;App: 11. 解析用户信息，创建本地会话 (如设置会话Cookie)
-    App-&gt;&gt;User: 12. 重定向至应用首页，携带本地会话Cookie
-</code></pre></div>
+    App-&gt;&gt;User: 12. 重定向至应用首页，携带本地会话Cookie</code></pre>
 <p><strong>流程关键点</strong>：</p>
 <ul>
 <li><strong><code>service</code> 参数</strong>：贯穿始终，用于标识是哪个应用在请求认证。</li>
@@ -11252,7 +11251,7 @@
 <p><strong>流程</strong>：</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户 (浏览器)
     participant App as 应用 (SP)
     participant IdP as 身份提供商 (IdP/OIDC)
@@ -11268,8 +11267,7 @@
     IdP-&gt;&gt;App: 9. 返回ID Token和Access Token
     App-&gt;&gt;App: 10. 验证ID Token (签名, iss, aud等)，&lt;br&gt;解析用户身份，创建本地会话 (如设置HttpOnly Cookie)
     App-&gt;&gt;User: 11. 重定向至应用首页，携带本地会话Cookie
-    User-&gt;&gt;App: 12. 携带Cookie访问资源，应用验证会话，授权访问
-</code></pre></div>
+    User-&gt;&gt;App: 12. 携带Cookie访问资源，应用验证会话，授权访问</code></pre>
 <ol>
 <li><strong>访问资源</strong>：用户在浏览器中访问应用A。</li>
 <li><strong>发现未认证，重定向至IdP</strong>：应用A后端检查发现用户没有有效会话，将其重定向到OIDC身份提供商（IdP）的认证端点。重定向URL中携带了应用A的<code>client_id</code>、回调地址<code>redirect_uri</code>和一个用于防止跨站请求伪造（CSRF）的随机数<code>state</code>。</li>
@@ -11310,7 +11308,7 @@
 <p><strong>流程</strong>：</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户 (浏览器)
     participant SP as 服务提供商 (应用)
     participant IdP as 身份提供商
@@ -11324,8 +11322,7 @@
     IdP-&gt;&gt;User: 7. 将SAML断言通过浏览器POST到SP的ACS地址
     User-&gt;&gt;SP: 8. 浏览器将断言POST到SP
     SP-&gt;&gt;SP: 9. 验证断言签名，解析用户信息，创建本地会话
-    SP-&gt;&gt;User: 10. 登录成功，访问资源
-</code></pre></div>
+    SP-&gt;&gt;User: 10. 登录成功，访问资源</code></pre>
 <p><strong>流程关键点</strong>：</p>
 <ul>
 <li><strong>ACS URL (断言消费地址)</strong>：SP 上的一个特定端点，用于接收 IdP 发来的 SAML 断言，是流程中的关键一环。</li>
@@ -11526,7 +11523,7 @@
 <li>图中 token 默认指 <code>access_token</code>，如为 <code>id_token</code>/<code>refresh_token</code> 会显式标注。</li>
 </ul>
 <h4 id="331-web-authorization-code-pkce">3.3.1 Web 端登录流程（Authorization Code + PKCE）<a class="headerlink" href="#331-web-authorization-code-pkce" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
   autonumber
   participant U as 用户
   participant B as 浏览器(SPA)
@@ -11554,10 +11551,9 @@
   alt Access Token/会话过期
     App-&gt;&gt;IdP: 刷新 token 或发起重新授权
     IdP--&gt;&gt;App: 新 token 或 invalid_grant
-  end
-</code></pre></div>
+  end</code></pre>
 <h4 id="332-cli-device-authorization-flow">3.3.2 CLI 端登录流程（Device Authorization Flow）<a class="headerlink" href="#332-cli-device-authorization-flow" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
   autonumber
   participant U as 用户
   participant CLI as 命令行工具
@@ -11591,10 +11587,9 @@
   end
 
   CLI-&gt;&gt;CLI: 安全持久化凭据(钥匙串/600权限文件)
-  CLI--&gt;&gt;U: 登录成功
-</code></pre></div>
+  CLI--&gt;&gt;U: 登录成功</code></pre>
 <h4 id="333-sdk-system-browser-pkce">3.3.3 SDK 端登录流程（System Browser + PKCE）<a class="headerlink" href="#333-sdk-system-browser-pkce" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
   autonumber
   participant U as 用户
   participant SDK as 客户端应用
@@ -11618,10 +11613,9 @@
   alt 网络切换或 token 过期
     SDK-&gt;&gt;IdP: refresh_token 刷新
     IdP--&gt;&gt;SDK: 新 access_token 或 invalid_grant
-  end
-</code></pre></div>
+  end</code></pre>
 <h4 id="334-aksk-server-to-server">3.3.4 AK/SK 签名鉴权流程（Server-to-Server）<a class="headerlink" href="#334-aksk-server-to-server" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
   autonumber
   participant C as 调用方(Client)
   participant RS as 资源服务器
@@ -11646,8 +11640,7 @@
       RS-&gt;&gt;RS: 映射主体并注入上下文(principal_id)
       RS--&gt;&gt;C: 200 OK
     end
-  end
-</code></pre></div>
+  end</code></pre>
 <h3 id="34">3.4 认证机制设计<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
 <h4 id="341-mfa">3.4.1 多因子认证(MFA)<a class="headerlink" href="#341-mfa" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>┌─────────────────┐

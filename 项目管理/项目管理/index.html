@@ -11700,7 +11700,7 @@
 <h2 id="4-project-workflow">4. 项目工作流 (Project Workflow)<a class="headerlink" href="#4-project-workflow" title="Permanent link">&para;</a></h2>
 <p>本章节详细描述一个需求从概念到交付的完整生命周期。</p>
 <h3 id="41">4.1. 整体流程概览<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[需求收集/业务输入] --&gt; B{Product Backlog};
     B --&gt; C[迭代计划会 Sprint Planning];
     C --&gt; D{Sprint Backlog};
@@ -11715,8 +11715,7 @@
     F --&gt; G[迭代评审会 Sprint Review];
     G --&gt; H[迭代回顾会 Sprint Retrospective];
     H --&gt; C;
-    G --&gt; I((发布上线));
-</code></pre></div>
+    G --&gt; I((发布上线));</code></pre>
 <h3 id="42">4.2. 需求管理<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
 <h4 id="421-requirement-hierarchy">4.2.1. 需求层次 (Requirement Hierarchy)<a class="headerlink" href="#421-requirement-hierarchy" title="Permanent link">&para;</a></h4>
 <p>为了更好地组织和规划，我们将需求分为不同层级：</p>
@@ -12088,7 +12087,7 @@
 <li><strong>CD (Continuous Deployment/Delivery)</strong>: 持续部署/交付，在 CI 的基础上，将通过测试的代码自动部署到生产环境或类生产环境。</li>
 </ul>
 <h3 id="112-git-flow">11.2. Git Flow 可视化<a class="headerlink" href="#112-git-flow" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>graph LR
+<pre class="mermaid"><code>graph LR
     subgraph Production
         main[(main)]
     end
@@ -12125,8 +12124,7 @@
 
     main -- tag v1.1.0 --&gt; main;
     main -- tag v1.2.0 --&gt; main;
-    main -- tag v1.1.1 --&gt; main;
-</code></pre></div>
+    main -- tag v1.1.1 --&gt; main;</code></pre>
 
 
 

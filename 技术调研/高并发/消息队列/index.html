@@ -11281,7 +11281,7 @@
 <h2 id="_4">三、工作原理与工作流程<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="31">3.1.通用工作流程<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
 <p>一条消息从生产到消费，经历"发送 → 路由分区 → 持久化 → 投递 → 消费 → 确认"的完整链路：</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     P[Producer 生产者] --&gt;|1.发送+ack确认| B[Broker]
     subgraph B[Broker 消息服务器]
         R[2.路由/分区选择] --&gt; S[3.顺序写日志/入队]
@@ -11289,8 +11289,7 @@
     end
     B --&gt;|5.推送或拉取| C[Consumer 消费者]
     C --&gt;|6.处理成功| CMT[7.提交Offset/ACK]
-    CMT --&gt;|推进消费进度| B
-</code></pre></div>
+    CMT --&gt;|推进消费进度| B</code></pre>
 <ul>
 <li><strong>发送</strong>：生产者将消息发往 Broker，按可靠性要求选择是否等待 ack（同步/异步）。</li>
 <li><strong>路由/分区</strong>：Broker 按 Topic + key 哈希（或轮询）决定写入哪个分区/队列。</li>
@@ -11328,7 +11327,7 @@
 </blockquote>
 <h3 id="33-mq">3.3.主流 MQ 内部机制图解<a class="headerlink" href="#33-mq" title="Permanent link">&para;</a></h3>
 <p><strong>Kafka</strong>：Topic 分区化，每分区是一个有序日志，多副本（Leader/Follower）通过 ISR 保证可靠：</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     PR[Producer] --&gt;|按key哈希分区| T
     subgraph T[Topic]
         P0[Partition0 Leader] --- P0F[Follower副本]
@@ -11339,28 +11338,25 @@
     subgraph CG[Consumer Group]
         C0[Consumer0]
         C1[Consumer1]
-    end
-</code></pre></div>
+    end</code></pre>
 <p><strong>RocketMQ</strong>：写入统一的 CommitLog（顺序写），再异步分发到各 ConsumeQueue 作为消费索引：</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     PR[Producer] --&gt; CL[(CommitLog 顺序写)]
     CL --&gt;|异步分发| CQ0[ConsumeQueue-TopicA-Q0]
     CL --&gt;|异步分发| CQ1[ConsumeQueue-TopicA-Q1]
     CQ0 --&gt; C0[Consumer]
-    CQ1 --&gt; C1[Consumer]
-</code></pre></div>
+    CQ1 --&gt; C1[Consumer]</code></pre>
 <p><strong>RabbitMQ</strong>：消息先到 Exchange，按 Binding 规则路由到一个或多个 Queue：</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     PR[Producer] --&gt; EX{Exchange}
     EX --&gt;|routing key=order.*| Q1[Queue: order]
     EX --&gt;|fanout 广播| Q2[Queue: log]
     EX --&gt;|fanout 广播| Q3[Queue: audit]
     Q1 --&gt; C1[Consumer]
     Q2 --&gt; C2[Consumer]
-    Q3 --&gt; C3[Consumer]
-</code></pre></div>
+    Q3 --&gt; C3[Consumer]</code></pre>
 <p><strong>Pulsar</strong>：存算分离，Broker 无状态只负责服务，数据持久化在 BookKeeper：</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     PR[Producer] --&gt; BR[Broker 无状态层]
     BR --&gt; BK
     subgraph BK[BookKeeper 存储层]
@@ -11368,8 +11364,7 @@
         B2[Bookie2]
         B3[Bookie3]
     end
-    BR --&gt; CS[Consumer]
-</code></pre></div>
+    BR --&gt; CS[Consumer]</code></pre>
 <blockquote>
 <p>机制差异决定能力差异：Kafka/RocketMQ 的顺序日志带来高吞吐与回溯；RabbitMQ 的 Exchange 路由带来灵活的分发；Pulsar 的存算分离带来弹性扩缩与跨地域。</p>
 </blockquote>
@@ -11597,22 +11592,30 @@
 </tbody>
 </table>
 <h3 id="44">4.4.逐工具优劣与使用建议<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
-<p><strong>Kafka</strong>
-- ✅ 优势：吞吐天花板最高、生态最成熟（Connect/Streams/Flink）、可回溯、堆积能力极强。
-- ❌ 劣势：延迟消息/事务消息支持弱、单条消息治理（重试/死信）需自建、运维相对重。
-- 💡 建议：<strong>日志采集、流式数据管道、大数据对接、事件溯源</strong>的首选；不要用它做需要精细单条治理或复杂延迟的业务消息。</p>
-<p><strong>RocketMQ</strong>
-- ✅ 优势：金融级可靠、原生事务消息 + 任意精度延迟消息、顺序消息成熟、运维友好（中文生态）。
-- ❌ 劣势：生态与跨语言支持不如 Kafka 广、海外社区相对小。
-- 💡 建议：<strong>电商/金融核心业务消息</strong>（订单、支付、库存）首选，尤其需要事务、延迟、顺序时。</p>
-<p><strong>RabbitMQ</strong>
-- ✅ 优势：路由能力最灵活（direct/topic/fanout/headers）、协议丰富（AMQP/MQTT/STOMP）、低延迟、成熟稳定。
-- ❌ 劣势：吞吐与堆积能力弱、不可回溯、海量堆积时性能下降明显。
-- 💡 建议：<strong>业务解耦、复杂路由分发、传统企业集成、中小流量任务队列</strong>首选；不适合海量日志流。</p>
-<p><strong>Pulsar</strong>
-- ✅ 优势：存算分离带来弹性扩缩与平滑运维、原生多租户、跨地域复制、统一支持队列与流两种语义。
-- ❌ 劣势：架构组件多（Broker + BookKeeper + ZK/etcd）、运维门槛高、生态较新。
-- 💡 建议：<strong>云原生、多租户 SaaS、超大规模且需弹性伸缩</strong>的场景；团队需具备较强运维能力。</p>
+<p><strong>Kafka</strong>:</p>
+<ul>
+<li>✅ 优势：吞吐天花板最高、生态最成熟（Connect/Streams/Flink）、可回溯、堆积能力极强。</li>
+<li>❌ 劣势：延迟消息/事务消息支持弱、单条消息治理（重试/死信）需自建、运维相对重。</li>
+<li>💡 建议：<strong>日志采集、流式数据管道、大数据对接、事件溯源</strong>的首选；不要用它做需要精细单条治理或复杂延迟的业务消息。</li>
+</ul>
+<p><strong>RocketMQ</strong>:</p>
+<ul>
+<li>✅ 优势：金融级可靠、原生事务消息 + 任意精度延迟消息、顺序消息成熟、运维友好（中文生态）。</li>
+<li>❌ 劣势：生态与跨语言支持不如 Kafka 广、海外社区相对小。</li>
+<li>💡 建议：<strong>电商/金融核心业务消息</strong>（订单、支付、库存）首选，尤其需要事务、延迟、顺序时。</li>
+</ul>
+<p><strong>RabbitMQ</strong>:</p>
+<ul>
+<li>✅ 优势：路由能力最灵活（direct/topic/fanout/headers）、协议丰富（AMQP/MQTT/STOMP）、低延迟、成熟稳定。</li>
+<li>❌ 劣势：吞吐与堆积能力弱、不可回溯、海量堆积时性能下降明显。</li>
+<li>💡 建议：<strong>业务解耦、复杂路由分发、传统企业集成、中小流量任务队列</strong>首选；不适合海量日志流。</li>
+</ul>
+<p><strong>Pulsar</strong>:</p>
+<ul>
+<li>✅ 优势：存算分离带来弹性扩缩与平滑运维、原生多租户、跨地域复制、统一支持队列与流两种语义。</li>
+<li>❌ 劣势：架构组件多（Broker + BookKeeper + ZK/etcd）、运维门槛高、生态较新。</li>
+<li>💡 建议：<strong>云原生、多租户 SaaS、超大规模且需弹性伸缩</strong>的场景；团队需具备较强运维能力。</li>
+</ul>
 <h2 id="_6">五、系统接入方式<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>业务系统接入 MQ 有多种方式，需根据团队技术栈、运维能力与可移植性要求选择。</p>
 <h3 id="51">5.1.主流接入模式<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>

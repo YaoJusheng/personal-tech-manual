@@ -10807,7 +10807,7 @@
 3) 删除绑定映射；可选调用第三方 revoke 接口吊销 Token。
 4) 记录审计日志。</p>
 <h3 id="33-oidc">3.3 时序图（以 OIDC 为例）<a class="headerlink" href="#33-oidc" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant U as User
     participant B as Browser
     participant TP as Third-Party IdP
@@ -10821,8 +10821,7 @@
     TP--&gt;&gt;APP: ID Token + Access Token
     APP-&gt;&gt;APP: Verify ID Token / fetch userinfo
     APP-&gt;&gt;APP: Lookup or create binding
-    APP--&gt;&gt;B: Set local session, redirect home
-</code></pre></div>
+    APP--&gt;&gt;B: Set local session, redirect home</code></pre>
 <h2 id="4">4. 接入要点（各主流平台）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <ul>
 <li>GitHub：OAuth2，scope 建议 <code>read:user user:email</code>；回调需在开发者中心登记；无 ID Token，需 /user API 取 id/login/email。</li>

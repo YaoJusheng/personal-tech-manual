@@ -10968,7 +10968,7 @@
 <li>交付：Helm + GitOps + 回滚策略</li>
 </ol>
 <h3 id="05">0.5 对象关系速览<a class="headerlink" href="#05" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
   User[用户流量] --&gt; Ingress[Ingress 或 Gateway]
   Ingress --&gt; Service[Service]
   Service --&gt; PodA[Pod]
@@ -10977,8 +10977,7 @@
   ReplicaSet --&gt; PodA
   ReplicaSet --&gt; PodB
   ConfigMap[ConfigMap/Secret] --&gt; PodA
-  ConfigMap --&gt; PodB
-</code></pre></div>
+  ConfigMap --&gt; PodB</code></pre>
 <h3 id="06">0.6 生产可用的最小能力集<a class="headerlink" href="#06" title="Permanent link">&para;</a></h3>
 <ul>
 <li>发布：Deployment + HPA + PDB</li>

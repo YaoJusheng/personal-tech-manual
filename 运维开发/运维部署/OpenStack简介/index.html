@@ -11086,7 +11086,7 @@
 </tbody>
 </table>
 <h3 id="05">0.5 资源交付链路（简图）<a class="headerlink" href="#05" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<pre class="mermaid"><code>flowchart LR
     Tenant[租户申请资源] --&gt; Keystone[Keystone 认证授权]
     Keystone --&gt; Nova[Nova 分配计算]
     Keystone --&gt; Neutron[Neutron 分配网络]
@@ -11094,8 +11094,7 @@
     Glance[Glance 镜像服务] --&gt; Nova
     Nova --&gt; VM[虚拟机实例]
     VM --&gt; K8S[Kubernetes 集群节点]
-    K8S --&gt; Apps[业务应用]
-</code></pre></div>
+    K8S --&gt; Apps[业务应用]</code></pre>
 <h2 id="1devops">1.DevOps简介<a class="headerlink" href="#1devops" title="Permanent link">&para;</a></h2>
 <p>DevOps 是一个完整的面向IT运维的工作流，以 IT 自动化以及持续集成（CI）、持续部署（CD）为基础，来优化程式开发、测试、系统运维等所有环节。</p>
 <p>【<strong>DevOps的概念</strong>】

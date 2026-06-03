@@ -12747,13 +12747,13 @@
 <ul>
 <li><strong>功能</strong>：开源的提示词自动生成工具，通过结构化问卷引导用户描述需求，自动生成符合最佳实践的完整提示词。</li>
 <li><strong>特点</strong>：完全开源免费；基于角色-任务-约束-输出格式模板生成；可自定义生成规则。</li>
-<li><strong>项目地址</strong>：<a href="https://github.com/mohamed-chs/chatgpt-prompt-generator">github.com/mohamed-chs/chatgpt-prompt-generator</a></li>
+<li><strong>项目地址</strong>：<a href="https://github.com/mohamed-chs/chatgpt-prompt-generator">GitHub.com/mohamed-chs/chatgpt-prompt-generator</a></li>
 </ul>
 <h5 id="8-dspy">8. DSPy<a class="headerlink" href="#8-dspy" title="Permanent link">&para;</a></h5>
 <ul>
 <li><strong>功能</strong>：斯坦福开源的提示词编程框架，将提示词工程从"手写调优"转变为"编程优化"，通过声明式定义签名（Signature）和模块（Module），自动优化提示词和模型权重。</li>
 <li><strong>特点</strong>：学术级提示词自动优化框架；支持编译时自动搜索最优提示词；与 LangChain 集成；适合需要系统化 Prompt 优化的研究型项目。</li>
-<li><strong>项目地址</strong>：<a href="https://github.com/stanfordnlp/dspy">github.com/stanfordnlp/dspy</a></li>
+<li><strong>项目地址</strong>：<a href="https://github.com/stanfordnlp/dspy">GitHub.com/stanfordnlp/dspy</a></li>
 </ul>
 <h4 id="112ai">1.1.2.AI原型图设计<a class="headerlink" href="#112ai" title="Permanent link">&para;</a></h4>
 <h5 id="1-mastergo">1. <strong>MasterGo</strong><a class="headerlink" href="#1-mastergo" title="Permanent link">&para;</a></h5>
@@ -12913,7 +12913,7 @@
 <li><strong>功能</strong>：极轻量的开源后端方案，单个二进制文件即可提供 SQLite 数据库、用户认证、文件存储和 Admin UI，适合快速原型和小型项目。</li>
 <li><strong>特点</strong>：零依赖，单文件部署；内置 Admin 管理面板；支持实时订阅；扩展性通过 Go 嵌入或 JS Hooks 实现。</li>
 <li><strong>适用场景</strong>：个人项目、小团队快速原型、嵌入式/边缘端后端。</li>
-<li><strong>项目地址</strong>：<a href="https://github.com/pocketbase/pocketbase">github.com/pocketbase/pocketbase</a></li>
+<li><strong>项目地址</strong>：<a href="https://github.com/pocketbase/pocketbase">GitHub.com/pocketbase/pocketbase</a></li>
 </ul>
 <h5 id="4-convex">4. Convex<a class="headerlink" href="#4-convex" title="Permanent link">&para;</a></h5>
 <ul>
@@ -12973,7 +12973,7 @@
 <li>实时协作编辑代码。</li>
 <li>利用上下文感知功能进行多文件编辑。</li>
 </ol>
-<p>同样提供了类似VS Code的IDE工具，同类型中还有VS Code中自带的github的copilot。</p>
+<p>同样提供了类似VS Code的IDE工具，同类型中还有VS Code中自带的GitHub的copilot。</p>
 <h5 id="2marscode">2.<strong>MarsCode</strong><a class="headerlink" href="#2marscode" title="Permanent link">&para;</a></h5>
 <ul>
 <li><strong>特点</strong>：MarsCode是字节跳动推出的另一款免费AI编程工具，提供云端IDE，并作为VS Code和JetBrains的插件使用。它支持多种编程语言和IDE，提供代码编辑、解释、注释生成、单元测试创建和错误修复等辅助功能。</li>
@@ -13678,10 +13678,12 @@ Supabase 登录注册：&quot;,
 <div class="highlight"><pre><span></span><code>提示词: a sleek smart home hub device on a marble countertop, minimalist design, soft warm lighting, product photography, white background --ar 16:9 --v 6 --style raw
 </code></pre></div>
 <p><strong>效果</strong>：生成一张高端产品摄影风格的概念图，适合用于产品提案、PPT 展示或营销物料。</p>
-<p><strong>参数说明</strong>：
-- <code>--ar 16:9</code>：设定画面比例为 16:9（横版）
-- <code>--v 6</code>：使用 Midjourney V6 模型
-- <code>--style raw</code>：减少 Midjourney 默认的"油画感"，获得更写实的画面</p>
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li><code>--ar 16:9</code>：设定画面比例为 16:9（横版）</li>
+<li><code>--v 6</code>：使用 Midjourney V6 模型</li>
+<li><code>--style raw</code>：减少 Midjourney 默认的"油画感"，获得更写实的画面</li>
+</ul>
 <h4 id="2stable-diffusion-comfyui">示例 2：Stable Diffusion (ComfyUI) 批量生成电商主图<a class="headerlink" href="#2stable-diffusion-comfyui" title="Permanent link">&para;</a></h4>
 <p><strong>工作流</strong>：</p>
 <div class="highlight"><pre><span></span><code>[Load Checkpoint] → [CLIP Text Encode(正面提示)] → [CLIP Text Encode(负面提示)] → [KSampler] → [VAE Decode] → [Save Image]
@@ -13793,55 +13795,67 @@ Coze 的想象空间在于成为 AI 原生应用的<strong>分发入口</strong>
       合作 → [Slack 通知: #biz-dev 频道] + [更新 CRM 联系记录]
       其他 → [归档 + 打标签]
 </code></pre></div>
-<p><strong>关键配置</strong>：
-- AI Agent 节点选择 GPT-4o 或 Claude Sonnet
-- Switch 节点基于 AI 返回的 JSON 字段做条件分支
-- 投诉类增加「人工确认」节点（Human-in-the-loop），避免误判直接回复</p>
+<p><strong>关键配置</strong>：</p>
+<ul>
+<li>AI Agent 节点选择 GPT-4o 或 Claude Sonnet</li>
+<li>Switch 节点基于 AI 返回的 JSON 字段做条件分支</li>
+<li>投诉类增加「人工确认」节点（Human-in-the-loop），避免误判直接回复</li>
+</ul>
 <h4 id="2dify">示例 2：Dify —— 企业知识库问答机器人<a class="headerlink" href="#2dify" title="Permanent link">&para;</a></h4>
 <p><strong>场景</strong>：为公司内部构建一个基于文档的问答机器人，员工可查询规章制度、操作手册、技术文档等。</p>
 <p><strong>搭建步骤</strong>：</p>
 <ol>
 <li><strong>创建知识库</strong>：上传公司文档（PDF/Word/Markdown），Dify 自动分段和嵌入</li>
 <li><strong>配置检索策略</strong>：选择混合检索（向量 + 关键词），设置 Top-K=5，相似度阈值 0.7</li>
-<li><strong>创建 Chatflow 应用</strong>：
-   <div class="highlight"><pre><span></span><code>[开始节点] → [知识检索节点: 查询知识库] → [LLM 节点: 基于检索结果生成回答]
+<li><strong>创建 Chatflow 应用</strong>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[开始节点] → [知识检索节点: 查询知识库] → [LLM 节点: 基于检索结果生成回答]
                                                   ↓
                                            [回答引用溯源: 标注来源文档]
-</code></pre></div></li>
-<li><strong>设置 Prompt 模板</strong>：
-   <div class="highlight"><pre><span></span><code>你是公司内部知识助手。请根据以下检索到的资料回答用户问题。
+</code></pre></div>
+<ol>
+<li><strong>设置 Prompt 模板</strong>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>你是公司内部知识助手。请根据以下检索到的资料回答用户问题。
 如果资料中没有相关信息，请明确告知&quot;未找到相关内容&quot;，不要编造答案。
 
 检索结果：
 {{#context#}}
 
 用户问题：{{query}}
-</code></pre></div></li>
+</code></pre></div>
+<ol>
 <li><strong>发布与集成</strong>：通过 API 嵌入企业微信/飞书，或生成独立网页链接</li>
 </ol>
-<p><strong>测试要点</strong>：
-- 验证幻觉率：随机抽取 20 个问题，检查回答是否忠实于文档
-- 验证拒答率：故意问文档未覆盖的问题，确认不会编造
-- 验证引用溯源：确认回答标注了正确的来源文档和段落</p>
+<p><strong>测试要点</strong>：</p>
+<ul>
+<li>验证幻觉率：随机抽取 20 个问题，检查回答是否忠实于文档</li>
+<li>验证拒答率：故意问文档未覆盖的问题，确认不会编造</li>
+<li>验证引用溯源：确认回答标注了正确的来源文档和段落</li>
+</ul>
 <h4 id="3coze-bot">示例 3：Coze —— 社群运营助手 Bot<a class="headerlink" href="#3coze-bot" title="Permanent link">&para;</a></h4>
 <p><strong>场景</strong>：为 Telegram/Discord 社群创建一个运营助手 Bot，自动回答常见问题、发布公告、管理群规。</p>
 <p><strong>配置步骤</strong>：</p>
 <ol>
-<li><strong>设定人设与提示词</strong>：
-   <div class="highlight"><pre><span></span><code>你是「XX社群」的运营助手。你的职责是：
+<li><strong>设定人设与提示词</strong>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>你是「XX社群」的运营助手。你的职责是：
 1. 回答社群相关的常见问题（活动时间、规则、资源链接等）
 2. 礼貌提醒违规内容
 3. 每日定时发布简报
 语气友好专业，回复简洁。
-</code></pre></div></li>
+</code></pre></div>
+<ol>
 <li><strong>绑定知识库</strong>：上传社群规则、FAQ、活动文档</li>
 <li><strong>添加插件</strong>：</li>
 <li>搜索插件：获取最新资讯</li>
 <li>图片生成插件：为公告生成配图</li>
 <li>定时任务插件：每日 9:00 自动发布今日简报</li>
-<li><strong>配置工作流</strong>（新人入群触发）：
-   <div class="highlight"><pre><span></span><code>[触发器: 新成员入群] → [发送欢迎消息 + 群规摘要] → [私聊发送新人指南]
-</code></pre></div></li>
+<li><strong>配置工作流</strong>（新人入群触发）：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[触发器: 新成员入群] → [发送欢迎消息 + 群规摘要] → [私聊发送新人指南]
+</code></pre></div>
+<ol>
 <li><strong>发布到渠道</strong>：一键发布到 Telegram/Discord</li>
 </ol>
 <h4 id="4dify-n8n">示例 4：Dify + n8n 协同 —— 自动化内容生产流水线<a class="headerlink" href="#4dify-n8n" title="Permanent link">&para;</a></h4>
@@ -13858,14 +13872,18 @@ Coze 的想象空间在于成为 AI 原生应用的<strong>分发入口</strong>
       飞书 → [飞书 API: 发布到群文档]
       公众号 → [微信公众号 API: 发布文章]
 </code></pre></div>
-<p><strong>Dify 侧配置</strong>：
-- 创建 Workflow 应用，接收资讯素材，按模板生成结构化周报
-- Prompt 模板包含周报结构（摘要、行业动态、竞品分析、建议）
-- 输出格式为 Markdown，便于多渠道发布</p>
-<p><strong>关键点</strong>：
-- n8n 负责调度和数据采集（连接外部系统）
-- Dify 负责内容生成的核心逻辑（LLM + RAG）
-- 两者通过 API 解耦，可独立迭代</p>
+<p><strong>Dify 侧配置</strong>：</p>
+<ul>
+<li>创建 Workflow 应用，接收资讯素材，按模板生成结构化周报</li>
+<li>Prompt 模板包含周报结构（摘要、行业动态、竞品分析、建议）</li>
+<li>输出格式为 Markdown，便于多渠道发布</li>
+</ul>
+<p><strong>关键点</strong>：</p>
+<ul>
+<li>n8n 负责调度和数据采集（连接外部系统）</li>
+<li>Dify 负责内容生成的核心逻辑（LLM + RAG）</li>
+<li>两者通过 API 解耦，可独立迭代</li>
+</ul>
 <hr />
 <h3 id="agent">小结：三者如何映射 Agent 时代的核心三角？<a class="headerlink" href="#agent" title="Permanent link">&para;</a></h3>
 <p>回顾 <strong>Agent（决策大脑）、Skills（能力单元）、MCP（连接协议）</strong> 这套体系，n8n、Coze、Dify 正是不同实现路径：</p>

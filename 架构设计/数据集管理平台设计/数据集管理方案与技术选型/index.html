@@ -12017,7 +12017,7 @@ pachctl<span class="w"> </span>put<span class="w"> </span>file<span class="w"> <
 </ul>
 <h3 id="34">3.4.流程图与架构图<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
 <h4 id="1_1">1.流程图<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A[数据集采集] --&gt; B[数据上传]
     B --&gt; C[自动标注]
     C --&gt; D[人工标注]
@@ -12042,8 +12042,7 @@ pachctl<span class="w"> </span>put<span class="w"> </span>file<span class="w"> <
     classDef process fill:#f9f9f9,stroke:#333,stroke-width:1px;
     class B,E,G process;
 
-    linkStyle 0,1,2,3,4,5,6 stroke:#000,stroke-width:2px;
-</code></pre></div>
+    linkStyle 0,1,2,3,4,5,6 stroke:#000,stroke-width:2px;</code></pre>
 <p><strong>描述</strong>:</p>
 <ul>
 <li><strong>数据集采集</strong>（A）：从多模态感知设备（如触觉传感器、视觉摄像头）获取原始数据。</li>
@@ -12057,7 +12056,7 @@ pachctl<span class="w"> </span>put<span class="w"> </span>file<span class="w"> <
 <li><strong>下载/迁移</strong>（I）：支持数据的下载、迁移到其他平台或存储。</li>
 </ul>
 <h4 id="2_1">2.架构图<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>graph TB
+<pre class="mermaid"><code>graph TB
     subgraph 数据上传与存储
         A[上传接口] --&gt; B[大文件存储系统]
         B --&gt; C[MinIO/S3 存储]
@@ -12091,8 +12090,7 @@ pachctl<span class="w"> </span>put<span class="w"> </span>file<span class="w"> <
     classDef process fill:#f9f9f9,stroke:#333,stroke-width:1px;
     class B,C,D,E,F,G,H,I,J process;
 
-    linkStyle 0,1,2,3,4,5,6,7 stroke:#000,stroke-width:2px;
-</code></pre></div>
+    linkStyle 0,1,2,3,4,5,6,7 stroke:#000,stroke-width:2px;</code></pre>
 <p><strong>描述</strong>:</p>
 <ul>
 <li><strong>数据上传与存储</strong>：</li>
@@ -12308,7 +12306,7 @@ s3://tactile-datasets/
 </ul>
 <h3 id="46_1">4.6.<strong>工具链与实现架构</strong><a class="headerlink" href="#46_1" title="Permanent link">&para;</a></h3>
 <h4 id="1_7">1.<strong>实现架构</strong><a class="headerlink" href="#1_7" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
   A[客户端] --&gt;|分块上传| B{API网关}
   B --&gt;|路由| C[MinIO集群]
   B --&gt;|元数据| D[(PostgreSQL)]
@@ -12317,8 +12315,7 @@ s3://tactile-datasets/
   F --&gt; G[数据集检索服务]
   E --&gt; H[训练集群]
   C --&gt;|版本快照| I[LakeFS]
-  I --&gt; J[数据版本管理]
-</code></pre></div>
+  I --&gt; J[数据版本管理]</code></pre>
 <h4 id="2_7">2.<strong>工具链推荐</strong><a class="headerlink" href="#2_7" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -12400,47 +12397,47 @@ s3://tactile-datasets/
 <ul>
 <li>图1:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>flowchart TD
- subgraph B[&quot;fa:fa-upload 上传数据集&quot;]
+<pre class="mermaid"><code>flowchart TD
+ subgraph B["fa:fa-upload 上传数据集"]
     direction TB
-        B1(&quot;分片&quot;)
-        B2(&quot;哈希&quot;)
-        B3(&quot;上传&quot;)
-        BL[&quot;1
+        B1("分片")
+        B2("哈希")
+        B3("上传")
+        BL["1
         2
         ...
-        n&quot;]
-        B4{&quot;解析&quot;}
+        n"]
+        B4{"解析"}
   end
 
- subgraph C[&quot;fa:fa-globe 在线制作&quot;]
+ subgraph C["fa:fa-globe 在线制作"]
     direction TB
-        C1(&quot;图像采集&quot;)
-        C2(&quot;图像标注&quot;)
-        C3(&quot;数据集生成&quot;)
+        C1("图像采集")
+        C2("图像标注")
+        C3("数据集生成")
   end
 
- subgraph D[&quot;fa:fa-save 存储&quot;]
+ subgraph D["fa:fa-save 存储"]
     direction RL
-        D1(&quot;Local-本地热数据&quot;)
-        D2(&quot;MinIO-远程冷数据&quot;)
-        D3(&quot;DB Storage&quot;)
+        D1("Local-本地热数据")
+        D2("MinIO-远程冷数据")
+        D3("DB Storage")
   end
 
- subgraph E[&quot;fa:fa-tasks 数据集管理&quot;]
+ subgraph E["fa:fa-tasks 数据集管理"]
     direction RL
-        E1{&quot;fa:fa-code-branch 版本控制&quot;}
-        E2[&quot;fa:fa-sync 更新/删除&quot;]
-        E3[&quot;fa:fa-comment-dots Info获取&quot;]
-        E4[&quot;fa:fa-download Download下载&quot;]
+        E1{"fa:fa-code-branch 版本控制"}
+        E2["fa:fa-sync 更新/删除"]
+        E3["fa:fa-comment-dots Info获取"]
+        E4["fa:fa-download Download下载"]
   end
 
     B1 -.-&gt; BL --&gt; B2 --&gt; B3
     D1 -.- D2 -.- D3
     C1 -.-&gt; C2 -.-&gt; C3
-    B3 -- 完整性验证 --&gt; B4 --&gt; D &amp; D4(&quot;fa:fa-trash Trash&quot;)
-    A(&quot;fas:fa-hourglass-start 开始&quot;) --&gt; B &amp; C
-    C --&gt; D -.-&gt; E --&gt; F(&quot;fa:fa-hourglass-end 结束&quot;)
+    B3 -- 完整性验证 --&gt; B4 --&gt; D &amp; D4("fa:fa-trash Trash")
+    A("fas:fa-hourglass-start 开始") --&gt; B &amp; C
+    C --&gt; D -.-&gt; E --&gt; F("fa:fa-hourglass-end 结束")
     E1 -.-&gt; E2 -.-&gt; E3 -.-&gt; E4
 
     style A color:#000FFF, stroke:#00C853, fill:#FFF000
@@ -12450,38 +12447,38 @@ s3://tactile-datasets/
     style D4 color:#FFFFFF, fill:#999, stroke:#AA00FF
     style E color:#FFFFFF, stroke:#00C853, fill:#00C853
     style F color:#FFFFFF, fill:#9968EF, stroke:#000FFF
-</code></pre></div>
+</code></pre>
 <ul>
 <li>图2:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>flowchart TD
- subgraph B[&quot;fa:fa-upload 上传数据集&quot;]
+<pre class="mermaid"><code>flowchart TD
+ subgraph B["fa:fa-upload 上传数据集"]
     direction TB
-        B1(&quot;分片&quot;)
-        B2(&quot;哈希&quot;)
-        B3(&quot;上传&quot;)
-        BL[&quot;1 ...
-        n&quot;]
-        B4{&quot;解析&quot;}
+        B1("分片")
+        B2("哈希")
+        B3("上传")
+        BL["1 ...
+        n"]
+        B4{"解析"}
   end
- subgraph C[&quot;fa:fa-globe 在线制作&quot;]
+ subgraph C["fa:fa-globe 在线制作"]
     direction TB
-        C1(&quot;图像采集&quot;)
-        C2(&quot;图像标注&quot;)
-        C3(&quot;数据集生成&quot;)
+        C1("图像采集")
+        C2("图像标注")
+        C3("数据集生成")
   end
- subgraph D[&quot;fa:fa-save 存储&quot;]
+ subgraph D["fa:fa-save 存储"]
     direction RL
-        D1(&quot;Local-本地热数据&quot;)
-        D2(&quot;MinIO-远程冷数据&quot;)
-        D3(&quot;DB Storage&quot;)
+        D1("Local-本地热数据")
+        D2("MinIO-远程冷数据")
+        D3("DB Storage")
   end
- subgraph E[&quot;fa:fa-tasks 数据集管理&quot;]
+ subgraph E["fa:fa-tasks 数据集管理"]
     direction RL
-        E1[&quot;fa:fa-code-branch 版本控制&quot;]
-        E2[&quot;fa:fa-sync 更新/删除&quot;]
-        E3[&quot;fa:fa-comment-dots Info获取&quot;]
-        E4[&quot;fa:fa-download Download下载&quot;]
+        E1["fa:fa-code-branch 版本控制"]
+        E2["fa:fa-sync 更新/删除"]
+        E3["fa:fa-comment-dots Info获取"]
+        E4["fa:fa-download Download下载"]
   end
     B1 -.-&gt; BL
     BL --&gt; B2
@@ -12491,12 +12488,12 @@ s3://tactile-datasets/
     C1 -.-&gt; C2
     C2 -.-&gt; C3
     B3 -- 完整性验证 --&gt; B4
-    B4 --&gt; D &amp; D4(&quot;fa:fa-trash Trash&quot;)
-    A(&quot;fas:fa-hourglass-start 开始&quot;) -- 2 --&gt; B
+    B4 --&gt; D &amp; D4("fa:fa-trash Trash")
+    A("fas:fa-hourglass-start 开始") -- 2 --&gt; B
     A -- 1 --&gt; C
     C --&gt; D
     D -.-&gt; E
-    E --&gt; F(&quot;fa:fa-hourglass-end 结束&quot;)
+    E --&gt; F("fa:fa-hourglass-end 结束")
     E1 -.-&gt; E2
     E2 -.-&gt; E3
     E3 -.-&gt; E4
@@ -12521,7 +12518,7 @@ s3://tactile-datasets/
     linkStyle 11 stroke:#2962FF,fill:none
     linkStyle 12 stroke:#FFD600,fill:none
     linkStyle 18 stroke:#00C853,fill:none
-</code></pre></div>
+</code></pre>
 
 
 

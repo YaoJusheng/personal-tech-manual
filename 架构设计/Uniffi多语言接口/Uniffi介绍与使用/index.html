@@ -10961,14 +10961,14 @@
 <span class="err">```</span><span class="n">bash</span>
 </code></pre></div>
 <h4 id="uniffi_2">UniFFI 完整工作流程图（步骤执行流）<a class="headerlink" href="#uniffi_2" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     Start[开始开发]
     Step1[编写 Rust 核心逻辑]
     Step2[选择接口定义方式]
     Choice{定义方式?}
 
-    ModeA[&quot;UDL 文件方式&lt;br/&gt;独立 .udl 定义&quot;]
-    ModeB[&quot;过程宏方式&lt;br/&gt;#[uniffi::export]&quot;]
+    ModeA["UDL 文件方式&lt;br/&gt;独立 .udl 定义"]
+    ModeB["过程宏方式&lt;br/&gt;#[uniffi::export]"]
     ModeC[混合模式&lt;br/&gt;UDL + 宏]
 
     Step3[执行 uniffi-bindgen generate]
@@ -11001,10 +11001,9 @@
     Sub4a &amp; Sub4b --&gt; Step5
     Step5 --&gt; Step6
     Step6 --&gt; Step7
-    Step7 --&gt; End
-</code></pre></div>
+    Step7 --&gt; End</code></pre>
 <h4 id="_3">极简版：核心生成流程（最常用）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>graph LR
+<pre class="mermaid"><code>graph LR
     Rust[Rust 实现]
     UDL[UDL / 宏 接口]
     Bindgen[uniffi-bindgen]
@@ -11018,8 +11017,7 @@
     Bindgen --&gt; Scaffolding
     Bindgen --&gt; Binding
     Scaffolding --&gt; Lib
-    Binding &amp; Lib --&gt; App
-</code></pre></div>
+    Binding &amp; Lib --&gt; App</code></pre>
 <h4 id="_4">标准流程<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
 <p>集成 UniFFI 通常遵循以下<strong>标准三步走流程</strong><a href="https://docs.rs/uniffi_bindgen/0.25.2/i686-unknown-linux-gnu/uniffi_bindgen/">-7</a>：</p>
 <ol>
@@ -11445,34 +11443,33 @@ uniffi-bindgen<span class="w"> </span>generate<span class="w"> </span>crate_beta
 <li><strong>本地工具链</strong> — Go/Node 的社区工具版本固定在 <code>.tools</code> 中，与项目一起版本化管理</li>
 </ol>
 <h5 id="_16">整体流程图<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>flowchart TD
-    subgraph Build[&quot;构建阶段&quot;]
-        A1[&quot;make all&lt;br/&gt;或 make build&quot;] --&gt; A2[&quot;cargo build --release&lt;br/&gt;构建 sdk-core 核心库&quot;]
-        A2 --&gt; A3[&quot;cargo build --release -p auth&lt;br/&gt;-p dataset -p types&lt;br/&gt;构建三个 cdylib&quot;]
-        A3 --&gt; A4[&quot;生成 libauth.so&lt;br/&gt;libdataset.so&lt;br/&gt;libtypes.so&quot;]
+<pre class="mermaid"><code>flowchart TD
+    subgraph Build["构建阶段"]
+        A1["make all&lt;br/&gt;或 make build"] --&gt; A2["cargo build --release&lt;br/&gt;构建 sdk-core 核心库"]
+        A2 --&gt; A3["cargo build --release -p auth&lt;br/&gt;-p dataset -p types&lt;br/&gt;构建三个 cdylib"]
+        A3 --&gt; A4["生成 libauth.so&lt;br/&gt;libdataset.so&lt;br/&gt;libtypes.so"]
     end
 
-    subgraph Official[&quot;UniFFI 官方工具链&lt;br/&gt;Python / Swift&quot;]
-        B1[&quot;make gen-python&lt;br/&gt;或 make gen-swift&quot;] --&gt; B2[&quot;cargo run --release&lt;br/&gt;-p auth --features bindgen&lt;br/&gt;--bin uniffi-bindgen&quot;]
-        B2 --&gt; B3[&quot;src/uniffi-bindgen.rs&lt;br/&gt;fn main() {&lt;br/&gt;uniffi::uniffi_bindgen_main() }&quot;]
-        B3 --&gt; B4[&quot;uniffi 库内部解析&lt;br/&gt;UDL 文件 / cargo metadata&quot;]
-        B4 --&gt; B5[&quot;生成 Python: .py 文件&lt;br/&gt;生成 Swift: .swift + .h + .modulemap&quot;]
-        B5 --&gt; B6[&quot;输出到 bindings/python/&lt;br/&gt;bindings/swift/&quot;]
+    subgraph Official["UniFFI 官方工具链&lt;br/&gt;Python / Swift"]
+        B1["make gen-python&lt;br/&gt;或 make gen-swift"] --&gt; B2["cargo run --release&lt;br/&gt;-p auth --features bindgen&lt;br/&gt;--bin uniffi-bindgen"]
+        B2 --&gt; B3["src/uniffi-bindgen.rs&lt;br/&gt;fn main() {&lt;br/&gt;uniffi::uniffi_bindgen_main() }"]
+        B3 --&gt; B4["uniffi 库内部解析&lt;br/&gt;UDL 文件 / cargo metadata"]
+        B4 --&gt; B5["生成 Python: .py 文件&lt;br/&gt;生成 Swift: .swift + .h + .modulemap"]
+        B5 --&gt; B6["输出到 bindings/python/&lt;br/&gt;bindings/swift/"]
     end
 
-    subgraph Community[&quot;社区工具链&lt;br/&gt;Go / Node.js&quot;]
-        C1[&quot;make gen-go&lt;br/&gt;或 make gen-node&quot;] --&gt; C2[&quot;make install-bindgen-tools&quot;]
-        C2 --&gt; C3[&quot;.tools/bin/uniffi-bindgen-go&lt;br/&gt;或 .tools/bin/uniffi-bindgen-node-js&quot;]
-        C3 --&gt; C4[&quot;解析 lib*.so 动态库&lt;br/&gt;提取 Rust 符号表&quot;]
-        C4 --&gt; C5[&quot;Go: 生成 *.go 接口 + *.h 头文件&lt;br/&gt;Node: 生成 ESM 包 *.ts/*.js&quot;]
-        C5 --&gt; C6[&quot;输出到 bindings/go/&lt;br/&gt;bindings/node/&quot;]
+    subgraph Community["社区工具链&lt;br/&gt;Go / Node.js"]
+        C1["make gen-go&lt;br/&gt;或 make gen-node"] --&gt; C2["make install-bindgen-tools"]
+        C2 --&gt; C3[".tools/bin/uniffi-bindgen-go&lt;br/&gt;或 .tools/bin/uniffi-bindgen-node-js"]
+        C3 --&gt; C4["解析 lib*.so 动态库&lt;br/&gt;提取 Rust 符号表"]
+        C4 --&gt; C5["Go: 生成 *.go 接口 + *.h 头文件&lt;br/&gt;Node: 生成 ESM 包 *.ts/*.js"]
+        C5 --&gt; C6["输出到 bindings/go/&lt;br/&gt;bindings/node/"]
     end
 
     A4 --&gt; B2
-    A4 --&gt; C3
-</code></pre></div>
+    A4 --&gt; C3</code></pre>
 <h5 id="_17">官方工具调用链路<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant M as Makefile
     participant Cargo as cargo
     participant Bin as auth(uniffi-bindgen)
@@ -11481,7 +11478,7 @@ uniffi-bindgen<span class="w"> </span>generate<span class="w"> </span>crate_beta
 
     M-&gt;&gt;M: gen-python: build-core
     M-&gt;&gt;Cargo: cargo build --release -p auth --features bindgen --bin uniffi-bindgen
-    Note over Cargo: 触发 auth/Cargo.toml&lt;br/&gt;required-features = [&quot;bindgen&quot;]
+    Note over Cargo: 触发 auth/Cargo.toml&lt;br/&gt;required-features = ["bindgen"]
 
     Cargo-&gt;&gt;Bin: 运行 auth binary
     Bin-&gt;&gt;UniFFI: uniffi::uniffi_bindgen_main()
@@ -11489,8 +11486,7 @@ uniffi-bindgen<span class="w"> </span>generate<span class="w"> </span>crate_beta
 
     UniFFI-&gt;&gt;Py: 生成 auth.py
     UniFFI-&gt;&gt;Py: 生成 dataset.py
-    UniFFI-&gt;&gt;Py: 生成 types.py
-</code></pre></div>
+    UniFFI-&gt;&gt;Py: 生成 types.py</code></pre>
 <p>代码执行顺序：</p>
 <div class="highlight"><pre><span></span><code>1.  Makefile
      └── BINDGEN_AUTH_PY = cd src &amp;&amp; cargo run --release -p auth --features bindgen --bin uniffi-bindgen
@@ -11514,7 +11510,7 @@ uniffi-bindgen<span class="w"> </span>generate<span class="w"> </span>crate_beta
 </code></pre></div>
 <h5 id="_18">社区工具调用链路<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h5>
 <h6 id="1-go">1. Go<a class="headerlink" href="#1-go" title="Permanent link">&para;</a></h6>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant M as Makefile
     participant Tool as .tools/bin/uniffi-bindgen-go
     participant So as libauth.so
@@ -11531,8 +11527,7 @@ uniffi-bindgen<span class="w"> </span>generate<span class="w"> </span>crate_beta
     Tool-&gt;&gt;Tool: 生成 Go 接口文件 *.go
     Tool-&gt;&gt;Tool: 生成 C 头文件 *.h
     Tool-&gt;&gt;Go: 输出到 bindings/go/auth/
-    M-&gt;&gt;M: cp libauth.so → bindings/go/auth/
-</code></pre></div>
+    M-&gt;&gt;M: cp libauth.so → bindings/go/auth/</code></pre>
 <p>代码顺序：</p>
 <div class="highlight"><pre><span></span><code>1.  Makefile
      ├── install-bindgen-tools:
@@ -11552,7 +11547,7 @@ uniffi-bindgen<span class="w"> </span>generate<span class="w"> </span>crate_beta
      └── 复制 libauth.so → bindings/go/auth/
 </code></pre></div>
 <h6 id="2-nodejs">2. Nodejs<a class="headerlink" href="#2-nodejs" title="Permanent link">&para;</a></h6>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant M as Makefile
     participant Tool as .tools/bin/uniffi-bindgen-node-js
     participant So as libauth.so
@@ -11564,8 +11559,7 @@ uniffi-bindgen<span class="w"> </span>generate<span class="w"> </span>crate_beta
     Tool-&gt;&gt;Tool: 解析 crate 元数据
     Tool-&gt;&gt;Tool: 生成 ESM 包: index.js, index.d.ts, package.json
     Tool-&gt;&gt;Node: 输出到 bindings/node/auth/
-    M-&gt;&gt;M: cp libauth.so → bindings/node/auth/
-</code></pre></div>
+    M-&gt;&gt;M: cp libauth.so → bindings/node/auth/</code></pre>
 <p>代码顺序：</p>
 <div class="highlight"><pre><span></span><code>1.  Makefile
      └── BINDGEN_AUTH_NODE = $(NODE_BINDGEN) generate target/release/libauth.so

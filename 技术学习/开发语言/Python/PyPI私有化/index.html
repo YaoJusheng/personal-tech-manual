@@ -11538,14 +11538,14 @@ enabled =
 | 客户端配置使用本地   |&lt;---------|   安装本地包 (pip)     |         |  管理上传的包          |
 +-------------------+          +----------------------+         +----------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>graph TD;
+<pre class="mermaid"><code>graph TD;
     A[搭建私有 PyPI 服务器]
     A --&gt; C[配置 .pypirc 文件];
     C --&gt; D[构建 Python 包 \n python setup.py sdist bdist_wheel];
     D --&gt; E[使用 Twine 上传包到私有 PyPI \n twine upload];
     E --&gt; F[使用 pip 从私有 PyPI 安装包 \n pip install mypackage --extra-index-url=http://localhost:8080/simple];
     A --&gt; G[创建 PyPI 用户和权限管理] --&gt; B[安装私有 PyPI UI 管理界面] --&gt; E;
-</code></pre></div>
+</code></pre>
 
 
 

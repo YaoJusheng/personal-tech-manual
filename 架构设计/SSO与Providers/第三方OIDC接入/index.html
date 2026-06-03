@@ -11929,10 +11929,10 @@
 <li><strong>IAM 的配置信息</strong>：通过 IAM 的 OIDC 发现端点（<code>/.well-known/openid-configuration</code>）获取授权端点、令牌端点、用户信息端点等 URL。</li>
 </ul>
 <h4 id="332">3.3.2.时序图<a class="headerlink" href="#332" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
-    participant Browser as &quot;浏览器 (前端A)&quot;
-    participant Backend as &quot;后端A&quot;
-    participant IAM as &quot;IAM (OP)&quot;
+<pre class="mermaid"><code>sequenceDiagram
+    participant Browser as "浏览器 (前端A)"
+    participant Backend as "后端A"
+    participant IAM as "IAM (OP)"
 
     Browser-&gt;&gt;Backend: 1. 访问应用，请求用户状态
     Backend--&gt;&gt;Browser: 2. 未登录（或前端触发登录）
@@ -11965,8 +11965,7 @@
     activate Backend
     Backend-&gt;&gt;Backend: 18. 验证会话，返回资源
     Backend--&gt;&gt;Browser: 19. 返回用户数据
-    deactivate Backend
-</code></pre></div>
+    deactivate Backend</code></pre>
 <h4 id="333">3.3.3.步骤详解<a class="headerlink" href="#333" title="Permanent link">&para;</a></h4>
 <p><strong>步骤 1：用户访问前端 A</strong>
 用户在浏览器中打开第三方应用的首页（例如 <code>https://app.example.com</code>）。前端 A 加载页面，并向后端 B 发起请求以获取用户状态（例如调用 <code>/api/user/profile</code>）。</p>
@@ -12089,9 +12088,9 @@ Authorization: Bearer ACCESS_TOKEN
 </code></pre></div>
 <p>UserInfo 端点返回用户的标准声明（如 <code>sub</code>、<code>name</code>、<code>email</code> 等）。</p>
 <h4 id="334">3.3.4.关键接口设计<a class="headerlink" href="#334" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
-    participant Browser as &quot;浏览器（前端A）&quot;
-    participant Backend as &quot;后端A&quot;
+<pre class="mermaid"><code>sequenceDiagram
+    participant Browser as "浏览器（前端A）"
+    participant Backend as "后端A"
     participant IAM
 
     Note over Backend: 启动时获取发现配置
@@ -12114,8 +12113,7 @@ Authorization: Bearer ACCESS_TOKEN
     Backend--&gt;&gt;Browser: 13. 302重定向到前端首页
     Browser-&gt;&gt;Backend: 14. 请求API（携带Cookie）
     Backend-&gt;&gt;Backend: 15. 验证会话，返回资源
-    Backend--&gt;&gt;Browser: 16. 响应数据
-</code></pre></div>
+    Backend--&gt;&gt;Browser: 16. 响应数据</code></pre>
 <h5 id="a-get-authlogin">a. <code>GET /auth/login</code> —— 发起认证请求<a class="headerlink" href="#a-get-authlogin" title="Permanent link">&para;</a></h5>
 <ul>
 <li>生成随机 <code>state</code> 和 <code>nonce</code>，存储在服务器端会话（如 <code>req.session</code>）中。</li>
@@ -12169,7 +12167,7 @@ Authorization: Bearer ACCESS_TOKEN
 <hr />
 <h3 id="34">3.4 多客户端流程<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
 <p>针对多个独立第三方服务（各自拥有独立域名）统一接入同一 IAM 实现单点登录的场景，最通用的实现方式是<strong>每个服务各自作为 OIDC 依赖方（RP）独立实现标准 Authorization Code Flow</strong>，并依赖 IAM 的全局会话来达成跨域 SSO。</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant Browser
     participant ServiceA
@@ -12203,8 +12201,7 @@ Authorization: Bearer ACCESS_TOKEN
     ServiceB-&gt;&gt;ServiceB: 验证id_token，创建本地会话
     ServiceB--&gt;&gt;Browser: 302 重定向到 /
     Browser-&gt;&gt;ServiceB: GET / (携带本地会话)
-    ServiceB--&gt;&gt;Browser: 返回首页
-</code></pre></div>
+    ServiceB--&gt;&gt;Browser: 返回首页</code></pre>
 <h4 id="341a">3.4.1.首次访问服务A（未在任何服务登录）<a class="headerlink" href="#341a" title="Permanent link">&para;</a></h4>
 <p>与上面的一致</p>
 <h4 id="342bab">3.4.2.用户访问服务B（已在服务A登录，但未访问过服务B）<a class="headerlink" href="#342bab" title="Permanent link">&para;</a></h4>
@@ -12305,7 +12302,7 @@ Authorization: Bearer ACCESS_TOKEN
 <li>IAM 注销用户<strong>全局</strong>会话 (或<strong>单端</strong>会话)，并根据 <code>post_logout_redirect_uri</code> 重定向回应用。</li>
 <li>前端 A 显示登出成功页面。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户（当前设备）
     participant RP as 第三方应用 (RP)
     participant IAM as 身份提供者 (IAM)
@@ -12319,8 +12316,7 @@ Authorization: Bearer ACCESS_TOKEN
     IAM-&gt;&gt;User: 6. 重定向回RP的post_logout_redirect_uri
     User-&gt;&gt;RP: 7. 访问回调地址
     RP-&gt;&gt;User: 8. 登出完成（当前设备已登出）
-    Note over OtherDevices: 其他设备上的会话仍然有效
-</code></pre></div>
+    Note over OtherDevices: 其他设备上的会话仍然有效</code></pre>
 <h4 id="362op-initiated-logout">3.6.2.OP-Initiated Logout 的登出流程<a class="headerlink" href="#362op-initiated-logout" title="Permanent link">&para;</a></h4>
 <h5 id="1_1">1 全局登出<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h5>
 <p>当用户在 OP 直接登出时，需要通知所有已登录的 RP 清理各自的本地会话。OIDC 规范定义了两种实现方式：</p>
@@ -12363,7 +12359,7 @@ Authorization: Bearer ACCESS_TOKEN
 <p>当用户在 OP 的账户管理页面（或直接在 OP 的某个设备上）选择“登出此设备”时，需要通知所有与该设备关联的 RP 销毁其本地会话。OP 必须通过某种机制将 <code>sid</code> 传递给各 RP。</p>
 <h6 id="21front-channel-logout">2.1.Front-Channel Logout（前端通道）<a class="headerlink" href="#21front-channel-logout" title="Permanent link">&para;</a></h6>
 <p>依赖于浏览器，OP 返回一个包含多个 iframe 的页面，每个 iframe 的 <code>src</code> 指向一个 RP 的登出端点，并在 URL 中携带 <code>sid</code>。</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户（当前设备）
     participant OP as 身份提供者
     participant RP_A as 应用A的登出端点
@@ -12376,8 +12372,7 @@ Authorization: Bearer ACCESS_TOKEN
     RP_A-&gt;&gt;RP_A: 5. 根据sid找到本地会话并销毁
     User-&gt;&gt;RP_B: 6. iframe加载RP_B的登出URL?sid=xxx
     RP_B-&gt;&gt;RP_B: 7. 根据sid找到本地会话并销毁
-    Note over User: 所有iframe加载完成后，&lt;br/&gt;用户被重定向回OP页面（可选）
-</code></pre></div>
+    Note over User: 所有iframe加载完成后，&lt;br/&gt;用户被重定向回OP页面（可选）</code></pre>
 <p><strong>关键点</strong>：</p>
 <ul>
 <li>每个 RP 必须暴露一个 <code>frontchannel_logout_uri</code>，该 URL 接受 <code>sid</code> 参数。</li>
@@ -12386,7 +12381,7 @@ Authorization: Bearer ACCESS_TOKEN
 </ul>
 <h6 id="22back-channel-logout">2.2.Back-Channel Logout（后端通道）<a class="headerlink" href="#22back-channel-logout" title="Permanent link">&para;</a></h6>
 <p>不依赖浏览器，OP 直接向后端向每个 RP 的 <code>backchannel_logout_uri</code> 发送 HTTP POST 请求，请求体中包含一个 <strong>Logout Token</strong>，其中同样携带 <code>sid</code> 声明。</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User as 用户（可能不在线）
     participant OP as 身份提供者
     participant RP_A as 应用A的后端
@@ -12398,8 +12393,7 @@ Authorization: Bearer ACCESS_TOKEN
     RP_A-&gt;&gt;RP_A: 4. 验证logout_token，&lt;br/&gt;根据sid找到本地会话并销毁
     OP-&gt;&gt;RP_B: 5. POST到RP_B的backchannel_logout_uri&lt;br/&gt;携带logout_token（含sid）
     RP_B-&gt;&gt;RP_B: 6. 验证logout_token，&lt;br/&gt;根据sid找到本地会话并销毁
-    OP-&gt;&gt;User: 7. 通知用户操作完成（可选）
-</code></pre></div>
+    OP-&gt;&gt;User: 7. 通知用户操作完成（可选）</code></pre>
 <p><strong>关键点</strong>：</p>
 <ul>
 <li><code>logout_token</code> 是一个 JWT，必须由 OP 签名，包含 <code>iss</code>、<code>aud</code>、<code>iat</code>、<code>jti</code>、<code>events</code> 等声明，以及关键的 <code>sid</code> 声明。</li>
@@ -12408,7 +12402,7 @@ Authorization: Bearer ACCESS_TOKEN
 </ul>
 <hr />
 <h3 id="37token">3.7.服务端token令牌管理<a class="headerlink" href="#37token" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>graph TD
+<pre class="mermaid"><code>graph TD
     A[前端触发登录] --&gt; B[第三方后端获取 Token&lt;br/&gt;（id_token/access_token/refresh_token）]
     B --&gt; C[后端存储 Token 到分布式缓存（Redis）]
     C --&gt; D[前端携带 access_token 调用业务接口]
@@ -12416,8 +12410,7 @@ Authorization: Bearer ACCESS_TOKEN
     E --&gt;|有效| F[处理业务请求]
     E --&gt;|失效| G[后端自动用 refresh_token 刷新 Token]
     G --&gt;|刷新成功| H[更新 Redis 中的 Token，&lt;br/&gt;返回新 access_token 给前端]
-    G --&gt;|刷新失败| I[返回 401，前端引导用户重新登录]
-</code></pre></div>
+    G --&gt;|刷新失败| I[返回 401，前端引导用户重新登录]</code></pre>
 <p>核心原则：</p>
 <ul>
 <li><code>access_token</code>：前端存储 + 后端缓存，用于接口访问；</li>
@@ -13387,7 +13380,7 @@ Content-Type: application/json
 </ul>
 <h5 id="3-pkce">3. PKCE 完整流程<a class="headerlink" href="#3-pkce" title="Permanent link">&para;</a></h5>
 <p>以支持 PKCE 的 OIDC 授权码流程为例：</p>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Client as 客户端（App/SPA）
     participant AuthServer as 授权服务器
     participant ResourceServer as 资源服务器
@@ -13405,8 +13398,7 @@ Content-Type: application/json
     Client-&gt;&gt;AuthServer: 5. 令牌请求&lt;br&gt;POST /token&lt;br&gt;grant_type=authorization_code&lt;br&gt;&amp;code=xxx&lt;br&gt;&amp;client_id=xxx&lt;br&gt;&amp;redirect_uri=...&lt;br&gt;&amp;code_verifier={code_verifier}
 
     AuthServer-&gt;&gt;AuthServer: 6. 验证&lt;br&gt;计算 code_challenge&lt;br&gt;比较与存储的值是否一致
-    AuthServer--&gt;&gt;Client: 7. 返回 id_token + access_token
-</code></pre></div>
+    AuthServer--&gt;&gt;Client: 7. 返回 id_token + access_token</code></pre>
 <p><strong>步骤详解:</strong></p>
 <ol>
 <li><strong>生成凭证</strong>

@@ -11136,7 +11136,7 @@
 <p><strong>协议标准</strong>：主用 <strong>OIDC 1.0 + OAuth2.1</strong>，兼容 SAML2.0，内置 RBAC+ABAC 混合权限模型</p>
 <p><strong>部署形态</strong>：分布式集群部署，无状态服务 + 有状态缓存分层</p>
 <h5 id="2_2">2.整体架构分层图<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     %% 客户端层
     subgraph Client
         A1[Web 浏览器]
@@ -11197,10 +11197,9 @@
     Gateway --&gt; SSO_Core
     SSO_Core --&gt; Microservices
     SSO_Core --&gt; Storage
-    SSO_Core --&gt; Monitor
-</code></pre></div>
+    SSO_Core --&gt; Monitor</code></pre>
 <p>详细架构图</p>
-<div class="highlight"><pre><span></span><code>flowchart TB
+<pre class="mermaid"><code>flowchart TB
     subgraph 客户端接入层
         C1[Web浏览器]
         C2[移动端APP]
@@ -11209,13 +11208,13 @@
         C5[内部运维系统]
     end
 
-    subgraph &quot;流量接入层【Go实现】&quot;
+    subgraph "流量接入层【Go实现】"
         GW[APISIX统一网关&lt;br/&gt;Go开发]
         WAF[WAF&amp;风控限流&lt;br/&gt;Go]
         LIMIT[接口流量熔断降级&lt;br/&gt;Go]
     end
 
-    subgraph &quot;SSO核心认证集群【核心Go+管理Python】&quot;
+    subgraph "SSO核心认证集群【核心Go+管理Python】"
         subgraph Go高性能核心服务
             AUTH[Auth-Server认证中心&lt;br/&gt;OAuth2.1+OIDC 主服务]
             TOKEN[令牌管理服务&lt;br/&gt;签发/校验/续期/黑名单]
@@ -11232,7 +11231,7 @@
         KEY[密钥证书服务&lt;br/&gt;公私钥轮换 通用]
     end
 
-    subgraph &quot;业务微服务集群(10+)&quot;
+    subgraph "业务微服务集群(10+)"
         MS1[订单微服务]
         MS2[用户中心微服务]
         MS3[财务微服务]
@@ -11270,8 +11269,7 @@
     KEY --&gt; MINIO
 
     所有服务 --&gt; TRACE &amp; MON &amp; ELK
-    %%所有服务统一托管于 K8S
-</code></pre></div>
+    %%所有服务统一托管于 K8S</code></pre>
 <h5 id="3_2">3.核心能力清单<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h5>
 <ol>
 <li><strong>多端统一登录</strong>：账号密码、短信、扫码、人脸、第三方登录（微信 / 支付宝 / 企业账号）</li>
