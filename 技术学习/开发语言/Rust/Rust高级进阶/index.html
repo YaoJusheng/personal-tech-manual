@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://yaojusheng.github.io/tech-learning-doc/%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/Rust/Rust%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/">
       
       
-        <link rel="prev" href="../Rust%E5%9F%BA%E7%A1%80%E8%A7%A3%E6%9E%90/">
+        <link rel="prev" href="../Rust%E5%AE%8F%E7%BC%96%E7%A8%8B/">
       
       
         <link rel="next" href="../Rust%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/">
@@ -3465,6 +3465,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rust%E5%AE%8F%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust宏编程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -3536,6 +3564,305 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="1.生命周期">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. 生命周期是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. 生命周期标注的本质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3. 生命周期省略规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4. 结构体中的生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5. 方法与 impl 中的生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6. 生命周期约束与 where
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6. 生命周期约束与 where">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 生命周期约束形式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 生命周期约束形式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-a-b-a-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ① 'a: 'b —— “'a 活得比 'b 长（或一样长）”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-t-a-t-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ② T: 'a —— “类型 T 中的所有引用都比 'a 活得长”
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. where 子句
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-hrtb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7. 高阶生命周期约束 HRTB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8. 静态生命周期 'static
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8. 静态生命周期 &#39;static">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 'static
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. &amp;'static —— 静态生命周期的引用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-t-static-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. T: 'static —— 类型上的 'static 约束
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-nll" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9. NLL：非词法生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#110-reborrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10. Reborrow：再借用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.11. 生命周期系统“不够聪明”的场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-unsafe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.12. 无界生命周期与 unsafe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.13. 闭包、函数指针与生命周期消除差异
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-trait-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.14. Trait Object 的默认生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-impl-trait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.15. impl Trait 与生命周期捕获
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#116" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.16. 不要把结构体生命周期绑到方法借用上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#117" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.17. 生命周期消除规则补充
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#118" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.18. 生命周期常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3546,6 +3873,100 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="2.函数式编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Rust 中的函数式编程定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. 表达式导向
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. 闭包与环境捕获
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. 高阶函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5. 迭代器与惰性求值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-option-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6. Option 与 Result 的函数式组合
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7. 模式匹配与代数数据类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8. 函数式风格的取舍
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3558,6 +3979,111 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3.智能指针">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. 智能指针是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-boxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Box&lt;T&gt;：堆分配与唯一所有权
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-rct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Rc&lt;T&gt;：单线程引用计数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-arct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Arc&lt;T&gt;：多线程引用计数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-refcellt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5. RefCell&lt;T&gt;：内部可变性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-cellt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6. Cell&lt;T&gt;：按值复制的内部可变性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-weakt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.7. Weak&lt;T&gt;：打破引用循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38-cowa-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.8. Cow&lt;'a, T&gt;：写时克隆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.9. 智能指针选型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3568,6 +4094,111 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="4.多线程与并发编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Rust 并发模型的核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. 创建线程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-send-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Send 与 Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-mutext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. 共享状态并发：Mutex&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-rwlockt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5. 多读少写：RwLock&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6. 消息传递并发：Channel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7. 作用域线程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8. 原子类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.9. 并发设计建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3618,7 +4249,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
+  <a href="#1_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         1.简介
@@ -3652,7 +4283,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
+  <a href="#22_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         2.2.核心工作原理：模式匹配 + 代码展开
@@ -3663,7 +4294,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
+  <a href="#23_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         2.3.核心特性：重复匹配（最常用能力）
@@ -3674,7 +4305,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#24" class="md-nav__link">
+  <a href="#24_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         2.4.声明式宏的优缺点（选型必看）
@@ -3702,7 +4333,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
+  <a href="#31_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         3.1.核心定义
@@ -3818,7 +4449,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
+  <a href="#1_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         1.核心定位与定义
@@ -3852,7 +4483,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22_1" class="md-nav__link">
+  <a href="#22_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         2.2. 类型级编程的核心载体（无外部依赖，原生支持）
@@ -3880,7 +4511,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31_1" class="md-nav__link">
+  <a href="#31_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         3.1.编译期计算斐波那契数
@@ -3935,6 +4566,133 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="6.异步编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. 异步编程解决什么问题？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-async-await" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. async / await 的本质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Future 与状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. 异步运行时
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. 并发执行 Future
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6. 异步中的所有权与生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7. 不要在异步任务中阻塞线程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8. 异步锁与同步锁
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#69-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.9. Pin 与自引用问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#610-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10. Stream：异步迭代器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#611" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.11. 异步编程最佳实践
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -11100,6 +11858,305 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="1.生命周期">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. 生命周期是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. 生命周期标注的本质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3. 生命周期省略规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4. 结构体中的生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5. 方法与 impl 中的生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6. 生命周期约束与 where
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6. 生命周期约束与 where">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 生命周期约束形式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 生命周期约束形式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-a-b-a-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ① 'a: 'b —— “'a 活得比 'b 长（或一样长）”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-t-a-t-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ② T: 'a —— “类型 T 中的所有引用都比 'a 活得长”
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. where 子句
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-hrtb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7. 高阶生命周期约束 HRTB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8. 静态生命周期 'static
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8. 静态生命周期 &#39;static">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 'static
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. &amp;'static —— 静态生命周期的引用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-t-static-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. T: 'static —— 类型上的 'static 约束
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-nll" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9. NLL：非词法生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#110-reborrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10. Reborrow：再借用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.11. 生命周期系统“不够聪明”的场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-unsafe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.12. 无界生命周期与 unsafe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.13. 闭包、函数指针与生命周期消除差异
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-trait-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.14. Trait Object 的默认生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-impl-trait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.15. impl Trait 与生命周期捕获
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#116" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.16. 不要把结构体生命周期绑到方法借用上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#117" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.17. 生命周期消除规则补充
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#118" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.18. 生命周期常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -11110,6 +12167,100 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="2.函数式编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Rust 中的函数式编程定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. 表达式导向
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. 闭包与环境捕获
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. 高阶函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5. 迭代器与惰性求值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-option-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6. Option 与 Result 的函数式组合
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7. 模式匹配与代数数据类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8. 函数式风格的取舍
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -11122,6 +12273,111 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3.智能指针">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. 智能指针是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-boxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Box&lt;T&gt;：堆分配与唯一所有权
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-rct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Rc&lt;T&gt;：单线程引用计数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-arct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Arc&lt;T&gt;：多线程引用计数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-refcellt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5. RefCell&lt;T&gt;：内部可变性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-cellt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6. Cell&lt;T&gt;：按值复制的内部可变性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37-weakt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.7. Weak&lt;T&gt;：打破引用循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38-cowa-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.8. Cow&lt;'a, T&gt;：写时克隆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.9. 智能指针选型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -11132,6 +12388,111 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="4.多线程与并发编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Rust 并发模型的核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. 创建线程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-send-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Send 与 Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-mutext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. 共享状态并发：Mutex&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-rwlockt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5. 多读少写：RwLock&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6. 消息传递并发：Channel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7. 作用域线程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8. 原子类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.9. 并发设计建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -11182,7 +12543,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
+  <a href="#1_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         1.简介
@@ -11216,7 +12577,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
+  <a href="#22_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         2.2.核心工作原理：模式匹配 + 代码展开
@@ -11227,7 +12588,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
+  <a href="#23_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         2.3.核心特性：重复匹配（最常用能力）
@@ -11238,7 +12599,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#24" class="md-nav__link">
+  <a href="#24_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         2.4.声明式宏的优缺点（选型必看）
@@ -11266,7 +12627,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
+  <a href="#31_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         3.1.核心定义
@@ -11382,7 +12743,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
+  <a href="#1_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         1.核心定位与定义
@@ -11416,7 +12777,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22_1" class="md-nav__link">
+  <a href="#22_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         2.2. 类型级编程的核心载体（无外部依赖，原生支持）
@@ -11444,7 +12805,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31_1" class="md-nav__link">
+  <a href="#31_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         3.1.编译期计算斐波那契数
@@ -11500,6 +12861,133 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="6.异步编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. 异步编程解决什么问题？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-async-await" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. async / await 的本质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Future 与状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. 异步运行时
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. 并发执行 Future
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6. 异步中的所有权与生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7. 不要在异步任务中阻塞线程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8. 异步锁与同步锁
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#69-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.9. Pin 与自引用问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#610-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10. Stream：异步迭代器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#611" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.11. 异步编程最佳实践
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -11526,24 +13014,89 @@
 <div class="toc">
 <ul>
 <li><a href="#rust">Rust高级进阶</a><ul>
-<li><a href="#1">1.生命周期</a></li>
-<li><a href="#2">2.函数式编程</a></li>
-<li><a href="#3">3.智能指针</a></li>
-<li><a href="#4">4.多线程与并发编程</a></li>
+<li><a href="#1">1.生命周期</a><ul>
+<li><a href="#11">1.1. 生命周期是什么？</a></li>
+<li><a href="#12">1.2. 生命周期标注的本质</a></li>
+<li><a href="#13">1.3. 生命周期省略规则</a></li>
+<li><a href="#14">1.4. 结构体中的生命周期</a></li>
+<li><a href="#15-impl">1.5. 方法与 impl 中的生命周期</a></li>
+<li><a href="#16-where">1.6. 生命周期约束与 where</a><ul>
+<li><a href="#1_1">1. 生命周期约束形式</a><ul>
+<li><a href="#1-a-b-a-b">① 'a: 'b —— “'a 活得比 'b 长（或一样长）”</a></li>
+<li><a href="#2-t-a-t-a">② T: 'a —— “类型 T 中的所有引用都比 'a 活得长”</a></li>
+</ul>
+</li>
+<li><a href="#2-where">2. where 子句</a></li>
+</ul>
+</li>
+<li><a href="#17-hrtb">1.7. 高阶生命周期约束 HRTB</a></li>
+<li><a href="#18-static">1.8. 静态生命周期 'static</a><ul>
+<li><a href="#1-static">1. 'static</a></li>
+<li><a href="#2-static">2. &amp;'static —— 静态生命周期的引用</a></li>
+<li><a href="#3-t-static-static">3. T: 'static —— 类型上的 'static 约束</a></li>
+</ul>
+</li>
+<li><a href="#19-nll">1.9. NLL：非词法生命周期</a></li>
+<li><a href="#110-reborrow">1.10. Reborrow：再借用</a></li>
+<li><a href="#111">1.11. 生命周期系统“不够聪明”的场景</a></li>
+<li><a href="#112-unsafe">1.12. 无界生命周期与 unsafe</a></li>
+<li><a href="#113">1.13. 闭包、函数指针与生命周期消除差异</a></li>
+<li><a href="#114-trait-object">1.14. Trait Object 的默认生命周期</a></li>
+<li><a href="#115-impl-trait">1.15. impl Trait 与生命周期捕获</a></li>
+<li><a href="#116">1.16. 不要把结构体生命周期绑到方法借用上</a></li>
+<li><a href="#117">1.17. 生命周期消除规则补充</a></li>
+<li><a href="#118">1.18. 生命周期常见误区</a></li>
+</ul>
+</li>
+<li><a href="#2">2.函数式编程</a><ul>
+<li><a href="#21-rust">2.1. Rust 中的函数式编程定位</a></li>
+<li><a href="#22">2.2. 表达式导向</a></li>
+<li><a href="#23">2.3. 闭包与环境捕获</a></li>
+<li><a href="#24">2.4. 高阶函数</a></li>
+<li><a href="#25">2.5. 迭代器与惰性求值</a></li>
+<li><a href="#26-option-result">2.6. Option 与 Result 的函数式组合</a></li>
+<li><a href="#27">2.7. 模式匹配与代数数据类型</a></li>
+<li><a href="#28">2.8. 函数式风格的取舍</a></li>
+</ul>
+</li>
+<li><a href="#3">3.智能指针</a><ul>
+<li><a href="#31">3.1. 智能指针是什么？</a></li>
+<li><a href="#32-boxt">3.2. Box&lt;T&gt;：堆分配与唯一所有权</a></li>
+<li><a href="#33-rct">3.3. Rc&lt;T&gt;：单线程引用计数</a></li>
+<li><a href="#34-arct">3.4. Arc&lt;T&gt;：多线程引用计数</a></li>
+<li><a href="#35-refcellt">3.5. RefCell&lt;T&gt;：内部可变性</a></li>
+<li><a href="#36-cellt">3.6. Cell&lt;T&gt;：按值复制的内部可变性</a></li>
+<li><a href="#37-weakt">3.7. Weak&lt;T&gt;：打破引用循环</a></li>
+<li><a href="#38-cowa-t">3.8. Cow&lt;'a, T&gt;：写时克隆</a></li>
+<li><a href="#39">3.9. 智能指针选型</a></li>
+</ul>
+</li>
+<li><a href="#4">4.多线程与并发编程</a><ul>
+<li><a href="#41-rust">4.1. Rust 并发模型的核心</a></li>
+<li><a href="#42">4.2. 创建线程</a></li>
+<li><a href="#43-send-sync">4.3. Send 与 Sync</a></li>
+<li><a href="#44-mutext">4.4. 共享状态并发：Mutex&lt;T&gt;</a></li>
+<li><a href="#45-rwlockt">4.5. 多读少写：RwLock&lt;T&gt;</a></li>
+<li><a href="#46-channel">4.6. 消息传递并发：Channel</a></li>
+<li><a href="#47">4.7. 作用域线程</a></li>
+<li><a href="#48">4.8. 原子类型</a></li>
+<li><a href="#49">4.9. 并发设计建议</a></li>
+</ul>
+</li>
 <li><a href="#5">5.元编程</a><ul>
 <li><a href="#51">5.1. 元编程是什么？</a></li>
 <li><a href="#52-rust">5.2. Rust 元编程的核心边界</a></li>
 <li><a href="#53-rust">5.3. Rust元编程中的宏</a><ul>
-<li><a href="#1_1">1.简介</a></li>
+<li><a href="#1_2">1.简介</a></li>
 <li><a href="#2-macro_rules">2.声明宏 (macro_rules!)</a><ul>
 <li><a href="#21">2.1.核心语法与定义方式</a></li>
-<li><a href="#22">2.2.核心工作原理：模式匹配 + 代码展开</a></li>
-<li><a href="#23">2.3.核心特性：重复匹配（最常用能力）</a></li>
-<li><a href="#24">2.4.声明式宏的优缺点（选型必看）</a></li>
+<li><a href="#22_1">2.2.核心工作原理：模式匹配 + 代码展开</a></li>
+<li><a href="#23_1">2.3.核心特性：重复匹配（最常用能力）</a></li>
+<li><a href="#24_1">2.4.声明式宏的优缺点（选型必看）</a></li>
 </ul>
 </li>
 <li><a href="#3_1">3.过程宏</a><ul>
-<li><a href="#31">3.1.核心定义</a></li>
+<li><a href="#31_1">3.1.核心定义</a></li>
 <li><a href="#32">3.2.过程宏的三大「标配依赖」（缺一不可）</a></li>
 <li><a href="#33-crate">3.3.硬性要求：过程宏必须是独立的 crate</a></li>
 <li><a href="#34">3.4.三类过程宏</a><ul>
@@ -11558,14 +13111,14 @@
 </ul>
 </li>
 <li><a href="#54">5.4.类型级编程</a><ul>
-<li><a href="#1_2">1.核心定位与定义</a></li>
+<li><a href="#1_3">1.核心定位与定义</a></li>
 <li><a href="#2_1">2 核心本质与核心载体</a><ul>
 <li><a href="#21_1">2.1. 类型级编程的本质：编译期的类型计算</a></li>
-<li><a href="#22_1">2.2. 类型级编程的核心载体（无外部依赖，原生支持）</a></li>
+<li><a href="#22_2">2.2. 类型级编程的核心载体（无外部依赖，原生支持）</a></li>
 </ul>
 </li>
 <li><a href="#3_2">3.示例</a><ul>
-<li><a href="#31_1">3.1.编译期计算斐波那契数</a></li>
+<li><a href="#31_2">3.1.编译期计算斐波那契数</a></li>
 <li><a href="#32_1">3.2.编译期验证数组长度合法性</a></li>
 </ul>
 </li>
@@ -11574,15 +13127,1093 @@
 </li>
 </ul>
 </li>
-<li><a href="#6">6.异步编程</a></li>
+<li><a href="#6">6.异步编程</a><ul>
+<li><a href="#61">6.1. 异步编程解决什么问题？</a></li>
+<li><a href="#62-async-await">6.2. async / await 的本质</a></li>
+<li><a href="#63-future">6.3. Future 与状态机</a></li>
+<li><a href="#64">6.4. 异步运行时</a></li>
+<li><a href="#65-future">6.5. 并发执行 Future</a></li>
+<li><a href="#66">6.6. 异步中的所有权与生命周期</a></li>
+<li><a href="#67">6.7. 不要在异步任务中阻塞线程</a></li>
+<li><a href="#68">6.8. 异步锁与同步锁</a></li>
+<li><a href="#69-pin">6.9. Pin 与自引用问题</a></li>
+<li><a href="#610-stream">6.10. Stream：异步迭代器</a></li>
+<li><a href="#611">6.11. 异步编程最佳实践</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 <h2 id="1">1.生命周期<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1. 生命周期是什么？<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>生命周期（Lifetime）是 Rust 借用检查器用来描述<strong>引用有效范围</strong>的静态信息。它并不会改变变量真实的存活时间，也不会在运行时产生额外开销，而是在编译期帮助编译器判断：某个引用在被使用时，指向的数据是否仍然有效。</p>
+<p>Rust 的生命周期系统解决的是「悬垂引用」问题：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">        </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="c1">// x 在内部作用域结束后被释放</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// println!(&quot;{}&quot;, r); // ❌ r 指向已经失效的 x</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>生命周期的核心原则：<strong>引用的生命周期不能长于被引用值的生命周期</strong>。</p>
+<h3 id="12">1.2. 生命周期标注的本质<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>生命周期标注不是在「延长」引用生命周期，而是在告诉编译器多个引用之间的生命周期关系。</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">longest</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这里的 <code>'a</code> 表示：</p>
+<ul>
+<li><code>x</code> 和 <code>y</code> 至少在某个共同作用域 <code>'a</code> 内有效；</li>
+<li>返回值引用也只能在这个共同作用域 <code>'a</code> 内有效；</li>
+<li>实际调用时，<code>'a</code> 会被推断为两个参数生命周期中较短的那个。</li>
+</ul>
+<blockquote>
+<p>生命周期标注描述的是「关系」，不是「时长」。<code>'a</code> 不代表一个固定时间段，而是由调用上下文推断出来的最小安全范围。</p>
+</blockquote>
+<h3 id="13">1.3. 生命周期省略规则<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<p>Rust 为常见函数签名提供生命周期省略规则，因此很多代码不需要显式写生命周期。</p>
+<p>编译器按以下规则推断：</p>
+<ol>
+<li>每个引用参数都会获得自己的生命周期参数；</li>
+<li>如果只有一个输入生命周期，它会被赋给所有输出生命周期；</li>
+<li>如果方法参数中有 <code>&amp;self</code> 或 <code>&amp;mut self</code>，输出生命周期默认与 <code>self</code> 绑定。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// 显式写法</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">first</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="o">..</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// 省略写法，等价于上面</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">first_short</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="o">..</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>但当返回值可能来自多个输入引用时，编译器无法判断关系，就必须手动标注：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">pick</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">use_a</span><span class="p">:</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">use_a</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="14">1.4. 结构体中的生命周期<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<p>当结构体字段保存引用时，结构体必须声明生命周期参数，表示该结构体实例不能比它引用的数据活得更久。</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">UserView</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;Alice&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UserView</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">name</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>含引用字段的结构体适合表达「借用视图」，例如解析器中的切片、配置读取视图、零拷贝反序列化结果等。若结构体需要独立拥有数据，应优先使用 <code>String</code>、<code>Vec&lt;T&gt;</code> 等拥有所有权的类型。</p>
+<h3 id="15-impl">1.5. 方法与 impl 中的生命周期<a class="headerlink" href="#15-impl" title="Permanent link">&para;</a></h3>
+<p>为带生命周期的结构体实现方法时，生命周期参数写在 <code>impl</code> 后面：</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Parser</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Parser</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">new</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Self</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="bp">Self</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">remaining</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">input</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>remaining</code> 不需要显式生命周期，因为方法省略规则会把返回值生命周期绑定到 <code>&amp;self</code>。</p>
+<h3 id="16-where">1.6. 生命周期约束与 <code>where</code><a class="headerlink" href="#16-where" title="Permanent link">&para;</a></h3>
+<h4 id="1_1">1. 生命周期约束形式<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h4>
+<p>生命周期约束主要有两种形式：</p>
+<h5 id="1-a-b-a-b">① <code>'a: 'b</code> —— “<code>'a</code> 活得比 <code>'b</code> 长（或一样长）”<a class="headerlink" href="#1-a-b-a-b" title="Permanent link">&para;</a></h5>
+<p>生命周期可以像类型参数一样添加约束，常见形式是 <code>'a: 'b</code>，表示 <code>'a</code> 至少和 <code>'b</code> 一样长（即 <code>'a</code> <strong>outlives</strong> <code>'b</code>）。</p>
+<p>当你有“引用的引用”，或某个结构包含多个相关的引用时，这种约束经常出现。</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">RefPair</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="o">&#39;</span><span class="na">b</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="k">where</span>
+<span class="w">    </span><span class="o">&#39;</span><span class="na">a</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">b</span><span class="p">,</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">long</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
+<span class="w">    </span><span class="n">short</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">b</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// 外层引用 &amp;&#39;a 指向一个 &amp;&#39;b  i32，要保证 &amp;&#39;b 在内层使用时仍然有效</span>
+<span class="c1">// 就必须要求 &#39;b: &#39;a （内部引用活得更长）</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">DoubleRef</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="o">&#39;</span><span class="na">b</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">r</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">b</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// 编译器不会自动加上 &#39;b: &#39;a，需要我们显式写出来：</span>
+<span class="k">impl</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="o">&#39;</span><span class="na">b</span><span class="o">&gt;</span><span class="w"> </span><span class="n">DoubleRef</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="o">&#39;</span><span class="na">b</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">new</span><span class="p">(</span><span class="n">r</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">b</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Self</span>
+<span class="w">    </span><span class="k">where</span>
+<span class="w">        </span><span class="o">&#39;</span><span class="na">b</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="p">,</span><span class="w">   </span><span class="c1">// 必须加这个约束，否则编译不过</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">DoubleRef</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="2-t-a-t-a">② <code>T: 'a</code> —— “类型 <code>T</code> 中的所有引用都比 <code>'a</code> 活得长”<a class="headerlink" href="#2-t-a-t-a" title="Permanent link">&para;</a></h5>
+<p>泛型类型中也常见 <code>T: 'a</code>：表示泛型类型 <code>T</code> 内部可能包含引用，且这些引用的生命周期必须<strong>至少是 <code>'a</code></strong>。</p>
+<p>当我们要把 <code>T</code> 存入一个被 <code>'a</code> 限定的上下文（如结构体带有生命周期 <code>'a</code>）时，就需要这个约束，以保证不会出现悬垂引用。</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Container</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w">            </span><span class="c1">// &amp;&#39;a T 要求 T: &#39;a</span>
+<span class="p">}</span>
+
+<span class="c1">// 在 impl 中，这个约束必须显式声明</span>
+<span class="k">impl</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Container</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="k">where</span>
+<span class="w">    </span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="p">,</span><span class="w">                 </span><span class="c1">// 声明 T 能安全地被 &#39;a 引用</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">T</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">data</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>如果 <code>T</code> 是 <code>i32</code> 这类不含引用的类型，<code>T: 'a</code> 自动成立；但编译器仍要求你写明这个约束，以保证泛型代码对所有 <code>T</code> 都安全。</p>
+</blockquote>
+<h4 id="2-where">2.  <code>where</code> 子句<a class="headerlink" href="#2-where" title="Permanent link">&para;</a></h4>
+<p>生命周期约束可以直接写在尖括号 <code>&lt;&gt;</code> 里，也可以移到 <code>where</code> 子句中。<strong>两者的语义完全相同</strong>，但 <code>where</code> 让签名更易读，尤其是约束较多时。</p>
+<p><strong>没有 <code>where</code>，全挤在尖括号里：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">foo</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="o">&#39;</span><span class="na">b</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">b</span><span class="w"> </span><span class="nc">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><strong>用 <code>where</code> 重写：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">foo</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="o">&#39;</span><span class="na">b</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">b</span><span class="w"> </span><span class="nc">T</span><span class="p">)</span>
+<span class="k">where</span>
+<span class="w">    </span><span class="o">&#39;</span><span class="na">b</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="p">,</span>
+<span class="w">    </span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="p">,</span>
+<span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>可读性明显提升，约束条件被独立出来，一眼就能看清关系。</p>
+<ul>
+<li>
+<p><code>where</code> 不仅用于函数，所有能声明约束的地方都可以用，如：结构体定义、接受闭包作为参数的高阶函数等场景。</p>
+</li>
+<li>
+<p><strong><code>where</code> 只是语法糖，但强烈建议在约束多时使用</strong>，尤其是当函数签名中既有类型 trait bound 又有生命周期 bound 时，能极大提升可读性。</p>
+</li>
+</ul>
+<h3 id="17-hrtb">1.7. 高阶生命周期约束 <code>HRTB</code><a class="headerlink" href="#17-hrtb" title="Permanent link">&para;</a></h3>
+<p><code>HRTB</code>（Higher-Ranked Trait Bounds）用于表达「对任意生命周期都成立」的约束，语法是 <code>for&lt;'a&gt;</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">apply_to_str</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">)</span>
+<span class="k">where</span>
+<span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nc">for</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Fn</span><span class="p">(</span><span class="o">&amp;&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">),</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;rust&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>类型 F 代表的闭包 / 函数，<strong>对任意生命周期 <code>'a</code> 都满足</strong>：接收 <code>&amp;'a str</code></p>
+</blockquote>
+<p>这里表示 <code>F</code> 必须能接受任意生命周期的 <code>&amp;str</code>，而不是只接受某个特定生命周期的引用。</p>
+<p><code>HRTB</code> 常见于闭包、trait object、序列化框架和异步抽象中。</p>
+<p>更典型的高级写法是对引用本身施加 trait 约束：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">compare_with_zero</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">T</span><span class="p">)</span>
+<span class="k">where</span>
+<span class="w">    </span><span class="k">for</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&#39;</span><span class="na">a</span><span class="w"> </span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nb">PartialEq</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;zero&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>for&lt;'a&gt; &amp;'a T: PartialEq&lt;i32&gt;</code> 的含义是：<strong>任意生命周期的 <code>&amp;T</code> 都必须能和 <code>i32</code> 比较</strong>。如果不用 <code>HRTB</code>，只在函数上声明某个具体生命周期，往往无法覆盖函数内部临时借用产生的更短生命周期。</p>
+<h3 id="18-static">1.8. 静态生命周期 <code>'static</code><a class="headerlink" href="#18-static" title="Permanent link">&para;</a></h3>
+<h4 id="1-static">1. <code>'static</code><a class="headerlink" href="#1-static" title="Permanent link">&para;</a></h4>
+<p><code>'static</code> 表示引用在整个程序运行期间都有效，最典型的是字符串字面量：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p">;</span>
+</code></pre></div>
+<p>需要注意：<code>T: 'static</code> 不等于「这个值永远不释放」，而是表示类型 <code>T</code> 中不包含短生命周期引用，或者包含的引用都是 <code>'static</code>。例如 <code>String</code> 满足 <code>T: 'static</code>，因为它拥有堆上数据，不借用外部短生命周期数据。</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">spawn_task</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">T</span><span class="p">)</span>
+<span class="k">where</span>
+<span class="w">    </span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nb">Send</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">&#39;</span><span class="nb">static</span><span class="p">,</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">drop</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>线程可能比当前函数活得更久，因此闭包捕获的数据必须可安全移动到线程中，并且不能借用当前栈帧中的短生命周期引用。</p>
+<h4 id="2-static">2. <code>&amp;'static</code> —— 静态生命周期的引用<a class="headerlink" href="#2-static" title="Permanent link">&para;</a></h4>
+<p><code>&amp;'static T</code> 表示一个<strong>具有 <code>'static</code> 生命周期的不可变引用</strong>（也有 <code>&amp;'static mut T</code>）。</p>
+<p>它指向的数据必须存活整个程序，因此这个引用可以安全地在任何地方使用，不会悬垂。</p>
+<p><code>&amp;'static</code> 对于生命周期有着非常强的要求：一个引用必须要活得跟剩下的程序一样久，才能被标注为 <code>&amp;'static</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">// 字符串字面量默认就是 &amp;&#39;static str</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">GREETING</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hi&quot;</span><span class="p">;</span><span class="w">    </span><span class="c1">// GREETING 本身是 &#39;static 的，它内部引用也是 &#39;static</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">g</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GREETING</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>使用场景</strong>:</p>
+<ul>
+<li>
+<p><strong>全局错误信息</strong>：如 <code>std::io::Error::new</code> 经常接受 <code>&amp;'static str</code>，因为错误描述不应持有局部数据的引用。</p>
+</li>
+<li>
+<p><strong>类型描述</strong>：<code>std::any::type_name::&lt;T&gt;()</code> 返回 <code>&amp;'static str</code>。</p>
+</li>
+<li>
+<p><strong>配置信息</strong>：如果你的结构体只需要引用外部的静态配置，可以存 <code>&amp;'static Config</code>。</p>
+</li>
+<li>
+<p><strong>从泄漏获得可变静态引用</strong>（谨慎使用）：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="nb">static</span><span class="w"> </span><span class="nc">mut</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">leak</span><span class="p">(</span><span class="nb">Box</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">42</span><span class="p">));</span>
+<span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="c1">// 整个程序期间有效，但内存永不释放</span>
+</code></pre></div>
+<h4 id="3-t-static-static">3. <code>T: 'static</code> —— 类型上的 <code>'static</code> 约束<a class="headerlink" href="#3-t-static-static" title="Permanent link">&para;</a></h4>
+<p>这是最容易产生误解的地方。</p>
+<p><code>T: 'static</code> <strong>不是指 <code>T</code> 的生命周期是 <code>'static</code>，而是指 <code>T</code> 内部可以安全地存活任意长时间</strong>——具体来说，<code>T</code> 中不包含任何生命周期小于 <code>'static</code> 的引用。</p>
+<p>换句话说：</p>
+<ul>
+<li><code>T</code> 要么是<strong>拥有所有权的类型</strong>（如 <code>String</code>, <code>Vec&lt;i32&gt;</code>, <code>i32</code>），</li>
+<li>要么虽然包含引用，但这些引用全部是 <code>'static</code> 的（如 <code>&amp;'static str</code>）。</li>
+</ul>
+<p>当你需要确保一个值可以被<strong>无时间限制地持有</strong>时，就必须添加这个约束。最典型的例子是 <code>std::thread::spawn</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">spawn</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">JoinHandle</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+<span class="k">where</span>
+<span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nb">FnOnce</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
+<span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nb">Send</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">&#39;</span><span class="nb">static</span><span class="p">,</span><span class="w">     </span><span class="c1">// ← 闭包必须满足 &#39;static</span>
+<span class="w">    </span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nb">Send</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">&#39;</span><span class="nb">static</span><span class="p">,</span>
+</code></pre></div>
+<p>新线程可能比创建它的线程活得更久，所以线程闭包捕获的所有数据都必须能自己存活任意长时间——即必须满足 <code>F: 'static</code> 和 <code>T: 'static</code>。</p>
+<p>如果你在线程闭包中尝试使用一个局部变量的引用，就会编译失败：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"> </span><span class="c1">// x 是 i32，拥有所有权，满足 &#39;static —— 没问题</span>
+<span class="w">    </span><span class="c1">// println!(&quot;{}&quot;, &amp;x); // 引用了栈上的 x，不满足 &#39;static —— 会报错</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong><code>T: 'static</code> 在实际代码中的使用</strong>:</p>
+<ul>
+<li><strong>Trait 约束</strong>：当你的结构体打算存放 <code>T</code>，并且这个结构体可能被传递到要求 <code>'static</code> 的上下文中时，可以加上 <code>where T: 'static</code>。</li>
+<li><strong>动态分发 <code>Box&lt;dyn Any&gt;</code></strong>：<code>Any</code> 要求 <code>dyn Any + 'static</code>，如果你想对非 <code>'static</code> 类型使用，需要 <code>+ 'a</code>。</li>
+<li><strong>异步编程</strong>：<code>async</code> 块或 <code>tokio::spawn</code> 通常要求 future 是 <code>'static</code>，因此捕获的所有数据必须满足 <code>'static</code>。</li>
+</ul>
+<h3 id="19-nll">1.9. <code>NLL</code>：非词法生命周期<a class="headerlink" href="#19-nll" title="Permanent link">&para;</a></h3>
+<p><code>NLL</code>（Non-Lexical Lifetime，非词法生命周期）是现代 Rust 借用检查的重要改进：引用的生命周期不再机械地持续到词法作用域结束，而是持续到<strong>最后一次使用</strong>。</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">;</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{r1}, {r2}&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// r1、r2 最后一次使用在这里</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">r3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="c1">// ✅ NLL 能识别前面的不可变借用已经结束</span>
+<span class="w">    </span><span class="n">r3</span><span class="p">.</span><span class="n">push_str</span><span class="p">(</span><span class="s">&quot; rust&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>如果按照早期「借用持续到作用域末尾」的规则，上面的 <code>&amp;mut s</code> 会和 <code>r1/r2</code> 冲突；NLL 会把借用范围缩短到最后一次使用处，因此让更多符合直觉的代码通过编译。</p>
+<p>需要注意：<code>NLL</code> 只是让借用检查更精确，并没有放宽 Rust 的别名规则。任意时刻仍然只能满足以下二选一：</p>
+<ol>
+<li>多个不可变引用；</li>
+<li>一个可变引用。</li>
+</ol>
+<h3 id="110-reborrow">1.10. <code>Reborrow</code>：再借用<a class="headerlink" href="#110-reborrow" title="Permanent link">&para;</a></h3>
+<p>再借用（<code>Reborrow</code>）是指从一个已有引用上继续创建更短生命周期的新引用。最常见的是从 <code>&amp;mut T</code> 再借用出 <code>&amp;T</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#[derive(Debug)]</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">move_to</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w">  </span><span class="c1">// 可变引用 r</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">rr</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">Point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;*</span><span class="n">r</span><span class="p">;</span><span class="w"> </span><span class="c1">// 从可变引用再借用为不可变引用（rr 是对 r 的再借用）</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rr</span><span class="p">);</span><span class="w"> </span><span class="c1">// rr 最后一次使用在这里，但不能在它的生命周期内再使用原来的借用 r</span>
+
+<span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"> </span><span class="c1">// ✅ rr 结束后，原来的可变引用 r 可继续使用</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>再借用的关键规则：<strong>再借用存在期间，原引用会被临时冻结</strong>。例如 <code>rr</code> 存活时，不能通过 <code>r</code> 修改 <code>p</code>；等 <code>rr</code> 最后一次使用后，<code>r</code> 才能恢复可变访问能力。</p>
+<p>函数调用中也经常发生隐式再借用：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">v</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">usize</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">len</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">push_after_read</span><span class="p">(</span><span class="n">v</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="c1">// &amp;mut Vec&lt;String&gt; 被临时再借用为 &amp;Vec&lt;String&gt;</span>
+<span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="fm">format!</span><span class="p">(</span><span class="s">&quot;len={n}&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="111">1.11. 生命周期系统“不够聪明”的场景<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
+<p>Rust 的生命周期系统是保守的静态分析。它必须在不运行程序的前提下证明引用安全，因此某些人类看来安全的代码，也可能因为借用范围被推断得过长而无法通过编译。</p>
+<p>典型问题一：方法签名把 <code>&amp;mut self</code> 和返回引用绑定到同一个生命周期，导致可变借用被延长。</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Foo</span><span class="p">;</span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Foo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">mutate_and_share</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;&#39;</span><span class="na">a</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">Self</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="bp">self</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">share</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Foo</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">loan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">mutate_and_share</span><span class="p">();</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:p}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">loan</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// foo.share(); // 某些设计下会因为前面的可变借用过长而冲突</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>典型问题二：容器查询和插入混在同一段控制流中，旧版或复杂场景下借用可能被延长。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">collections</span><span class="p">::</span><span class="n">HashMap</span><span class="p">;</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">get_default</span><span class="p">(</span><span class="n">map</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="n">contains_key</span><span class="p">(</span><span class="o">&amp;</span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">map</span><span class="p">.</span><span class="n">get_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="n">key</span><span class="p">).</span><span class="n">unwrap</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="n">clone</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">new</span><span class="p">());</span>
+<span class="w">        </span><span class="n">map</span><span class="p">.</span><span class="n">get_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="n">key</span><span class="p">).</span><span class="n">unwrap</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这种代码的优化方向通常不是继续加生命周期标注，而是<strong>改写控制流，让借用范围更短、更明确</strong>。例如优先使用标准库提供的 <code>entry</code> API：</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">collections</span><span class="p">::</span><span class="n">HashMap</span><span class="p">;</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">get_default_entry</span><span class="p">(</span><span class="n">map</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">map</span><span class="p">.</span><span class="n">entry</span><span class="p">(</span><span class="n">key</span><span class="p">).</span><span class="n">or_default</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>高阶 Rust 中要形成一个判断：当生命周期标注越来越复杂时，往往不是缺少某个 <code>'a</code>，而是 API 把借用关系设计得过紧。</p>
+<h3 id="112-unsafe">1.12. 无界生命周期与 unsafe<a class="headerlink" href="#112-unsafe" title="Permanent link">&para;</a></h3>
+<p>无界生命周期（Unbounded Lifetime）通常出现在 <code>unsafe</code> 中：代码从裸指针解引用凭空构造引用，而输出生命周期没有被任何输入约束。</p>
+<div class="highlight"><pre><span></span><code><span class="k">unsafe</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">from_raw_unbounded</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ptr</span><span class="p">:</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">T</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;*</span><span class="n">ptr</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这个函数的风险在于：调用者可以把返回值当成任意生命周期使用，甚至当成 <code>'static</code> 使用，但编译器并不知道裸指针背后的数据到底能活多久。</p>
+<p>更安全的设计是让输出生命周期来自输入引用，从而把生命周期关系交给借用检查器：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">first</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">slice</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;&amp;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">slice</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>如果必须封装裸指针，应尽量让 unsafe 边界变小，并通过函数参数或封装类型表达真实所有权关系：</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">marker</span><span class="p">::</span><span class="n">PhantomData</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">RawRef</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ptr</span><span class="p">:</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="p">,</span>
+<span class="w">    </span><span class="n">_marker</span><span class="p">:</span><span class="w"> </span><span class="nc">PhantomData</span><span class="o">&lt;&amp;&#39;</span><span class="na">a</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>PhantomData&lt;&amp;'a T&gt;</code> 不存储真实引用，但能告诉编译器：<code>RawRef&lt;'a, T&gt;</code> 在类型语义上借用了一个生命周期为 <code>'a</code> 的 <code>T</code>。</p>
+<h3 id="113">1.13. 闭包、函数指针与生命周期消除差异<a class="headerlink" href="#113" title="Permanent link">&para;</a></h3>
+<p>普通函数可以使用生命周期消除规则，编译器能直接把输入引用和输出引用关联起来：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">identity</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">i32</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">x</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>但闭包的生命周期推断更复杂，尤其是显式写返回引用类型时，编译器不一定能把参数生命周期和返回值生命周期建立成通用关系。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 某些场景下闭包不如普通函数容易推断：</span>
+<span class="c1">// let f = |x: &amp;i32| -&gt; &amp;i32 { x };</span>
+</code></pre></div>
+<p>如果需要表达「对任意生命周期的引用输入，都返回同生命周期引用」，普通函数项通常更合适：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">use_identity</span><span class="p">(</span><span class="n">f</span><span class="p">:</span><span class="w"> </span><span class="nc">for</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="k">fn</span><span class="p">(</span><span class="o">&amp;&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">use_identity</span><span class="p">(</span><span class="n">identity</span><span class="p">);</span>
+</code></pre></div>
+<p>闭包适合捕获环境和局部组合；当 API 需要精确表达引用输入输出关系时，普通函数、显式 trait bound 或 HRTB 往往更清晰。</p>
+<h3 id="114-trait-object">1.14. Trait Object 的默认生命周期<a class="headerlink" href="#114-trait-object" title="Permanent link">&para;</a></h3>
+<p>Trait object 隐含生命周期。<code>Box&lt;dyn Trait&gt;</code> 在很多位置默认等价于 <code>Box&lt;dyn Trait + 'static&gt;</code>，这意味着对象内部不能包含短生命周期借用。</p>
+<div class="highlight"><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="n">Render</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Borrowed</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Render</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Borrowed</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">text</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>如果要保存借用数据，需要把 trait object 的生命周期显式写出来：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">boxed_render</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Render</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">Box</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Borrowed</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>高级 Rust 中看到 <code>dyn Trait + 'a</code> 时，应理解为：这个 trait object 可能借用了生命周期为 <code>'a</code> 的数据，因此它不能比 <code>'a</code> 活得更久。</p>
+<h3 id="115-impl-trait">1.15. <code>impl Trait</code> 与生命周期捕获<a class="headerlink" href="#115-impl-trait" title="Permanent link">&para;</a></h3>
+<p><code>impl Trait</code> 用于隐藏具体返回类型，但它仍然必须遵守生命周期规则。返回值如果借用了输入数据，需要在签名中体现这种关系。</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">words</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">impl</span><span class="w"> </span><span class="nb">Iterator</span><span class="o">&lt;</span><span class="n">Item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">split_whitespace</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这里返回的迭代器内部借用了 <code>s</code>，因此迭代器不能比 <code>s</code> 活得更久。</p>
+<p>对于闭包返回值，常见写法是结合 <code>move</code> 和 <code>impl Fn</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">prefixer</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">prefix</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">impl</span><span class="w"> </span><span class="nb">Fn</span><span class="p">(</span><span class="o">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="n">s</span><span class="o">|</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">&quot;{prefix}{s}&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>返回类型末尾的 <code>+ 'a</code> 表示：这个闭包对象可能捕获了生命周期为 <code>'a</code> 的引用，调用者不能把它保存到超过 <code>'a</code> 的地方。</p>
+<h3 id="116">1.16. 不要把结构体生命周期绑到方法借用上<a class="headerlink" href="#116" title="Permanent link">&para;</a></h3>
+<p>高级生命周期设计中，一个常见错误是把方法接收者的借用生命周期写成结构体自己的生命周期，导致 <code>self</code> 被借用得过久。</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Manager</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">List</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">manager</span><span class="p">:</span><span class="w"> </span><span class="nc">Manager</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Interface</span><span class="o">&lt;&#39;</span><span class="na">b</span><span class="p">,</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">manager</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">b</span><span class="w"> </span><span class="nc">mut</span><span class="w"> </span><span class="n">Manager</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">get_interface</span><span class="o">&lt;&#39;</span><span class="na">b</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;&#39;</span><span class="na">b</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Interface</span><span class="o">&lt;&#39;</span><span class="na">b</span><span class="p">,</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">where</span>
+<span class="w">        </span><span class="o">&#39;</span><span class="na">a</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">b</span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">manager</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">manager</span><span class="p">,</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这里不要写成 <code>fn get_interface(&amp;'a mut self) -&gt; Interface&lt;'a, 'a&gt;</code>，否则会把 <code>self</code> 的可变借用强行延长到 <code>List&lt;'a&gt;</code> 的整个生命周期。正确做法是引入更短的 <code>'b</code> 表示「本次方法调用期间的借用」，再用 <code>'a: 'b</code> 表示 <code>manager</code> 中的数据至少能覆盖这次借用。</p>
+<p>这类问题是高阶 Rust API 设计的重点：</p>
+<ol>
+<li>结构体生命周期描述字段中借用数据的来源；</li>
+<li>方法生命周期描述本次调用产生的临时借用；</li>
+<li>两者不应无脑使用同一个 <code>'a</code>；</li>
+<li>生命周期越短，API 越容易组合。</li>
+</ol>
+<h3 id="117">1.17. 生命周期消除规则补充<a class="headerlink" href="#117" title="Permanent link">&para;</a></h3>
+<p>除了基础三条生命周期消除规则，现代 Rust 还支持一些常见简写：</p>
+<div class="highlight"><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="n">Reader</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">BufReader</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">buf</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Reader</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">BufReader</span><span class="o">&lt;&#39;</span><span class="nb">_</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+<p><code>'_</code> 是匿名生命周期，表示「这里确实有生命周期参数，但让编译器推断」。它适合在 <code>impl</code>、路径类型和返回类型中减少无意义命名。</p>
+<p><code>T: 'a</code> 约束也经常可以省略：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 旧式写法</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">RefOld</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="o">&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// 现代 Rust 通常可写为</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">RefNew</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>编译器能从字段 <code>&amp;'a T</code> 推导出 <code>T</code> 中的引用必须满足相应生命周期要求，因此无需手动重复写 <code>T: 'a</code>。</p>
+<h3 id="118">1.18. 生命周期常见误区<a class="headerlink" href="#118" title="Permanent link">&para;</a></h3>
+<ol>
+<li>生命周期不能修复所有权错误，只能描述引用关系；</li>
+<li>不要为了通过编译盲目添加 <code>'static</code>，这通常会把问题扩大为不必要的所有权约束；</li>
+<li>能拥有数据时不要过度借用，复杂生命周期往往意味着模型需要重新设计；</li>
+<li>返回引用时，引用必须来自输入参数或结构体字段，不能返回函数内部局部变量的引用。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// ❌ 错误：返回了局部变量的引用</span>
+<span class="c1">// fn bad&lt;&#39;a&gt;() -&gt; &amp;&#39;a str {</span>
+<span class="c1">//     let s = String::from(&quot;temp&quot;);</span>
+<span class="c1">//     &amp;s</span>
+<span class="c1">// }</span>
+</code></pre></div>
+<p>生命周期学习重点不是「背语法」，而是理解 Rust 如何在编译期证明引用始终有效。</p>
 <h2 id="2">2.函数式编程<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21-rust">2.1. Rust 中的函数式编程定位<a class="headerlink" href="#21-rust" title="Permanent link">&para;</a></h3>
+<p>Rust 不是纯函数式语言，但大量吸收了函数式编程思想：不可变性、表达式、闭包、高阶函数、模式匹配、代数数据类型、迭代器链式处理等。</p>
+<p>Rust 的函数式编程强调：<strong>用类型系统和所有权模型，在保持零成本抽象的前提下，写出安全、组合性强、可推理的代码</strong>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">sum</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">..=</span><span class="mi">10</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">sum</span><span class="p">();</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">sum</span><span class="p">,</span><span class="w"> </span><span class="mi">220</span><span class="p">);</span>
+</code></pre></div>
+<p>这段代码会被编译器优化为接近手写循环的机器码，不会因为链式调用产生额外集合分配。</p>
+<h3 id="22">2.2. 表达式导向<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>Rust 中大多数语法都是表达式，<code>if</code>、<code>match</code>、代码块都可以返回值。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;excellent&quot;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;good&quot;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;keep going&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="n">base</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>表达式导向可以减少临时可变变量，让代码更接近「数据转换管道」。</p>
+<h3 id="23">2.3. 闭包与环境捕获<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p>闭包是可以捕获环境的匿名函数，语法为 <code>|参数| 表达式</code> 或 <code>|参数| { 代码块 }</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">multiply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factor</span><span class="p">;</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">multiply</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span>
+</code></pre></div>
+<p>闭包根据捕获方式自动实现不同 trait：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Trait</th>
+<th style="text-align: left;">捕获方式</th>
+<th style="text-align: left;">调用能力</th>
+<th style="text-align: left;">典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Fn</code></td>
+<td style="text-align: left;">不可变借用</td>
+<td style="text-align: left;">可多次调用</td>
+<td style="text-align: left;">只读环境、回调</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>FnMut</code></td>
+<td style="text-align: left;">可变借用</td>
+<td style="text-align: left;">可多次调用</td>
+<td style="text-align: left;">修改捕获状态</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>FnOnce</code></td>
+<td style="text-align: left;">获取所有权</td>
+<td style="text-align: left;">至少调用一次</td>
+<td style="text-align: left;">消费捕获值、线程闭包</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">inc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">count</span>
+<span class="p">};</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">inc</span><span class="p">(),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">inc</span><span class="p">(),</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+<p>如果要把闭包移动到线程或异步任务中，通常需要使用 <code>move</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span>
+
+<span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="24">2.4. 高阶函数<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<p>高阶函数是接收函数/闭包作为参数，或返回函数/闭包的函数。</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">apply_twice</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">f</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span>
+<span class="nc">where</span>
+<span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">apply_twice</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span>
+</code></pre></div>
+<p>返回闭包时，通常使用 <code>impl Trait</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">make_adder</span><span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">impl</span><span class="w"> </span><span class="nb">Fn</span><span class="p">(</span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">add_three</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_adder</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">add_three</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="25">2.5. 迭代器与惰性求值<a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
+<p>Rust 迭代器是函数式编程中最常用的工具。<code>map</code>、<code>filter</code>、<code>take</code>、<code>skip</code> 等适配器都是惰性的，只有遇到消费器才会真正执行。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span>
+<span class="w">    </span><span class="p">.</span><span class="n">into_iter</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">collect</span><span class="p">();</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">]);</span>
+</code></pre></div>
+<p>常见消费器：</p>
+<ul>
+<li><code>collect()</code>：收集为集合；</li>
+<li><code>sum()</code> / <code>product()</code>：聚合计算；</li>
+<li><code>fold()</code> / <code>reduce()</code>：归约；</li>
+<li><code>any()</code> / <code>all()</code>：条件判断；</li>
+<li><code>find()</code> / <code>position()</code>：查找元素。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span>
+<span class="w">    </span><span class="p">.</span><span class="n">iter</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">fold</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">|</span><span class="n">acc</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">total</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="26-option-result">2.6. <code>Option</code> 与 <code>Result</code> 的函数式组合<a class="headerlink" href="#26-option-result" title="Permanent link">&para;</a></h3>
+<p>Rust 鼓励用 <code>Option</code> 表达可能为空，用 <code>Result</code> 表达可能失败，并通过组合子消除大量嵌套判断。</p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">parse_port</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">u16</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">input</span>
+<span class="w">        </span><span class="p">.</span><span class="n">trim</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">parse</span><span class="p">::</span><span class="o">&lt;</span><span class="kt">u16</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">ok</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="o">|</span><span class="n">port</span><span class="o">|</span><span class="w"> </span><span class="o">*</span><span class="n">port</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>常用组合子：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">方法</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>map</code></td>
+<td style="text-align: left;">成功/存在时转换内部值</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>and_then</code></td>
+<td style="text-align: left;">链式返回新的 <code>Option</code>/<code>Result</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>or_else</code></td>
+<td style="text-align: left;">失败/为空时提供替代逻辑</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>unwrap_or</code></td>
+<td style="text-align: left;">提供默认值</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>filter</code></td>
+<td style="text-align: left;">对 <code>Option</code> 内部值做条件过滤</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">read_number</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">trim</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">parse</span><span class="p">::</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">n</span><span class="o">|</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">err</span><span class="o">|</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">&quot;解析失败: {err}&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="27">2.7. 模式匹配与代数数据类型<a class="headerlink" href="#27" title="Permanent link">&para;</a></h3>
+<p>枚举和 <code>match</code> 是 Rust 函数式风格的核心。枚举表达状态空间，<code>match</code> 强制穷尽处理每一种状态。</p>
+<div class="highlight"><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">Command</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Start</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Stop</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Write</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">cmd</span><span class="p">:</span><span class="w"> </span><span class="nc">Command</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">cmd</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Command</span><span class="p">::</span><span class="n">Start</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">&quot;start&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">Command</span><span class="p">::</span><span class="n">Stop</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">&quot;stop&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">Command</span><span class="p">::</span><span class="n">Write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">&quot;write: {text}&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这类设计比大量布尔值和可空字段更安全，因为非法状态无法被构造出来。</p>
+<h3 id="28">2.8. 函数式风格的取舍<a class="headerlink" href="#28" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>适合使用函数式风格的场景</strong>：</p>
+<ol>
+<li>数据转换管道清晰；</li>
+<li>错误处理可以通过 <code>Result</code> 组合；</li>
+<li>需要减少可变状态；</li>
+<li>迭代处理可以自然表达为 <code>map/filter/fold</code>。</li>
+</ol>
+<p>❌ <strong>不适合强行函数式化的场景</strong>：</p>
+<ol>
+<li>控制流非常复杂，链式调用反而降低可读性；</li>
+<li>需要提前退出、细粒度日志或调试；</li>
+<li>借用关系复杂，闭包捕获导致生命周期更难理解；</li>
+<li>简单循环更直观时，应优先使用 <code>for</code>。</li>
+</ol>
+<p>Rust 的最佳实践不是「全函数式」，而是根据表达力选择：转换链路用迭代器，复杂流程用清晰的命令式代码。</p>
 <h2 id="3">3.智能指针<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1. 智能指针是什么？<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>智能指针（Smart Pointer）是拥有额外元数据和行为的指针类型。它们通常不仅保存地址，还负责所有权管理、引用计数、内部可变性、线程安全或自定义释放逻辑。</p>
+<p>Rust 智能指针的核心基础是两个 trait：</p>
+<ul>
+<li><code>Deref</code>：让智能指针可以像引用一样访问内部值；</li>
+<li><code>Drop</code>：在值离开作用域时自动执行清理逻辑。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">ops</span><span class="p">::</span><span class="n">Deref</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">MyBox</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Deref</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">MyBox</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">deref</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">Self</span><span class="p">::</span><span class="n">Target</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="32-boxt">3.2. <code>Box&lt;T&gt;</code>：堆分配与唯一所有权<a class="headerlink" href="#32-boxt" title="Permanent link">&para;</a></h3>
+<p><code>Box&lt;T&gt;</code> 表示在堆上分配一个值，并拥有该值的唯一所有权。<code>Box&lt;T&gt;</code> 本身存放在栈上，指向堆上的数据。</p>
+<p>典型用途：</p>
+<ol>
+<li>存放编译期大小未知的递归类型；</li>
+<li>转移大对象所有权时避免栈上拷贝过大；</li>
+<li>使用 trait object 实现动态分发。</li>
+</ol>
+<p>递归类型必须通过 <code>Box</code> 间接存储，否则编译器无法计算类型大小：</p>
+<div class="highlight"><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Cons</span><span class="p">(</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nb">Box</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">Nil</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>动态分发示例：</p>
+<div class="highlight"><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="n">Draw</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Button</span><span class="p">;</span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Draw</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Button</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;draw button&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">widget</span><span class="p">:</span><span class="w"> </span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Draw</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Button</span><span class="p">);</span>
+<span class="n">widget</span><span class="p">.</span><span class="n">draw</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="33-rct">3.3. <code>Rc&lt;T&gt;</code>：单线程引用计数<a class="headerlink" href="#33-rct" title="Permanent link">&para;</a></h3>
+<p><code>Rc&lt;T&gt;</code>（Reference Counted）允许多个所有者共享同一份只读数据。每次 <code>clone</code> 只增加引用计数，不会深拷贝内部数据。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">rc</span><span class="p">::</span><span class="n">Rc</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;shared&quot;</span><span class="p">));</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">Rc</span><span class="p">::</span><span class="n">strong_count</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div>
+<p><code>Rc&lt;T&gt;</code> 只能用于单线程，因为它的引用计数更新不是原子操作。多线程共享所有权应使用 <code>Arc&lt;T&gt;</code>。</p>
+<h3 id="34-arct">3.4. <code>Arc&lt;T&gt;</code>：多线程引用计数<a class="headerlink" href="#34-arct" title="Permanent link">&para;</a></h3>
+<p><code>Arc&lt;T&gt;</code>（Atomically Reference Counted）是线程安全版本的 <code>Rc&lt;T&gt;</code>，引用计数使用原子操作维护。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]);</span>
+<span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[];</span>
+
+<span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">3</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">handles</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">thread</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="p">}</span>
+
+<span class="k">for</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">handle</span><span class="p">.</span><span class="n">join</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>Arc&lt;T&gt;</code> 只解决「多线程共享所有权」，不自动提供可变访问。如果需要多线程修改共享数据，通常组合 <code>Arc&lt;Mutex&lt;T&gt;&gt;</code> 或 <code>Arc&lt;RwLock&lt;T&gt;&gt;</code>。</p>
+<h3 id="35-refcellt">3.5. <code>RefCell&lt;T&gt;</code>：内部可变性<a class="headerlink" href="#35-refcellt" title="Permanent link">&para;</a></h3>
+<p><code>RefCell&lt;T&gt;</code> 将借用检查从编译期推迟到运行时，允许在外部只有不可变引用时修改内部值。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">cell</span><span class="p">::</span><span class="n">RefCell</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="o">*</span><span class="n">value</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">()</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="o">*</span><span class="n">value</span><span class="p">.</span><span class="n">borrow</span><span class="p">(),</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+<p><code>RefCell&lt;T&gt;</code> 仍然遵守 Rust 借用规则：任意时刻可以有多个不可变借用，或一个可变借用。如果运行时违反规则，会触发 panic。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">cell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cell</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">();</span>
+<span class="c1">// let _b = cell.borrow_mut(); // ❌ 运行时 panic</span>
+</code></pre></div>
+<p>适合场景：</p>
+<ul>
+<li>mock 对象记录调用次数；</li>
+<li>单线程图结构或树结构中需要局部修改；</li>
+<li>对外暴露不可变 API，但内部需要缓存或延迟初始化。</li>
+</ul>
+<h3 id="36-cellt">3.6. <code>Cell&lt;T&gt;</code>：按值复制的内部可变性<a class="headerlink" href="#36-cellt" title="Permanent link">&para;</a></h3>
+<p><code>Cell&lt;T&gt;</code> 适合 <code>Copy</code> 类型，它不返回内部值的引用，而是通过 <code>get</code> / <code>set</code> 按值读写。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">cell</span><span class="p">::</span><span class="n">Cell</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">counter</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">get</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p>因为不会产生内部引用，<code>Cell&lt;T&gt;</code> 比 <code>RefCell&lt;T&gt;</code> 更简单，也不会出现运行时借用冲突。</p>
+<h3 id="37-weakt">3.7. <code>Weak&lt;T&gt;</code>：打破引用循环<a class="headerlink" href="#37-weakt" title="Permanent link">&para;</a></h3>
+<p><code>Rc&lt;T&gt;</code> 和 <code>Arc&lt;T&gt;</code> 使用强引用计数。若两个对象互相持有强引用，计数永远不会归零，导致内存泄漏。<code>Weak&lt;T&gt;</code> 是弱引用，不增加强计数，不拥有数据。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">cell</span><span class="p">::</span><span class="n">RefCell</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">rc</span><span class="p">::{</span><span class="n">Rc</span><span class="p">,</span><span class="w"> </span><span class="n">Weak</span><span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Node</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<span class="w">    </span><span class="n">parent</span><span class="p">:</span><span class="w"> </span><span class="nc">RefCell</span><span class="o">&lt;</span><span class="n">Weak</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">children</span><span class="p">:</span><span class="w"> </span><span class="nc">RefCell</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Rc</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>典型建模：父节点用 <code>Weak</code> 指向子节点的父级，子节点集合用 <code>Rc</code> 持有所有权，避免父子互相强引用。</p>
+<p>访问弱引用时需要 <code>upgrade</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">borrow</span><span class="p">().</span><span class="n">upgrade</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;parent value = {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">.</span><span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="38-cowa-t">3.8. <code>Cow&lt;'a, T&gt;</code>：写时克隆<a class="headerlink" href="#38-cowa-t" title="Permanent link">&para;</a></h3>
+<p><code>Cow</code>（Clone On Write）可以同时表示借用数据和拥有数据。只有在需要修改时，才会克隆为拥有数据。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">borrow</span><span class="p">::</span><span class="n">Cow</span><span class="p">;</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Cow</span><span class="o">&lt;&#39;</span><span class="nb">_</span><span class="p">,</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Cow</span><span class="p">::</span><span class="n">Owned</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;_&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Cow</span><span class="p">::</span><span class="n">Borrowed</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>Cow</code> 常用于减少不必要分配：当输入无需修改时直接返回借用，需要修改时才分配新对象。</p>
+<h3 id="39">3.9. 智能指针选型<a class="headerlink" href="#39" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">场景</th>
+<th style="text-align: left;">线程安全</th>
+<th style="text-align: left;">是否共享所有权</th>
+<th style="text-align: left;">是否允许内部可变</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Box&lt;T&gt;</code></td>
+<td style="text-align: left;">堆分配、递归类型、trait object</td>
+<td style="text-align: left;">取决于 <code>T</code></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">否</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Rc&lt;T&gt;</code></td>
+<td style="text-align: left;">单线程共享只读数据</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">否</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Arc&lt;T&gt;</code></td>
+<td style="text-align: left;">多线程共享只读数据</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">否</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>RefCell&lt;T&gt;</code></td>
+<td style="text-align: left;">单线程运行时借用检查</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">是</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Cell&lt;T&gt;</code></td>
+<td style="text-align: left;"><code>Copy</code> 值的内部可变性</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">是</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Weak&lt;T&gt;</code></td>
+<td style="text-align: left;">避免引用循环</td>
+<td style="text-align: left;">取决于 <code>Rc/Arc</code></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">否</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Cow&lt;'a, T&gt;</code></td>
+<td style="text-align: left;">借用优先，必要时拥有</td>
+<td style="text-align: left;">取决于 <code>T</code></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">需要时克隆</td>
+</tr>
+</tbody>
+</table>
+<p>常见组合：</p>
+<ul>
+<li><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>：单线程共享可变数据；</li>
+<li><code>Arc&lt;Mutex&lt;T&gt;&gt;</code>：多线程共享可变数据；</li>
+<li><code>Arc&lt;RwLock&lt;T&gt;&gt;</code>：多读少写的共享数据；</li>
+<li><code>Box&lt;dyn Trait&gt;</code>：运行时多态。</li>
+</ul>
+<p>智能指针不是越多越好。优先使用普通所有权和借用，只有当所有权关系确实需要共享、堆分配或内部可变性时，再引入智能指针。</p>
 <h2 id="4">4.多线程与并发编程<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41-rust">4.1. Rust 并发模型的核心<a class="headerlink" href="#41-rust" title="Permanent link">&para;</a></h3>
+<p>Rust 并发编程的目标是：<strong>在编译期消除数据竞争</strong>。它并不阻止所有逻辑层面的并发 bug，但能保证不会出现未定义行为级别的数据竞争。</p>
+<p>Rust 依赖三套机制实现并发安全：</p>
+<ol>
+<li>所有权：数据移动到线程后，原线程不能继续使用；</li>
+<li>借用规则：可变访问和共享访问不能同时存在；</li>
+<li><code>Send</code> / <code>Sync</code> trait：类型级别标记跨线程移动和共享是否安全。</li>
+</ol>
+<h3 id="42">4.2. 创建线程<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>标准库使用 <code>std::thread::spawn</code> 创建系统线程。传入的闭包通常需要 <code>move</code>，将捕获数据移动到新线程中。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="n">handle</span><span class="p">.</span><span class="n">join</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+</code></pre></div>
+<p><code>join()</code> 会等待子线程结束，并返回线程执行结果。如果子线程 panic，<code>join()</code> 返回 <code>Err</code>。</p>
+<h3 id="43-send-sync">4.3. <code>Send</code> 与 <code>Sync</code><a class="headerlink" href="#43-send-sync" title="Permanent link">&para;</a></h3>
+<p><code>Send</code> 和 <code>Sync</code> 是 Rust 并发安全的核心标记 trait。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Trait</th>
+<th style="text-align: left;">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Send</code></td>
+<td style="text-align: left;">类型的所有权可以安全移动到另一个线程</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Sync</code></td>
+<td style="text-align: left;">类型的共享引用 <code>&amp;T</code> 可以安全在线程间共享</td>
+</tr>
+</tbody>
+</table>
+<p>关系：如果 <code>T: Sync</code>，则 <code>&amp;T: Send</code>。</p>
+<p>常见结论：</p>
+<ul>
+<li><code>Rc&lt;T&gt;</code> 不是 <code>Send</code>/<code>Sync</code>，不能跨线程共享；</li>
+<li><code>Arc&lt;T&gt;</code> 是线程安全引用计数，可跨线程共享；</li>
+<li><code>RefCell&lt;T&gt;</code> 不是 <code>Sync</code>，多线程内部可变性应使用 <code>Mutex&lt;T&gt;</code> 或 <code>RwLock&lt;T&gt;</code>；</li>
+<li>大多数基础类型、<code>String</code>、<code>Vec&lt;T&gt;</code> 在 <code>T: Send</code> 时也是 <code>Send</code>。</li>
+</ul>
+<h3 id="44-mutext">4.4. 共享状态并发：<code>Mutex&lt;T&gt;</code><a class="headerlink" href="#44-mutext" title="Permanent link">&para;</a></h3>
+<p><code>Mutex&lt;T&gt;</code> 提供互斥访问，任意时刻只允许一个线程修改内部数据。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::{</span><span class="n">Arc</span><span class="p">,</span><span class="w"> </span><span class="n">Mutex</span><span class="p">};</span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Mutex</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[];</span>
+
+<span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">10</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">counter</span><span class="p">);</span>
+<span class="w">    </span><span class="n">handles</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">thread</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">counter</span><span class="p">.</span><span class="n">lock</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+<span class="w">        </span><span class="o">*</span><span class="n">num</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="p">}</span>
+
+<span class="k">for</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">handle</span><span class="p">.</span><span class="n">join</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="o">*</span><span class="n">counter</span><span class="p">.</span><span class="n">lock</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+<p><code>lock()</code> 返回 <code>MutexGuard</code>，它实现了 <code>Deref</code> 和 <code>DerefMut</code>，离开作用域时自动释放锁。</p>
+<p>注意：如果持锁线程 panic，锁会被标记为 poisoned，之后 <code>lock()</code> 返回 <code>PoisonError</code>。示例中 <code>unwrap()</code> 会直接传播 panic，生产代码可以根据业务选择恢复或终止。</p>
+<h3 id="45-rwlockt">4.5. 多读少写：<code>RwLock&lt;T&gt;</code><a class="headerlink" href="#45-rwlockt" title="Permanent link">&para;</a></h3>
+<p><code>RwLock&lt;T&gt;</code> 允许多个读者同时访问，或一个写者独占访问，适合读多写少的场景。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">RwLock</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RwLock</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]);</span>
+
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lock</span><span class="p">.</span><span class="n">read</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+<span class="w">    </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read</span><span class="p">.</span><span class="n">len</span><span class="p">(),</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lock</span><span class="p">.</span><span class="n">write</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+<span class="w">    </span><span class="n">write</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>如果写操作频繁，<code>RwLock</code> 不一定比 <code>Mutex</code> 更快，甚至可能因为调度成本更高而更慢。</p>
+<h3 id="46-channel">4.6. 消息传递并发：Channel<a class="headerlink" href="#46-channel" title="Permanent link">&para;</a></h3>
+<p>Rust 标准库提供 <code>std::sync::mpsc</code>，表示多生产者、单消费者通道。通过消息传递可以减少共享状态。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">mpsc</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="w"> </span><span class="n">rx</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mpsc</span><span class="p">::</span><span class="n">channel</span><span class="p">();</span>
+
+<span class="n">thread</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">tx</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)).</span><span class="n">unwrap</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rx</span><span class="p">.</span><span class="n">recv</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>多生产者通过克隆发送端实现：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="w"> </span><span class="n">rx</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mpsc</span><span class="p">::</span><span class="n">channel</span><span class="p">();</span>
+
+<span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">3</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tx</span><span class="p">.</span><span class="n">clone</span><span class="p">();</span>
+<span class="w">    </span><span class="n">thread</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">tx</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">unwrap</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="nb">drop</span><span class="p">(</span><span class="n">tx</span><span class="p">);</span><span class="w"> </span><span class="c1">// 关闭原始发送端，否则接收端迭代可能一直等待</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">values</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rx</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">collect</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="47">4.7. 作用域线程<a class="headerlink" href="#47" title="Permanent link">&para;</a></h3>
+<p>普通 <code>thread::spawn</code> 要求闭包满足 <code>'static</code>，因为线程可能比当前栈帧活得更久。<code>thread::scope</code> 允许创建不会逃出当前作用域的线程，因此可以安全借用局部变量。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span>
+
+<span class="n">thread</span><span class="p">::</span><span class="n">scope</span><span class="p">(</span><span class="o">|</span><span class="n">s</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">spawn</span><span class="p">(</span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">nums</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>作用域结束前，所有 scoped 线程都会完成，因此借用局部变量是安全的。</p>
+<h3 id="48">4.8. 原子类型<a class="headerlink" href="#48" title="Permanent link">&para;</a></h3>
+<p>原子类型适合简单的无锁共享状态，如计数器、标志位。常见类型包括 <code>AtomicBool</code>、<code>AtomicUsize</code>、<code>AtomicI64</code> 等。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">atomic</span><span class="p">::{</span><span class="n">AtomicUsize</span><span class="p">,</span><span class="w"> </span><span class="n">Ordering</span><span class="p">};</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AtomicUsize</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">counter</span><span class="p">.</span><span class="n">fetch_add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Ordering</span><span class="p">::</span><span class="n">Relaxed</span><span class="p">);</span>
+
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">Ordering</span><span class="p">::</span><span class="n">Relaxed</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p><code>Ordering</code> 描述内存可见性约束：</p>
+<ul>
+<li><code>Relaxed</code>：只保证单个原子操作本身原子性；</li>
+<li><code>Acquire</code> / <code>Release</code>：建立读写同步关系；</li>
+<li><code>AcqRel</code>：同时具备 acquire 和 release；</li>
+<li><code>SeqCst</code>：最强顺序一致性，最容易推理但可能成本更高。</li>
+</ul>
+<p>原子编程容易出错，除简单计数器和标志位外，应优先使用锁或成熟并发库。</p>
+<h3 id="49">4.9. 并发设计建议<a class="headerlink" href="#49" title="Permanent link">&para;</a></h3>
+<ol>
+<li>优先选择不可变数据和所有权移动；</li>
+<li>能用消息传递解决时，尽量少共享可变状态；</li>
+<li>共享只读数据使用 <code>Arc&lt;T&gt;</code>；</li>
+<li>共享可变数据使用 <code>Arc&lt;Mutex&lt;T&gt;&gt;</code> 或 <code>Arc&lt;RwLock&lt;T&gt;&gt;</code>；</li>
+<li>避免长时间持锁，尤其不要在持锁期间执行阻塞 I/O；</li>
+<li>多线程 CPU 密集任务可考虑 <code>rayon</code>，异步 I/O 任务应使用 async runtime。</li>
+</ol>
 <h2 id="5">5.元编程<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
 <h3 id="51">5.1. 元编程是什么？<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
 <p>元编程的本质是：<strong>编写能「生成 / 操作 / 扩展 Rust 代码」的代码</strong>。</p>
@@ -11594,7 +14225,7 @@
 <li>反射的核心能力（获取类型元信息、动态调用方法等），在 Rust 中都通过「编译期元编程」实现，且做到了<strong>零运行时成本的等价替代</strong>。</li>
 </ul>
 <h3 id="53-rust">5.3. Rust元编程中的宏<a class="headerlink" href="#53-rust" title="Permanent link">&para;</a></h3>
-<h4 id="1_1">1.简介<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h4>
+<h4 id="1_2">1.简介<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h4>
 <p>在 Rust 中宏分为两大类：<strong>声明式宏( <em>declarative macros</em> )</strong> <code>macro_rules!</code> 和三种<strong>过程宏( <em>procedural macros</em> )</strong>:</p>
 <ul>
 <li>
@@ -11680,7 +14311,7 @@
 <span class="c1">// 使用</span>
 <span class="kd">let</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span>
 </code></pre></div>
-<h5 id="22">2.2.<strong>核心工作原理：模式匹配 + 代码展开</strong><a class="headerlink" href="#22" title="Permanent link">&para;</a></h5>
+<h5 id="22_1">2.2.<strong>核心工作原理：模式匹配 + 代码展开</strong><a class="headerlink" href="#22_1" title="Permanent link">&para;</a></h5>
 <p>声明式宏的核心逻辑只有两步，<strong>无任何执行逻辑，纯静态匹配</strong>：</p>
 <ol>
 <li><strong>匹配阶段</strong>：编译器将你调用宏时传入的代码片段，与宏定义中的「匹配模式」做<strong>AST 语法树片段匹配</strong>（不是字符串匹配！）；</li>
@@ -11689,7 +14320,7 @@
 <blockquote>
 <p>✅ 关键区别：Rust 的声明式宏是 <strong>AST 片段匹配</strong>，而非 C/C++ 的字符串替换，这是 Rust 宏的安全性核心 —— 不会出现字符串替换的语法漏洞，匹配失败会直接编译报错。</p>
 </blockquote>
-<h5 id="23">2.3.<strong>核心特性：重复匹配</strong>（最常用能力）<a class="headerlink" href="#23" title="Permanent link">&para;</a></h5>
+<h5 id="23_1">2.3.<strong>核心特性：重复匹配</strong>（最常用能力）<a class="headerlink" href="#23_1" title="Permanent link">&para;</a></h5>
 <p>声明式宏的核心威力来自 <strong>重复匹配语法</strong>：<code>$(...) sep rep</code>，这是实现「可变参数」的唯一方式，几乎所有实用的声明式宏都依赖它。</p>
 <ul>
 <li><code>$(...)</code>：包裹需要重复匹配的代码片段；</li>
@@ -11719,7 +14350,7 @@
 <li><code>$elem:expr</code>：表示匹配「任意表达式 (expression)」，<code>expr</code> 是 Rust 内置的<strong>片段指定符</strong>，还有 <code>ident</code>(标识符)、<code>ty</code>(类型) 等；</li>
 <li>重复匹配是「双向的」：<code>$(...)</code> 匹配了多少个片段，<code>$()</code> 展开就会生成多少行代码。</li>
 </ul>
-<h5 id="24">2.4.声明式宏的优缺点（选型必看）<a class="headerlink" href="#24" title="Permanent link">&para;</a></h5>
+<h5 id="24_1">2.4.声明式宏的优缺点（选型必看）<a class="headerlink" href="#24_1" title="Permanent link">&para;</a></h5>
 <p>✅ <strong>优点</strong>：</p>
 <ol>
 <li>零依赖，原生支持，无需任何 Cargo 配置；</li>
@@ -11735,7 +14366,7 @@
 </ol>
 <h4 id="3_1">3.过程宏<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h4>
 <p><strong>过程宏是 Rust 最强大、最核心的元编程能力，没有之一</strong>，也是 Rust 生态繁荣的核心驱动力（<code>serde::Serialize</code>、<code>tokio::main</code>、<code>derive(Debug)</code> 都是过程宏实现）。</p>
-<h5 id="31">3.1.核心定义<a class="headerlink" href="#31" title="Permanent link">&para;</a></h5>
+<h5 id="31_1">3.1.核心定义<a class="headerlink" href="#31_1" title="Permanent link">&para;</a></h5>
 <p>过程宏本质是：<strong>一个在编译期被编译器调用的、合法的 Rust 函数</strong>。</p>
 <p>它的核心逻辑是：编译器将你标记了宏注解的代码（如结构体、函数），解析为<strong>语法树 Token 流 (TokenStream)</strong>，传入这个 Rust 函数；函数对 TokenStream 做<strong>任意逻辑处理（解析 / 修改 / 生成）</strong>，最后返回新的 TokenStream；编译器将返回的 TokenStream 直接注入到源代码中，完成编译。</p>
 <h5 id="32">3.2.过程宏的三大「标配依赖」（缺一不可）<a class="headerlink" href="#32" title="Permanent link">&para;</a></h5>
@@ -11921,7 +14552,7 @@
 <li>必须独立 crate：增加了项目的工程复杂度。</li>
 </ol>
 <h3 id="54">5.4.类型级编程<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
-<h4 id="1_2">1.核心定位与定义<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h4>
+<h4 id="1_3">1.核心定位与定义<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h4>
 <p>这是 Rust 元编程中<strong>最优雅、最极致、最容易被忽略</strong>的核心能力，也是 Rust 类型系统强大的终极体现。</p>
 <p><strong>类型级编程</strong>：<strong>完全利用 Rust 的类型系统，在「编译阶段」完成计算、逻辑判断、数据存储和状态表达</strong>。</p>
 <p>简单说：<strong>把「类型」当作「值」来用，把「trait 约束 / 关联类型 / 泛型」当作「逻辑」来用</strong>，所有逻辑都在编译期被编译器验证和计算，<strong>运行时无任何痕迹、零开销、零错误</strong>。</p>
@@ -11935,7 +14566,7 @@
 <li>编译期计算斐波那契数列；</li>
 <li>编译期保证枚举的变体数量。</li>
 </ul>
-<h5 id="22_1">2.2. 类型级编程的核心载体（无外部依赖，原生支持）<a class="headerlink" href="#22_1" title="Permanent link">&para;</a></h5>
+<h5 id="22_2">2.2. 类型级编程的核心载体（无外部依赖，原生支持）<a class="headerlink" href="#22_2" title="Permanent link">&para;</a></h5>
 <p>所有类型级编程都基于 Rust 原生的类型系统特性，无需任何宏或第三方库，核心载体包括：</p>
 <p>✅ 关联类型 (Associated Types)</p>
 <p>✅ 常量泛型 (Const Generics，Rust 1.59 稳定，核心核心！)</p>
@@ -11943,7 +14574,7 @@
 <p>✅ 类型别名 (Type Aliases)</p>
 <p>✅ 零大小类型 (ZST, Zero-Sized Types)</p>
 <h4 id="3_2">3.示例<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h4>
-<h5 id="31_1">3.1.编译期计算斐波那契数<a class="headerlink" href="#31_1" title="Permanent link">&para;</a></h5>
+<h5 id="31_2">3.1.编译期计算斐波那契数<a class="headerlink" href="#31_2" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// 定义一个trait，关联类型存储编译期计算的斐波那契值</span>
 <span class="k">trait</span><span class="w"> </span><span class="n">Fib</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">VAL</span><span class="p">:</span><span class="w"> </span><span class="kt">u64</span><span class="p">;</span>
@@ -12002,6 +14633,189 @@
 <li>编译速度：极复杂的类型计算会增加编译时间。</li>
 </ol>
 <h2 id="6">6.异步编程<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1. 异步编程解决什么问题？<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<p>Rust 异步编程主要解决高并发 I/O 场景：网络请求、数据库访问、文件 I/O、定时器、消息队列等。它的目标不是让 CPU 计算更快，而是在等待 I/O 时释放当前任务，让线程去执行其他任务。</p>
+<p>对比：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">模型</th>
+<th style="text-align: left;">特点</th>
+<th style="text-align: left;">适合场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">多线程阻塞</td>
+<td style="text-align: left;">一个请求可能占用一个线程</td>
+<td style="text-align: left;">CPU 密集、简单并发</td>
+</tr>
+<tr>
+<td style="text-align: left;">异步非阻塞</td>
+<td style="text-align: left;">大量任务复用少量线程</td>
+<td style="text-align: left;">高并发 I/O</td>
+</tr>
+</tbody>
+</table>
+<p>异步任务比系统线程更轻量，但需要运行时调度，例如 <code>tokio</code>、<code>async-std</code>、<code>smol</code>。</p>
+<h3 id="62-async-await">6.2. <code>async</code> / <code>await</code> 的本质<a class="headerlink" href="#62-async-await" title="Permanent link">&para;</a></h3>
+<p><code>async fn</code> 不会立即执行函数体，而是返回一个实现了 <code>Future</code> 的状态机。只有当这个 Future 被运行时轮询（poll）时，代码才会推进执行。</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">fetch_user</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="kt">u64</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">format!</span><span class="p">(</span><span class="s">&quot;user-{id}&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 调用 async fn 得到 Future，而不是直接得到 String</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">future</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetch_user</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p><code>.await</code> 表示等待另一个 Future 完成。如果等待的 I/O 尚未就绪，当前任务会让出执行权，线程可以去运行其他任务。</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">print_user</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetch_user</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="k">await</span><span class="p">;</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{user}&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="63-future">6.3. <code>Future</code> 与状态机<a class="headerlink" href="#63-future" title="Permanent link">&para;</a></h3>
+<p>简化后的 <code>Future</code> trait 如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">future</span><span class="p">::</span><span class="n">Future</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">pin</span><span class="p">::</span><span class="n">Pin</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">task</span><span class="p">::{</span><span class="n">Context</span><span class="p">,</span><span class="w"> </span><span class="n">Poll</span><span class="p">};</span>
+
+<span class="k">trait</span><span class="w"> </span><span class="n">SimpleFuture</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Output</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">poll</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span><span class="w"> </span><span class="nc">Pin</span><span class="o">&lt;&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">Self</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">cx</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Context</span><span class="o">&lt;&#39;</span><span class="nb">_</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Poll</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Output</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>poll</code> 的返回值：</p>
+<ul>
+<li><code>Poll::Ready(value)</code>：任务完成，返回结果；</li>
+<li><code>Poll::Pending</code>：任务尚未完成，需要稍后再次 poll。</li>
+</ul>
+<p>编译器会把 <code>async</code> 代码转换为状态机：每个 <code>.await</code> 都是一个可能暂停和恢复的位置。暂停时，Future 必须保存继续执行所需的局部变量。</p>
+<h3 id="64">6.4. 异步运行时<a class="headerlink" href="#64" title="Permanent link">&para;</a></h3>
+<p>Rust 标准库只定义了 <code>Future</code> 抽象，不提供完整异步运行时。实际项目通常使用 <code>tokio</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#[tokio::main]</span>
+<span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reqwest</span><span class="p">::</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;https://www.rust-lang.org&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="k">await</span>
+<span class="w">        </span><span class="p">.</span><span class="n">unwrap</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">text</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="k">await</span>
+<span class="w">        </span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span>
+
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;length = {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="n">len</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>#[tokio::main]</code> 是一个属性宏，它会把异步 <code>main</code> 包装成创建运行时并阻塞等待 Future 完成的同步入口。</p>
+<p>运行时通常负责：</p>
+<ol>
+<li>任务调度；</li>
+<li>定时器；</li>
+<li>非阻塞 I/O 驱动；</li>
+<li>唤醒机制；</li>
+<li>线程池管理。</li>
+</ol>
+<h3 id="65-future">6.5. 并发执行 Future<a class="headerlink" href="#65-future" title="Permanent link">&para;</a></h3>
+<p>连续 <code>.await</code> 是顺序执行：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">task_a</span><span class="p">().</span><span class="k">await</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">task_b</span><span class="p">().</span><span class="k">await</span><span class="p">;</span>
+</code></pre></div>
+<p>如果两个任务互不依赖，可以并发等待：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tokio</span><span class="p">::</span><span class="n">join</span><span class="o">!</span><span class="p">(</span><span class="n">task_a</span><span class="p">(),</span><span class="w"> </span><span class="n">task_b</span><span class="p">());</span>
+</code></pre></div>
+<p><code>join!</code> 在同一个异步任务内并发轮询多个 Future；<code>tokio::spawn</code> 则把 Future 提交给运行时，成为独立任务。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tokio</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="mi">42</span>
+<span class="p">});</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span>
+<span class="fm">assert_eq!</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span>
+</code></pre></div>
+<p>被 <code>tokio::spawn</code> 的 Future 通常要求 <code>Send + 'static</code>，因为它可能在线程池中跨线程移动，并且生命周期不能依赖当前栈帧。</p>
+<h3 id="66">6.6. 异步中的所有权与生命周期<a class="headerlink" href="#66" title="Permanent link">&para;</a></h3>
+<p>异步代码中最常见的问题是：Future 可能在 <code>.await</code> 处暂停，因此跨 <code>.await</code> 保存的引用必须始终有效。</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">use_ref</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{s}&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这种函数本身可以成立，但如果要 <code>tokio::spawn(use_ref(&amp;s))</code>，通常会失败，因为任务要求 <code>'static</code>，而 <code>s</code> 是当前栈帧中的借用。</p>
+<p>解决方式通常是移动拥有所有权的数据：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span>
+
+<span class="n">tokio</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{s}&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="67">6.7. 不要在异步任务中阻塞线程<a class="headerlink" href="#67" title="Permanent link">&para;</a></h3>
+<p>异步运行时依赖少量线程调度大量任务。如果在异步任务中调用阻塞操作，会占住运行时工作线程，导致其他任务无法推进。</p>
+<p>❌ 不推荐：</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">bad</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">::</span><span class="n">sleep</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">::</span><span class="n">from_secs</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>✅ 推荐：</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">good</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">tokio</span><span class="p">::</span><span class="n">time</span><span class="p">::</span><span class="n">sleep</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">::</span><span class="n">from_secs</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="k">await</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>对于 CPU 密集或必须阻塞的任务，应使用专门的阻塞线程池：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tokio</span><span class="p">::</span><span class="n">task</span><span class="p">::</span><span class="n">spawn_blocking</span><span class="p">(</span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// CPU 密集计算或阻塞式库调用</span>
+<span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">await</span>
+<span class="p">.</span><span class="n">unwrap</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="68">6.8. 异步锁与同步锁<a class="headerlink" href="#68" title="Permanent link">&para;</a></h3>
+<p>在异步代码中应谨慎使用 <code>std::sync::Mutex</code>。如果持有同步锁跨越 <code>.await</code>，可能造成任务调度阻塞甚至死锁。</p>
+<p>一般规则：</p>
+<ul>
+<li>锁只保护短小的同步临界区，可以使用 <code>std::sync::Mutex</code>；</li>
+<li>锁可能跨 <code>.await</code>，应使用 <code>tokio::sync::Mutex</code>；</li>
+<li>尽量不要持锁 <code>.await</code>，更推荐先取出数据、释放锁，再执行异步操作。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">tokio</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Mutex</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Mutex</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">state2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">);</span>
+<span class="n">tokio</span><span class="p">::</span><span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state2</span><span class="p">.</span><span class="n">lock</span><span class="p">().</span><span class="k">await</span><span class="p">;</span>
+<span class="w">    </span><span class="o">*</span><span class="n">guard</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="69-pin">6.9. <code>Pin</code> 与自引用问题<a class="headerlink" href="#69-pin" title="Permanent link">&para;</a></h3>
+<p><code>async fn</code> 生成的状态机可能包含自引用结构：某个字段引用另一个字段。这样的 Future 一旦被移动，内部引用可能失效。</p>
+<p><code>Pin</code> 的作用是：保证被固定的数据不会再被移动，从而让自引用 Future 可以安全地被轮询。</p>
+<p>日常开发中通常不需要手写 <code>Pin</code>，因为 <code>.await</code>、运行时和宏会处理绝大多数细节。但理解 <code>Pin</code> 有助于理解为什么 <code>Future::poll</code> 的签名是 <code>self: Pin&lt;&amp;mut Self&gt;</code>。</p>
+<h3 id="610-stream">6.10. Stream：异步迭代器<a class="headerlink" href="#610-stream" title="Permanent link">&para;</a></h3>
+<p><code>Stream</code> 可以理解为异步版本的 <code>Iterator</code>：它不是一次返回一个值，而是异步地产生多个值。</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">futures</span><span class="p">::</span><span class="n">StreamExt</span><span class="p">;</span>
+
+<span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">consume_stream</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">stream</span><span class="p">:</span><span class="w"> </span><span class="nc">S</span><span class="p">)</span>
+<span class="k">where</span>
+<span class="w">    </span><span class="n">S</span><span class="p">:</span><span class="w"> </span><span class="nc">futures</span><span class="p">::</span><span class="n">Stream</span><span class="o">&lt;</span><span class="n">Item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Unpin</span><span class="p">,</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stream</span><span class="p">.</span><span class="n">next</span><span class="p">().</span><span class="k">await</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{item}&quot;</span><span class="p">);</span><span class="n">https</span><span class="p">:</span><span class="c1">//beatai.org/rust-course/advance</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>常见场景：WebSocket 消息、分页数据、订阅事件、异步文件行读取等。</p>
+<h3 id="611">6.11. 异步编程最佳实践<a class="headerlink" href="#611" title="Permanent link">&para;</a></h3>
+<ol>
+<li>I/O 密集使用 async，CPU 密集优先使用线程池或 <code>rayon</code>；</li>
+<li>不要在 async 中调用长时间阻塞函数；</li>
+<li>避免持锁跨 <code>.await</code>；</li>
+<li>使用 <code>join!</code> 并发等待互不依赖的 Future；</li>
+<li>使用 <code>spawn</code> 时注意 <code>Send + 'static</code> 约束；</li>
+<li>错误处理继续使用 <code>Result</code> 和 <code>?</code>，不要在任务中随意 <code>unwrap()</code>；</li>
+<li>优先选择生态成熟的 runtime 和库组合，例如 <code>tokio</code> + <code>reqwest</code> + <code>sqlx</code>。</li>
+</ol>
+<p>Rust 异步的难点不在语法，而在理解 Future 是惰性的状态机，以及 <code>.await</code> 处可能暂停、切换和恢复执行。</p>
+<blockquote>
+<p>参考：<a href="https://beatai.org/rust-course/advance">Rust圣经</a></p>
+</blockquote>
 
 
 

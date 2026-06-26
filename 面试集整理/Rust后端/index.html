@@ -3459,6 +3459,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/Rust/Rust%E5%AE%8F%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust宏编程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/Rust/Rust%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/" class="md-nav__link">
         
   
@@ -11264,6 +11292,267 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#macro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        宏 Macro
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="宏 Macro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-trait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Trait 与宏的区别？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 宏的分类？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-proc_macro_derive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 如何自定义派生宏 — proc_macro_derive？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 如何自定义派生宏 — proc_macro_derive？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 项目结构要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-hello-trait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 最简派生宏实现（自动实现 Hello trait）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 业务代码使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 支持自定义配置参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-proc_macro_attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 如何自定义属性宏 — proc_macro_attribute？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 如何自定义属性宏 — proc_macro_attribute？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-proc-macro-cratesynquoteproc-macro2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 同样需要独立 proc-macro crate，依赖同上（syn/quote/proc-macro2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-proc_macro_attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 属性宏入口标记：#[proc_macro_attribute]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 业务代码使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 带参数的属性宏扩展
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-proc_macro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 如何自定义函数式过程宏 — proc_macro？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 如何自定义函数式过程宏 — proc_macro？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 项目结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-cratemy-macro-lib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 宏定义 Crate（my-macro-lib）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-cratemy-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 使用方 Crate（my-app）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 更复杂的例子：带类型检查的 SQL 宏
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-cratesio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 发布到 crates.io
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 发布到 crates.io">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 准备发布
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-crate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 使用方引用已发布的 crate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11371,7 +11660,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51" class="md-nav__link">
+  <a href="#51_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         5.1.简介
@@ -11615,7 +11904,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2_4" class="md-nav__link">
+  <a href="#2_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         2. 配置管理与环境隔离怎么做？
@@ -11754,7 +12043,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
+  <a href="#1_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         1. 分布式一致性和事务怎么答？
@@ -11765,7 +12054,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2_5" class="md-nav__link">
+  <a href="#2_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         2. 安全与鉴权
@@ -11859,7 +12148,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2_6" class="md-nav__link">
+  <a href="#2_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         2. 消息队列与异步解耦
@@ -12104,6 +12393,37 @@
 <li><a href="#3-rust_1">3. Rust中关联类型和泛型参数区别？</a></li>
 </ul>
 </li>
+<li><a href="#macro">宏 Macro</a><ul>
+<li><a href="#1-trait">1. Trait 与宏的区别？</a></li>
+<li><a href="#2_4">2. 宏的分类？</a></li>
+<li><a href="#3-proc_macro_derive">3. 如何自定义派生宏 — proc_macro_derive？</a><ul>
+<li><a href="#31">3.1 项目结构要求</a></li>
+<li><a href="#32-hello-trait">3.2 最简派生宏实现（自动实现 Hello trait）</a></li>
+<li><a href="#33">3.3 业务代码使用</a></li>
+<li><a href="#34">3.4 支持自定义配置参数</a></li>
+</ul>
+</li>
+<li><a href="#4-proc_macro_attribute">4. 如何自定义属性宏 — proc_macro_attribute？</a><ul>
+<li><a href="#41-proc-macro-cratesynquoteproc-macro2">4.1 同样需要独立 proc-macro crate，依赖同上（syn/quote/proc-macro2）</a></li>
+<li><a href="#42-proc_macro_attribute">4.2 属性宏入口标记：#[proc_macro_attribute]</a></li>
+<li><a href="#43">4.3 业务代码使用</a></li>
+<li><a href="#44">4.4 带参数的属性宏扩展</a></li>
+</ul>
+</li>
+<li><a href="#5-proc_macro">5. 如何自定义函数式过程宏 — proc_macro？</a><ul>
+<li><a href="#51">5.1 项目结构</a></li>
+<li><a href="#52-cratemy-macro-lib">5.2 宏定义 Crate（my-macro-lib）</a></li>
+<li><a href="#53-cratemy-app">5.3 使用方 Crate（my-app）</a></li>
+<li><a href="#54-sql">5.4 更复杂的例子：带类型检查的 SQL 宏</a></li>
+<li><a href="#55-cratesio">5.5 发布到 crates.io</a><ul>
+<li><a href="#1_2">1. 准备发布</a></li>
+<li><a href="#2-crate">2. 使用方引用已发布的 crate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#_8">并发编程</a><ul>
 <li><a href="#1-rustsendsync-trait">1. Rust中Send和Sync trait是什么？</a></li>
 <li><a href="#2-mutexrwlockarc">2. Mutex、RwLock、Arc 在后端怎么用？</a></li>
@@ -12115,7 +12435,7 @@
 </ul>
 </li>
 <li><a href="#5-rust-actor">5. Rust Actor 模式理解</a><ul>
-<li><a href="#51">5.1.简介</a></li>
+<li><a href="#51_1">5.1.简介</a></li>
 <li><a href="#52">5.2.实现</a><ul>
 <li><a href="#_9">基础实现：标准库版</a></li>
 <li><a href="#actortokio">进阶：异步 Actor（Tokio）</a></li>
@@ -12146,7 +12466,7 @@
 <li><a href="#_12">三、架构</a><ul>
 <li><a href="#_13">工程化实践</a><ul>
 <li><a href="#1-rust_4">1. Rust项目结构最佳实践？</a></li>
-<li><a href="#2_4">2. 配置管理与环境隔离怎么做？</a></li>
+<li><a href="#2_5">2. 配置管理与环境隔离怎么做？</a></li>
 <li><a href="#3-rust_3">3. Rust中如何编写测试，测试体系设计？</a></li>
 <li><a href="#4_1">4. 数据库层常见方案有哪些？</a></li>
 </ul>
@@ -12163,8 +12483,8 @@
 </ul>
 </li>
 <li><a href="#_15">架构与优化</a><ul>
-<li><a href="#1_2">1. 分布式一致性和事务怎么答？</a></li>
-<li><a href="#2_5">2. 安全与鉴权</a></li>
+<li><a href="#1_3">1. 分布式一致性和事务怎么答？</a></li>
+<li><a href="#2_6">2. 安全与鉴权</a></li>
 <li><a href="#3-rust_4">3. Rust 微服务拆分原则是什么？</a></li>
 <li><a href="#4-rust_1">4. Rust 后端参考架构（生产可落地）是什么样？</a></li>
 <li><a href="#5-rust-go-python">5. Rust 与 Go / Python 混合架构如何分工？</a></li>
@@ -12174,7 +12494,7 @@
 </li>
 <li><a href="#_16">中间件与缓存</a><ul>
 <li><a href="#1-redis">1. Redis 缓存与一致性策略</a></li>
-<li><a href="#2_6">2. 消息队列与异步解耦</a></li>
+<li><a href="#2_7">2. 消息队列与异步解耦</a></li>
 <li><a href="#3_1">3. 可观测性：日志、指标、链路追踪</a></li>
 <li><a href="#4-rust_2">4. Rust 后端里如何做缓存与消息队列？</a></li>
 </ul>
@@ -13448,7 +13768,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>动态分发（trait对象）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">render动态</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Summary</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Summary</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">item</span><span class="p">.</span><span class="n">summarize</span><span class="p">();</span>
 <span class="p">}</span>
 
@@ -13541,6 +13861,519 @@
 </tr>
 </tbody>
 </table>
+<hr />
+<h3 id="macro">宏 Macro<a class="headerlink" href="#macro" title="Permanent link">&para;</a></h3>
+<h4 id="1-trait">1. Trait 与宏的区别？<a class="headerlink" href="#1-trait" title="Permanent link">&para;</a></h4>
+<p>Trait 负责定义「类型具备什么行为 / 能力」，是一套类型抽象规范；</p>
+<p>宏负责「编译期自动生成代码」，是代码生成工具，二者解决完全不同的问题。</p>
+<p><strong>本质定位</strong>:</p>
+<ul>
+<li>
+<p><strong>Trait</strong>：行为抽象、类型约束（逻辑层面），是<strong>接口规范</strong>，用来描述一组方法签名，规定某类类型 “能做什么”。</p>
+</li>
+<li>
+<p>属于类型系统的一部分，参与类型检查、泛型约束、多态分发；</p>
+</li>
+<li>运行时 / 编译时都生效，核心作用是<strong>抽象、复用行为、限制泛型</strong>。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="n">IntoResponse</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">into_response</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Response</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 任何实现该 trait 的类型，都可以转为 HTTP 响应</span>
+</code></pre></div>
+<ul>
+<li>
+<p><strong>宏</strong>：代码生成器（源码层面），是<strong>编译期文本 / 语法树模板</strong>，编译阶段直接展开成 Rust 代码，只是自动帮你手写重复代码。</p>
+</li>
+<li>
+<p>不属于类型系统，不定义行为，只生成代码；</p>
+</li>
+<li>仅编译期执行，展开后就消失，运行时无任何痕迹。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#[derive(Debug)]</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">User</span><span class="p">;</span>
+<span class="c1">// 编译器自动生成 impl Debug for User { ... } 一堆代码</span>
+</code></pre></div>
+<p><strong>作用区别</strong>：</p>
+<ul>
+<li>
+<p><strong>Trait 解决的问题</strong>：</p>
+</li>
+<li>
+<p>统一抽象行为：不同结构体共享同一套方法（如所有错误都实现 <code>std::error::Error</code>）；</p>
+</li>
+<li>泛型约束：限定泛型必须拥有指定能力 <code>T: Display</code>；</li>
+<li>拓展已有类型：给外部类型新增方法（拓展 trait）；</li>
+<li>多态分发：<code>impl Trait</code> /dyn Trait 实现静态 / 动态分发。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// 手动定义行为、手动实现，无代码生成</span>
+<span class="k">trait</span><span class="w"> </span><span class="n">Greet</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Admin</span><span class="p">;</span>
+<span class="k">impl</span><span class="w"> </span><span class="n">Greet</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Admin</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>
+<p><strong>宏解决的问题</strong>：</p>
+</li>
+<li>
+<p>消除样板代码：不用手动写大量重复 impl、结构体、方法；</p>
+<p>例：<code>#[derive(Serialize)]</code> 自动实现序列化 trait；</p>
+</li>
+<li>
+<p>自定义语法糖：<code>vec![]</code> <code>format!()</code> <code>sqlx::query!()</code>；</p>
+</li>
+<li>
+<p>注入横切逻辑：<code>#[tracing::instrument]</code> 自动埋日志、<code>#[poem::handler]</code> 包装接口；</p>
+</li>
+<li>
+<p>编译期校验：SQL、环境变量、命令行参数提前检查。</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// 纯语法糖，和类型抽象无关</span>
+<span class="fm">macro_rules!</span><span class="w"> </span><span class="n">print_msg</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="cp">$s</span><span class="p">:</span><span class="nc">literal</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="cp">$s</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="n">print_msg</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="2_4">2. 宏的分类？<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>第一类：<strong>声明式宏</strong> <code>macro_rules!</code>（自定义语法糖， 参考上述实现）</p>
+</li>
+<li>
+<p>第二类：<strong>过程宏</strong> <code>Proc Macro</code>（后端最常用），过程宏读取输入 Token 语法树，生成全新代码：</p>
+</li>
+</ul>
+<p>（1）<strong>派生宏 Derive Macro</strong>： <code>#[derive (XXX)]</code> 作用在 <code>struct / enum / union</code> 上，自动生成 <code>impl Trait for Type</code> 实现代码。部分派生宏支持附加参数（Rust 1.70+ 多属性派生）：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#[derive(serde::Serialize)]</span>
+<span class="cp">#[serde(rename_all = </span><span class="s">&quot;snake_case&quot;</span><span class="cp">)]</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+<blockquote>
+<p>这里 <code>#[serde(..)]</code> 不是派生宏，是<strong>配套属性宏</strong>，给派生宏传递配置参数。</p>
+</blockquote>
+<p>（2）<strong>属性宏 Attribute Macro</strong>：<code>#[my_attr]</code>作用在任意项（函数、<code>struct</code>、<code>mod</code>、<code>async fn</code>），接收自定义参数，包裹 / 重写整个项的代码。</p>
+<p>（3）<strong>函数式宏</strong>（类似<code>vec![]</code>）</p>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1. 派生宏：给结构体自动实现 trait</span>
+<span class="cp">#[derive(Debug, Serialize, Model)]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="kt">u64</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// 2. 属性宏：修饰函数，改写函数逻辑</span>
+<span class="cp">#[poem::handler]</span>
+<span class="cp">#[tracing::instrument(name = </span><span class="s">&quot;login&quot;</span><span class="cp">)]</span>
+<span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">login</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="k">impl</span><span class="w"> </span><span class="n">IntoResponse</span><span class="p">,</span><span class="w"> </span><span class="n">AppError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>区别汇总</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th><code>#[derive (Trait)]</code> 派生宏</th>
+<th><code>#[xxx]</code> 属性宏</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标记声明</td>
+<td><code>#[proc_macro_derive(Name)]</code></td>
+<td><code>#[proc_macro_attribute]</code></td>
+</tr>
+<tr>
+<td>挂载对象</td>
+<td>仅 <code>struct</code> /<code>enum</code>/<code>union</code></td>
+<td>任意：函数、结构体、trait、模块等</td>
+</tr>
+<tr>
+<td>代码行为</td>
+<td><strong>追加 <code>impl</code> 代码</strong>，原类型保留</td>
+<td><strong>完全替换被修饰项代码</strong>，可修改签名、逻辑</td>
+</tr>
+<tr>
+<td>核心用途</td>
+<td>自动实现 trait，消除重复 impl</td>
+<td>包装函数、注入横切逻辑、改写语法（<code>async</code>、路由、日志）</td>
+</tr>
+<tr>
+<td>输入参数</td>
+<td>仅能读取结构体自身字段，无自定义宏参数</td>
+<td>支持自定义键值参数 <code>#[attr(k=v)]</code></td>
+</tr>
+<tr>
+<td>典型代表</td>
+<td><code>Serialize/Deserialize</code>、<code>Model</code>、<code>Debug</code></td>
+<td><code>#[async_trait]</code>、<code>#[tracing::instrument]</code>、<code>#[poem::handler]</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-proc_macro_derive">3. 如何自定义派生宏 — <code>proc_macro_derive</code>？<a class="headerlink" href="#3-proc_macro_derive" title="Permanent link">&para;</a></h4>
+<h5 id="31">3.1 项目结构要求<a class="headerlink" href="#31" title="Permanent link">&para;</a></h5>
+<p>过程宏必须单独一个 crate，类型为 <code>proc-macro</code>，不能和业务代码放一起。</p>
+<div class="highlight"><pre><span></span><code>my-derive/
+  Cargo.toml
+  src/lib.rs  # 派生宏实现
+</code></pre></div>
+<p><code>Cargo.toml</code> 配置</p>
+<div class="highlight"><pre><span></span><code><span class="k">[lib]</span>
+<span class="n">proc-macro</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c1"># 标记为过程宏 crate</span>
+
+<span class="k">[dependencies]</span>
+<span class="n">syn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">features</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;full&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="n">quote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span>
+<span class="n">proc-macro2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span>
+</code></pre></div>
+<ul>
+<li><code>syn</code>：解析 Rust 语法树（结构体、字段、属性）</li>
+<li><code>quote</code>：便捷生成 Rust 代码 Token</li>
+<li><code>proc-macro2</code>：兼容 proc-macro 底层类型</li>
+</ul>
+<h5 id="32-hello-trait">3.2 最简派生宏实现（自动实现 Hello trait）<a class="headerlink" href="#32-hello-trait" title="Permanent link">&para;</a></h5>
+<p>业务侧 trait（单独普通 crate）</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// my-trait/src/lib.rs</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">trait</span><span class="w"> </span><span class="n">Hello</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>派生宏 crate：<code>my-derive/src/lib.rs</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">proc_macro</span><span class="p">::</span><span class="n">TokenStream</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">quote</span><span class="p">::</span><span class="n">quote</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">syn</span><span class="p">::{</span><span class="n">parse_macro_input</span><span class="p">,</span><span class="w"> </span><span class="n">DeriveInput</span><span class="p">};</span>
+
+<span class="c1">// 派生宏入口，标记 #[proc_macro_derive(Hello)]</span>
+<span class="cp">#[proc_macro_derive(Hello)]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">derive_hello</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">TokenStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">TokenStream</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 解析输入：拿到 struct/enum 信息</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">ast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_macro_input</span><span class="o">!</span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">DeriveInput</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ast</span><span class="p">.</span><span class="n">ident</span><span class="p">;</span><span class="w"> </span><span class="c1">// 结构体名称</span>
+
+<span class="w">    </span><span class="c1">// 生成 impl Hello for $name 代码</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quote</span><span class="o">!</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">impl</span><span class="w"> </span><span class="n">my_trait</span><span class="p">::</span><span class="n">Hello</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">#</span><span class="n">name</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">fn</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="fm">format!</span><span class="p">(</span><span class="s">&quot;hello from {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="fm">stringify!</span><span class="p">(#</span><span class="n">name</span><span class="p">))</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">TokenStream</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">expand</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="33">3.3 业务代码使用<a class="headerlink" href="#33" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// Cargo.toml 引入依赖</span>
+<span class="c1">// my-trait = { path = &quot;../my-trait&quot; }</span>
+<span class="c1">// my-derive = { path = &quot;../my-derive&quot; }</span>
+
+<span class="k">use</span><span class="w"> </span><span class="n">my_trait</span><span class="p">::</span><span class="n">Hello</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">my_derive</span><span class="p">::</span><span class="n">Hello</span><span class="p">;</span>
+
+<span class="cp">#[derive(Hello)]</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">User</span><span class="p">;</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="p">;</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">hello</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="34">3.4 支持自定义配置参数<a class="headerlink" href="#34" title="Permanent link">&para;</a></h5>
+<p>如果想写 <code>#[derive(Hello)] #[hello(msg = "hi")]</code>，需要搭配<strong>属性宏</strong>读取参数，派生宏内部解析 <code>ast.attrs</code> 获取配置。</p>
+<h4 id="4-proc_macro_attribute">4. 如何自定义属性宏 — <code>proc_macro_attribute</code>？<a class="headerlink" href="#4-proc_macro_attribute" title="Permanent link">&para;</a></h4>
+<h5 id="41-proc-macro-cratesynquoteproc-macro2">4.1 同样需要独立 <code>proc-macro</code> <code>crate</code>，依赖同上（<code>syn/quote/proc-macro2</code>）<a class="headerlink" href="#41-proc-macro-cratesynquoteproc-macro2" title="Permanent link">&para;</a></h5>
+<h5 id="42-proc_macro_attribute">4.2 属性宏入口标记：<code>#[proc_macro_attribute]</code><a class="headerlink" href="#42-proc_macro_attribute" title="Permanent link">&para;</a></h5>
+<p>示例：写一个 <code>#[print_entry]</code> 属性宏，在函数开头自动打印函数名</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// my-attr/src/lib.rs</span>
+<span class="k">use</span><span class="w"> </span><span class="n">proc_macro</span><span class="p">::</span><span class="n">TokenStream</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">quote</span><span class="p">::</span><span class="n">quote</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">syn</span><span class="p">::{</span><span class="n">parse_macro_input</span><span class="p">,</span><span class="w"> </span><span class="n">ItemFn</span><span class="p">};</span>
+
+<span class="c1">// 属性宏入口：两个参数（宏参数，被修饰的项）</span>
+<span class="cp">#[proc_macro_attribute]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">print_entry</span><span class="p">(</span><span class="n">_args</span><span class="p">:</span><span class="w"> </span><span class="nc">TokenStream</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">TokenStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">TokenStream</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 解析被修饰的函数</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_macro_input</span><span class="o">!</span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ItemFn</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fn_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">func</span><span class="p">.</span><span class="n">sig</span><span class="p">.</span><span class="n">ident</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fn_block</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">func</span><span class="p">.</span><span class="n">block</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fn_sig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">func</span><span class="p">.</span><span class="n">sig</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 生成新函数：开头加打印，保留原有逻辑</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quote</span><span class="o">!</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">#</span><span class="n">fn_sig</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;enter function: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="fm">stringify!</span><span class="p">(#</span><span class="n">fn_name</span><span class="p">));</span>
+<span class="w">            </span><span class="p">#</span><span class="n">fn_block</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">TokenStream</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">expand</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="43">4.3 业务代码使用<a class="headerlink" href="#43" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">my_attr</span><span class="p">::</span><span class="n">print_entry</span><span class="p">;</span>
+
+<span class="cp">#[print_entry]</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;run test&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 调用输出：</span>
+<span class="c1">// enter function: test</span>
+<span class="c1">// run test</span>
+</code></pre></div>
+<h5 id="44">4.4 带参数的属性宏扩展<a class="headerlink" href="#44" title="Permanent link">&para;</a></h5>
+<p>如需支持 <code>#[print_entry(prefix = "LOG")]</code>，只需解析第一个 <code>_args</code> 参数的 <code>TokenStream</code>，用 syn 解析键值对配置。如需支持 <code>#[print_entry(prefix = "LOG")]</code>，只需解析第一个 <code>_args</code> 参数的 <code>TokenStream</code>，用 syn 解析键值对配置。</p>
+<h4 id="5-proc_macro">5. 如何自定义函数式过程宏 — <code>proc_macro</code>？<a class="headerlink" href="#5-proc_macro" title="Permanent link">&para;</a></h4>
+<h5 id="51">5.1 项目结构<a class="headerlink" href="#51" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>my-macro/                    # 工作区根目录
+├── Cargo.toml               # 工作区配置
+├── my-macro-lib/            # 宏定义 crate（proc-macro crate）
+│   ├── Cargo.toml
+│   └── src/
+│       └── lib.rs            # 宏实现
+└── my-app/                   # 使用方 crate
+    ├── Cargo.toml
+    └── src/
+        └── main.rs           # 调用宏
+</code></pre></div>
+<h5 id="52-cratemy-macro-lib">5.2 宏定义 Crate（<code>my-macro-lib</code>）<a class="headerlink" href="#52-cratemy-macro-lib" title="Permanent link">&para;</a></h5>
+<p>配置<strong><code>Cargo.toml</code></strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[package]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-macro-lib&quot;</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">edition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2021&quot;</span>
+
+<span class="c1"># 关键：必须是 proc-macro crate 类型</span>
+<span class="k">[lib]</span>
+<span class="n">proc-macro</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[dependencies]</span>
+<span class="n">proc-macro2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="w">    </span><span class="c1"># TokenStream 的增强版</span>
+<span class="n">quote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="w">          </span><span class="c1"># 代码生成模板</span>
+<span class="n">syn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">features</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;full&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;parsing&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1"># 解析 Rust 语法</span>
+</code></pre></div>
+<p><strong><code>src/lib.rs</code></strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">proc_macro</span><span class="p">::</span><span class="n">TokenStream</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">quote</span><span class="p">::</span><span class="n">quote</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">syn</span><span class="p">::{</span><span class="n">parse_macro_input</span><span class="p">,</span><span class="w"> </span><span class="n">Expr</span><span class="p">,</span><span class="w"> </span><span class="n">LitStr</span><span class="p">};</span>
+
+<span class="c1">// ============================================</span>
+<span class="c1">// 示例 1：简单类函数宏 - 生成打印语句</span>
+<span class="c1">// ============================================</span>
+<span class="cp">#[proc_macro]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">log_info</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">TokenStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">TokenStream</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 将输入解析为字符串字面量</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_macro_input</span><span class="o">!</span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">LitStr</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expanded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quote</span><span class="o">!</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;[INFO] {} - at {}:{}&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="p">#</span><span class="n">msg</span><span class="p">,</span>
+<span class="w">            </span><span class="fm">file!</span><span class="p">(),</span>
+<span class="w">            </span><span class="fm">line!</span><span class="p">()</span>
+<span class="w">        </span><span class="p">);</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">TokenStream</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// ============================================</span>
+<span class="c1">// 示例 2：复杂类函数宏 - SQL 查询构建器</span>
+<span class="c1">// ============================================</span>
+<span class="cp">#[proc_macro]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">sql</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">TokenStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">TokenStream</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">to_string</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// 简单解析：提取 SELECT 后的列和 FROM 后的表</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">parts</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;&amp;</span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">query</span><span class="p">.</span><span class="n">split_whitespace</span><span class="p">().</span><span class="n">collect</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// 生成类型检查代码（简化版）</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expanded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quote</span><span class="o">!</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">QUERY</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">#</span><span class="n">query</span><span class="p">;</span>
+<span class="w">            </span><span class="c1">// 实际实现中这里会做完整的 SQL 解析和类型生成</span>
+<span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Executing SQL: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">QUERY</span><span class="p">);</span>
+<span class="w">            </span><span class="n">QUERY</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">TokenStream</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// ============================================</span>
+<span class="c1">// 示例 3：接收复杂表达式 - 计算宏</span>
+<span class="c1">// ============================================</span>
+<span class="cp">#[proc_macro]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">TokenStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">TokenStream</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_macro_input</span><span class="o">!</span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Expr</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expanded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quote</span><span class="o">!</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">#</span><span class="n">expr</span><span class="p">;</span>
+<span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;compute: {} = {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="fm">stringify!</span><span class="p">(#</span><span class="n">expr</span><span class="p">),</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="w">            </span><span class="n">result</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">TokenStream</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// ============================================</span>
+<span class="c1">// 示例 4：多参数处理 - 键值对解析</span>
+<span class="c1">// ============================================</span>
+<span class="cp">#[proc_macro]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">TokenStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">TokenStream</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 解析为一系列键值对</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">config_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">to_string</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expanded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quote</span><span class="o">!</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">collections</span><span class="p">::</span><span class="n">HashMap</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">pairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">#</span><span class="n">config_str</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sc">&#39;,&#39;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">pair</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">pairs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">let</span><span class="w"> </span><span class="n">kv</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;&amp;</span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pair</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="sc">&#39;=&#39;</span><span class="p">).</span><span class="n">collect</span><span class="p">();</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">kv</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">kv</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">trim</span><span class="p">(),</span><span class="w"> </span><span class="n">kv</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">trim</span><span class="p">());</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">map</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">TokenStream</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="53-cratemy-app">5.3 使用方 Crate（<code>my-app</code>）<a class="headerlink" href="#53-cratemy-app" title="Permanent link">&para;</a></h5>
+<p><strong><code>Cargo.toml</code></strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">[package]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-app&quot;</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">edition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2021&quot;</span>
+
+<span class="k">[dependencies]</span>
+<span class="n">my-macro-lib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;../my-macro-lib&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><strong><code>src/main.rs</code></strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 引入宏（按名称导入）</span>
+<span class="k">use</span><span class="w"> </span><span class="n">my_macro_lib</span><span class="p">::{</span><span class="n">log_info</span><span class="p">,</span><span class="w"> </span><span class="n">sql</span><span class="p">,</span><span class="w"> </span><span class="n">compute</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">};</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ========== 使用 log_info ==========</span>
+<span class="w">    </span><span class="n">log_info</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Application started&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 输出: [INFO] Application started - at src/main.rs:8</span>
+
+<span class="w">    </span><span class="c1">// ========== 使用 sql ==========</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sql</span><span class="o">!</span><span class="p">(</span><span class="n">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="n">WHERE</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Query: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">query</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 输出: Executing SQL: SELECT id, name FROM users WHERE active = true</span>
+<span class="w">    </span><span class="c1">//       Query: SELECT id, name FROM users WHERE active = true</span>
+
+<span class="w">    </span><span class="c1">// ========== 使用 compute ==========</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compute</span><span class="o">!</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Result: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 输出: compute: 2 + 3 * 4 = 14</span>
+<span class="w">    </span><span class="c1">//       Result: 14</span>
+
+<span class="w">    </span><span class="c1">// ========== 使用 config ==========</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">cfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config</span><span class="o">!</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="o">=</span><span class="n">localhost</span><span class="p">);</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Config: {:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cfg</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 输出: Config: {&quot;debug&quot;: &quot;true&quot;, &quot;port&quot;: &quot;8080&quot;, &quot;host&quot;: &quot;localhost&quot;}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="54-sql">5.4 更复杂的例子：带类型检查的 SQL 宏<a class="headerlink" href="#54-sql" title="Permanent link">&para;</a></h5>
+<p>展示如何处理 <code>TokenStream</code> 中的多个 Token：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// my-macro-lib/src/lib.rs</span>
+<span class="k">use</span><span class="w"> </span><span class="n">proc_macro</span><span class="p">::</span><span class="n">TokenStream</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">quote</span><span class="p">::{</span><span class="n">quote</span><span class="p">,</span><span class="w"> </span><span class="n">format_ident</span><span class="p">};</span>
+<span class="k">use</span><span class="w"> </span><span class="n">syn</span><span class="p">::{</span><span class="n">parse</span><span class="p">::</span><span class="n">Parse</span><span class="p">,</span><span class="w"> </span><span class="n">parse</span><span class="p">::</span><span class="n">ParseStream</span><span class="p">,</span><span class="w"> </span><span class="n">Ident</span><span class="p">,</span><span class="w"> </span><span class="n">Token</span><span class="p">,</span><span class="w"> </span><span class="n">Type</span><span class="p">};</span>
+
+<span class="c1">// 定义解析结构</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">TypedArg</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nc">Ident</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ty</span><span class="p">:</span><span class="w"> </span><span class="nc">Type</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Parse</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">TypedArg</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">ParseStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">syn</span><span class="p">::</span><span class="nb">Result</span><span class="o">&lt;</span><span class="bp">Self</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nc">Ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">parse</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+<span class="w">        </span><span class="n">input</span><span class="p">.</span><span class="n">parse</span><span class="p">::</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">!</span><span class="p">[:]</span><span class="o">&gt;</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">ty</span><span class="p">:</span><span class="w"> </span><span class="nc">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">parse</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">TypedArg</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">SqlQuery</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">query</span><span class="p">:</span><span class="w"> </span><span class="nc">LitStr</span><span class="p">,</span>
+<span class="w">    </span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">TypedArg</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Parse</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">SqlQuery</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">ParseStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">syn</span><span class="p">::</span><span class="nb">Result</span><span class="o">&lt;</span><span class="bp">Self</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">query</span><span class="p">:</span><span class="w"> </span><span class="nc">LitStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">parse</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Vec</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 可选的参数列表: , arg1: i32, arg2: String</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">parse</span><span class="p">::</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">!</span><span class="p">[,]</span><span class="o">&gt;</span><span class="p">().</span><span class="n">is_ok</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">args</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">parse</span><span class="p">()</span><span class="o">?</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">SqlQuery</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cp">#[proc_macro]</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">typed_sql</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nc">TokenStream</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">TokenStream</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">SqlQuery</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_macro_input</span><span class="o">!</span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">SqlQuery</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 生成参数绑定代码</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">param_names</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">a</span><span class="o">|</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">).</span><span class="n">collect</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">param_types</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">a</span><span class="o">|</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">.</span><span class="n">ty</span><span class="p">).</span><span class="n">collect</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expanded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quote</span><span class="o">!</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">QUERY</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">#</span><span class="n">query</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">fn</span><span class="w"> </span><span class="nf">_check_types</span><span class="p">(#(#</span><span class="n">param_names</span><span class="p">:</span><span class="w"> </span><span class="p">#</span><span class="n">param_types</span><span class="p">),</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// 编译时类型检查</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="c1">// 返回查询和参数绑定器</span>
+<span class="w">            </span><span class="p">(</span><span class="n">QUERY</span><span class="p">,</span><span class="w"> </span><span class="p">(#(#</span><span class="n">param_names</span><span class="p">),</span><span class="o">*</span><span class="p">))</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">TokenStream</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>使用</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">use</span><span class="w"> </span><span class="n">my_macro_lib</span><span class="p">::</span><span class="n">typed_sql</span><span class="p">;</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="k">i32</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p">.</span><span class="n">to_string</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// 编译时检查参数类型</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">typed_sql</span><span class="o">!</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;SELECT * FROM users WHERE id = ? AND name = ?&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<span class="w">        </span><span class="n">user_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Query: {}, Params: {:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="55-cratesio">5.5 发布到 crates.io<a class="headerlink" href="#55-cratesio" title="Permanent link">&para;</a></h5>
+<h6 id="1_2">1. 准备发布<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h6>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 my-macro-lib 目录下</span>
+cargo<span class="w"> </span>login<span class="w"> </span>&lt;your-api-token&gt;
+cargo<span class="w"> </span>publish<span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># 先测试</span>
+cargo<span class="w"> </span>publish
+</code></pre></div>
+<h6 id="2-crate">2. 使用方引用已发布的 crate<a class="headerlink" href="#2-crate" title="Permanent link">&para;</a></h6>
+<div class="highlight"><pre><span></span><code><span class="k">[dependencies]</span>
+<span class="n">my-macro-lib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span>
+</code></pre></div>
 <hr />
 <h3 id="_8">并发编程<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <h4 id="1-rustsendsync-trait">1. Rust中<code>Send</code>和<code>Sync</code> trait是什么？<a class="headerlink" href="#1-rustsendsync-trait" title="Permanent link">&para;</a></h4>
@@ -13880,7 +14713,7 @@
 </tbody>
 </table>
 <h4 id="5-rust-actor">5. Rust Actor 模式理解<a class="headerlink" href="#5-rust-actor" title="Permanent link">&para;</a></h4>
-<h5 id="51">5.1.简介<a class="headerlink" href="#51" title="Permanent link">&para;</a></h5>
+<h5 id="51_1">5.1.简介<a class="headerlink" href="#51_1" title="Permanent link">&para;</a></h5>
 <p>Rust 中的 Actor 模式是一种并发编程范式，它将<strong>数据和行为封装在独立的 Actor 实体中</strong>，Actor 之间通过<strong>消息传递</strong>通信，而非直接共享内存，是<strong>"不要共享内存，通过通信共享状态"</strong>这一哲学最彻底的实现。</p>
 <p>它把 Rust 的所有权、Move 语义和 Channel 通信天然地结合在一起，形成了一种<strong>编译期就能保证线程安全</strong>的并发模型。</p>
 <p>Actor 是一个<strong>独立的计算实体</strong>，具备三个核心特征：</p>
@@ -14446,7 +15279,7 @@ valgrind<span class="w"> </span>./target/debug/myapp
 <span class="p">]</span>
 </code></pre></div>
 <hr />
-<h4 id="2_4">2. 配置管理与环境隔离怎么做？<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h4>
+<h4 id="2_5">2. 配置管理与环境隔离怎么做？<a class="headerlink" href="#2_5" title="Permanent link">&para;</a></h4>
 <p>常见方案：</p>
 <ul>
 <li>配置相关库：<code>config-rs</code> + <code>serde</code> + <code>dotenvy</code></li>
@@ -14819,7 +15652,7 @@ cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span
 </code></pre></div>
 <hr />
 <h3 id="_15">架构与优化<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
-<h4 id="1_2">1. 分布式一致性和事务怎么答？<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h4>
+<h4 id="1_3">1. 分布式一致性和事务怎么答？<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h4>
 <p>推荐优先级：</p>
 <ol>
 <li>本地事务 + <code>Outbox</code>（首选）</li>
@@ -14832,7 +15665,7 @@ cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span
 <li>接口天然幂等（幂等键 + 去重表）</li>
 <li>状态变更可补偿、可回放</li>
 </ul>
-<h4 id="2_5">2. 安全与鉴权<a class="headerlink" href="#2_5" title="Permanent link">&para;</a></h4>
+<h4 id="2_6">2. 安全与鉴权<a class="headerlink" href="#2_6" title="Permanent link">&para;</a></h4>
 <p>常见能力：</p>
 <ul>
 <li>JWT / OIDC / OAuth2</li>
@@ -14922,7 +15755,7 @@ cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span
 <li>TTL 随机抖动防雪崩</li>
 <li>读路径优先 Cache Aside，写路径配合延迟双删</li>
 </ul>
-<h4 id="2_6">2. 消息队列与异步解耦<a class="headerlink" href="#2_6" title="Permanent link">&para;</a></h4>
+<h4 id="2_7">2. 消息队列与异步解耦<a class="headerlink" href="#2_7" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>

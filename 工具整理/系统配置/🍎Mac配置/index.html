@@ -2009,6 +2009,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#12nvim-stringbuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.nvim string.buffer 模块未找到
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2042,12 +2053,7 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#3python" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2089,6 +2095,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -4346,6 +4357,34 @@
     
   
     Rust基础解析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/Rust/Rust%E5%AE%8F%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust宏编程
   
 
     
@@ -12292,6 +12331,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#12nvim-stringbuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.nvim string.buffer 模块未找到
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -12325,12 +12375,7 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#3python" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12372,6 +12417,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -12489,18 +12539,19 @@
 <li><a href="#9">9.问题与解决</a><ul>
 <li><a href="#1vim">1.Vim问题</a><ul>
 <li><a href="#11vim">1.1.vim动态链接库报错</a></li>
+<li><a href="#12nvim-stringbuffer">1.2.nvim string.buffer 模块未找到</a></li>
 </ul>
 </li>
 <li><a href="#2zsh">2.Zsh问题</a><ul>
 <li><a href="#21zsh-compinit527-no-such-file-or-directory-x-x-x">2.1.zsh报错 (compinit:527: no such file or directory: x x x)</a></li>
 </ul>
 </li>
-</ul>
-</li>
 <li><a href="#3python">3.Python依赖</a><ul>
 <li><a href="#31tkinter">3.1.Tkinter错误</a></li>
 <li><a href="#32jupyter">3.2.Jupyter内核错误</a></li>
 <li><a href="#33pyenv">3.3.pyenv安装版本出错</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -13329,13 +13380,33 @@ install_name_tool<span class="w"> </span>-change<span class="w"> </span>/usr/loc
 </ul>
 <div class="highlight"><pre><span></span><code>install_name_tool<span class="w"> </span>-change<span class="w"> </span>/usr/local/Homebrew/opt/perl/lib/perl5/5.38/darwin-thread-multi-2level/CORE/libperl.dylib<span class="w"> </span>/usr/local/Homebrew/opt/perl/lib/perl5/5.40/darwin-thread-multi-2level/CORE/libperl.dylib<span class="w"> </span>/usr/local/bin/vim
 </code></pre></div>
+<h4 id="12nvim-stringbuffer">1.2.<code>nvim</code> <strong><code>string.buffer</code> 模块未找到</strong><a class="headerlink" href="#12nvim-stringbuffer" title="Permanent link">&para;</a></h4>
+<p>系统 LuaJIT 版本（<code>2.1.0-beta3</code>）太旧，缺少该模块。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 检查 Neovim 使用的 LuaJIT 版本</span>
+nvim<span class="w"> </span>--headless<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;lua print(jit and jit.version or _VERSION)&#39;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;q&#39;</span>
+
+<span class="c1"># 2. 检查 string.buffer 是否存在</span>
+nvim<span class="w"> </span>--headless<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;lua print(pcall(require, &quot;string.buffer&quot;))&#39;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;q&#39;</span>
+
+<span class="c1"># 手动下载，重新安装</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz
+tar<span class="w"> </span>xzvf<span class="w"> </span>nvim-linux-x86_64.tar.gz
+sudo<span class="w"> </span>mv<span class="w"> </span>nvim-linux-x86_64<span class="w"> </span>/opt/nvim
+sudo<span class="w"> </span>ln<span class="w"> </span>-sf<span class="w"> </span>/opt/nvim/bin/nvim<span class="w"> </span>/usr/local/bin/nvim
+</code></pre></div>
+<p>解决方案：</p>
+<ol>
+<li>升级 Neovim</li>
+<li>禁用 <code>snacks.nvim</code> 的 picker 功能</li>
+<li>降级插件管理器</li>
+</ol>
 <h3 id="2zsh">2.Zsh问题<a class="headerlink" href="#2zsh" title="Permanent link">&para;</a></h3>
 <h4 id="21zsh-compinit527-no-such-file-or-directory-x-x-x">2.1.zsh报错 (compinit:527: no such file or directory: x x x)<a class="headerlink" href="#21zsh-compinit527-no-such-file-or-directory-x-x-x" title="Permanent link">&para;</a></h4>
 <p>e.g. compinit:527: no such file or directory: /usr/local/Homebrew/share/zsh/site-functions/_brew_services</p>
 <div class="highlight"><pre><span></span><code>brew<span class="w"> </span>cleanup<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="nv">$ZSH_COMPDUMP</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>omz<span class="w"> </span>reload
 </code></pre></div>
-<h2 id="3python">3.Python依赖<a class="headerlink" href="#3python" title="Permanent link">&para;</a></h2>
-<h3 id="31tkinter">3.1.Tkinter错误<a class="headerlink" href="#31tkinter" title="Permanent link">&para;</a></h3>
+<h3 id="3python">3.Python依赖<a class="headerlink" href="#3python" title="Permanent link">&para;</a></h3>
+<h4 id="31tkinter">3.1.Tkinter错误<a class="headerlink" href="#31tkinter" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1.安装依赖Tcl/Tk</span>
 brew<span class="w"> </span>install<span class="w"> </span>tcl-tk
 <span class="c1"># 2.设置环境变量</span>
@@ -13349,7 +13420,7 @@ brew<span class="w"> </span>install<span class="w"> </span>tcl-tk
 <span class="c1"># 测试</span>
 python<span class="w"> </span>-m<span class="w"> </span>tkinter<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;tkinter._test()&quot;</span>
 </code></pre></div>
-<h3 id="32jupyter">3.2.Jupyter内核错误<a class="headerlink" href="#32jupyter" title="Permanent link">&para;</a></h3>
+<h4 id="32jupyter">3.2.Jupyter内核错误<a class="headerlink" href="#32jupyter" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1.安装zlib</span>
 brew<span class="w"> </span>install<span class="w"> </span>zlib
 <span class="c1"># 2.设置环境变量</span>
@@ -13359,7 +13430,7 @@ brew<span class="w"> </span>install<span class="w"> </span>zlib
 <span class="c1"># 安装内核</span>
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ipykernel<span class="w"> </span>-U<span class="w"> </span>--user<span class="w"> </span>--force-reinstall
 </code></pre></div>
-<h3 id="33pyenv">3.3.pyenv安装版本出错<a class="headerlink" href="#33pyenv" title="Permanent link">&para;</a></h3>
+<h4 id="33pyenv">3.3.pyenv安装版本出错<a class="headerlink" href="#33pyenv" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1.显式设置PYTHON_CONFIGURE_OPTS</span>
 <span class="nv">PYTHON_CONFIGURE_OPTS</span><span class="o">=</span><span class="s2">&quot;--enable-optimizations --with-tcltk-includes=&#39;-I</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>tcl-tk<span class="k">)</span><span class="s2">/include&#39; --with-tcltk-libs=&#39;-L</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>tcl-tk<span class="k">)</span><span class="s2">/lib &#39;&quot;</span>
 <span class="c1"># 2.使用编译优化参数</span>
